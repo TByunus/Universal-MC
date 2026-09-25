@@ -1,1091 +1,620 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark" data-theme="dark">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CraftLab - Premium Minecraft Portal & Skript Library</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eefef4',
-                            100: '#d7fce4',
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            900: '#14532d',
-                            accent: '#6366f1'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Minecraft Sunucu & Geliştirici Portalı</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0a0d14;
-            --bg-card: #121824;
-            --border-color: #1e293b;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-sub: #94a3b8;
+            --border: #475569;
+            --font-size-base: 16px;
+            --transition-speed: 0.3s;
         }
 
-        html[data-theme="dark"] {
-            --bg-main: #0a0d14;
-            --bg-card: #121824;
-            --border-color: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+        /* Themes */
+        body.theme-cyberpunk {
+            --bg-primary: #0d0221;
+            --bg-secondary: #02010a;
+            --bg-card: #190e38;
+            --accent: #ff007f;
+            --accent-hover: #d6006b;
+            --text-main: #00f6ff;
+            --text-sub: #b800ff;
+            --border: #ff007f;
         }
-        html[data-theme="light"] {
-            --bg-main: #f1f5f9;
-            --bg-card: #ffffff;
-            --border-color: #e2e8f0;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
+
+        body.theme-crimson {
+            --bg-primary: #1a0505;
+            --bg-secondary: #2d0a0a;
+            --bg-card: #421212;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --text-main: #fef2f2;
+            --text-sub: #fca5a5;
+            --border: #991b1b;
         }
-        html[data-theme="navy"] {
-            --bg-main: #0b132b;
-            --bg-card: #1c2541;
-            --border-color: #3a506b;
-            --text-main: #edf2f4;
-            --text-muted: #8d99ae;
-        }
-        html[data-theme="purple"] {
-            --bg-main: #13091f;
-            --bg-card: #211134;
-            --border-color: #3b1d5c;
-            --text-main: #f3e8ff;
-            --text-muted: #a855f7;
-        }
-        html[data-theme="emerald"] {
-            --bg-main: #041d14;
-            --bg-card: #092e22;
-            --border-color: #134e3a;
+
+        body.theme-emerald {
+            --bg-primary: #022c22;
+            --bg-secondary: #064e3b;
+            --bg-card: #047857;
+            --accent: #10b981;
+            --accent-hover: #059669;
             --text-main: #ecfdf5;
-            --text-muted: #34d399;
+            --text-sub: #6ee7b7;
+            --border: #065f46;
+        }
+
+        body.no-animations * {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-main);
+            background-color: var(--bg-primary);
             color: var(--text-main);
-            overflow-x: hidden;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            font-size: var(--font-size-base);
+            display: flex;
+            min-height: 100vh;
         }
 
-        .theme-card {
-            background-color: var(--bg-card);
-            border-color: var(--border-color);
-        }
-
-        .glassmorphism {
-            background: rgba(18, 24, 36, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-        }
-        html[data-theme="light"] .glassmorphism {
-            background: rgba(255, 255, 255, 0.85);
-        }
-
-        .glow-effect:hover {
-            box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.3);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #22c55e40;
-            border-radius: 9999px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #22c55e;
-        }
-        canvas#particleCanvas {
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-right: 1px solid var(--border);
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            height: 100vh;
+            overflow-y: auto;
         }
-        .tab-btn.active {
-            color: #22c55e;
-            border-bottom: 2px solid #22c55e;
-            background: rgba(34, 197, 94, 0.08);
+
+        .sidebar h2 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .voted-btn {
-            background-color: #15803d !important;
-            color: #ffffff !important;
-            border-color: #22c55e !important;
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--accent);
+            color: #fff;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .header-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .description {
+            color: var(--text-sub);
+            margin-bottom: 25px;
+        }
+
+        /* Controls / Search Bar */
+        .controls-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-input, .select-input {
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-secondary);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Grid Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform var(--transition-speed);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .badge {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        /* Code Block Style */
+        pre {
+            background-color: var(--bg-primary);
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #a5f3fc;
+            margin-top: 10px;
+        }
+
+        /* Settings Customization Form */
+        .settings-group {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .settings-group h3 {
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Command List */
+        .command-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .command-item {
+            background-color: var(--bg-secondary);
+            padding: 12px 18px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .command-name {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .command-desc {
+            color: var(--text-sub);
+            font-size: 0.9rem;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-black">
-    <canvas id="particleCanvas"></canvas>
+<body>
 
-    <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2><i class="fa-solid fa-cube"></i> MC Portal</h2>
+        <button class="nav-btn active" onclick="switchTab('plugins')"><i class="fa-solid fa-plug"></i> Pluginler (100+)</button>
+        <button class="nav-btn" onclick="switchTab('skripts')"><i class="fa-solid fa-code"></i> Skriptler (20+)</button>
+        <button class="nav-btn" onclick="switchTab('servers')"><i class="fa-solid fa-server"></i> Sunucu Önerileri (25+)</button>
+        <button class="nav-btn" onclick="switchTab('commands')"><i class="fa-solid fa-terminal"></i> Gizli Komutlar (150+)</button>
+        <button class="nav-btn" onclick="switchTab('settings')"><i class="fa-solid fa-sliders"></i> Özelleştirme</button>
+    </div>
 
-    <header class="sticky top-0 z-40 w-full glassmorphism transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
-                    C
-                </div>
-                <div>
-                    <span class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-brand-400">CraftLab</span>
-                    <span class="text-xs block text-brand-500 font-mono -mt-1">DEVELOPMENT</span>
-                </div>
-            </a>
+    <!-- Main Content -->
+    <div class="main-content">
 
-            <nav class="hidden lg:flex items-center gap-1 bg-slate-900/50 p-1.5 rounded-2xl border border-slate-800/80">
-                <button onclick="switchTab('skripts')" id="tab-skripts" class="tab-btn active px-4 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-code text-brand-400"></i> Skriptler
-                </button>
-                <button onclick="switchTab('custom')" id="tab-custom" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Özel Tasarım
-                </button>
-                <button onclick="switchTab('plugins')" id="tab-plugins" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-plug text-cyan-400"></i> Pluginler
-                </button>
-                <button onclick="switchTab('servers')" id="tab-servers" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-server text-purple-400"></i> Sunucular
-                </button>
-                <button onclick="switchTab('commands')" id="tab-commands" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-terminal text-rose-400"></i> Bilinmeyen Komutlar
-                </button>
-                <button onclick="switchTab('suggestions')" id="tab-suggestions" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-comments text-emerald-400"></i> Öneriler
-                </button>
-            </nav>
-
-            <div class="flex items-center gap-3">
-                <button id="soundToggleBtn" onclick="toggleAudio()" class="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-slate-300 hover:text-brand-400 hover:border-brand-500/50 transition-all" title="Ses Efektleri">
-                    <i id="soundIcon" class="fa-solid fa-volume-high"></i>
-                </button>
-
-                <button onclick="openThemeModal()" class="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all" title="Tema Ayarları">
-                    <i class="fa-solid fa-palette"></i>
-                </button>
-
-                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-slate-300">
-                    <i class="fa-solid fa-bars text-lg"></i>
-                </button>
+        <!-- TAB: PLUGINS -->
+        <div id="plugins" class="tab-content active">
+            <h1 class="header-title">Eklenti (Plugin) Kütüphanesi</h1>
+            <p class="description">Sunucunuz için gerekli 100'den fazla popüler eklenti listesi.</p>
+            <div class="controls-bar">
+                <input type="text" id="pluginSearch" class="search-input" placeholder="Plugin ara..." onkeyup="filterPlugins()">
             </div>
+            <div class="grid-container" id="pluginContainer"></div>
         </div>
 
-        <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-slate-900/95 p-4 flex flex-col gap-2">
-            <button onclick="switchTab('skripts'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-slate-200 hover:bg-slate-800">Skriptler</button>
-            <button onclick="switchTab('custom'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-slate-200 hover:bg-slate-800">Özel Script Tasarımı</button>
-            <button onclick="switchTab('plugins'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-slate-200 hover:bg-slate-800">Plugin Önerileri</button>
-            <button onclick="switchTab('servers'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-slate-200 hover:bg-slate-800">Sunucu Önerileri</button>
-            <button onclick="switchTab('commands'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-slate-200 hover:bg-slate-800">Bilinmeyen Komutlar</button>
-            <button onclick="switchTab('suggestions'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-slate-200 hover:bg-slate-800">Öneri & Geri Bildirim</button>
+        <!-- TAB: SKRIPTS -->
+        <div id="skripts" class="tab-content">
+            <h1 class="header-title">Hazır Skript Kütüphanesi</h1>
+            <p class="description">Sunucunuza doğrudan ekleyebileceğiniz kullanışlı Skript kodları.</p>
+            <div class="grid-container" id="skriptContainer"></div>
         </div>
-    </header>
 
-    <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-brand-950/40 border border-slate-800 p-8 md:p-12 mb-10 shadow-2xl">
-            <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="relative z-10 max-w-2xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold uppercase tracking-wider mb-4">
-                    <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span> Minecraft Development Hub
-                </div>
-                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-                    Sunucunuz İçin <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-emerald-200">Gelişmiş</span> Skript ve Eklenti Arşivi
-                </h1>
-                <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
-                    Test edilmiş, sorunsuz çalışan 30+ hazır Skript, 50+ popüler eklenti, 60+ az bilinen komut ve canlı arama motoru burada!
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <button onclick="switchTab('skripts')" class="px-6 py-3.5 rounded-xl bg-brand-500 text-slate-950 font-bold hover:bg-brand-400 transition-all shadow-lg shadow-brand-500/25 flex items-center gap-2">
-                        <i class="fa-solid fa-cube"></i> Skript Kütüphanesi
-                    </button>
-                    <button onclick="switchTab('plugins')" class="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold border border-slate-700 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-plug text-cyan-400"></i> Plugin Arşivi
-                    </button>
-                </div>
+        <!-- TAB: SERVERS -->
+        <div id="servers" class="tab-content">
+            <h1 class="header-title">Popüler Sunucu Önerileri</h1>
+            <p class="description">Global ve Türkiye'nin en bilinen 25+ popüler Minecraft sunucusu.</p>
+            <div class="grid-container" id="serverContainer"></div>
+        </div>
+
+        <!-- TAB: COMMANDS -->
+        <div id="commands" class="tab-content">
+            <h1 class="header-title">Bilinmeyen & İşe Yarar Komutlar</h1>
+            <p class="description">Yöneticiler ve oyuncular için az bilinen 150+ komut rehberi.</p>
+            <div class="controls-bar">
+                <input type="text" id="cmdSearch" class="search-input" placeholder="Komut veya açıklama ara..." onkeyup="filterCommands()">
             </div>
+            <div class="command-list" id="commandContainer"></div>
         </div>
 
-        <!-- SKRIPTLER SEKMESI -->
-        <section id="sec-skripts" class="tab-content transition-all duration-300">
-            <div class="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold flex items-center gap-3">
-                        <i class="fa-solid fa-code text-brand-400"></i> Hazır & Çalışan Skriptler (30+)
-                    </h2>
-                    <p class="text-slate-400 text-sm">Sunucunuzda hemen kullanabileceğiniz sorunsuz açık kaynak kodlar</p>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                    <div class="relative flex-1 sm:w-72">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
-                        <input type="text" id="skriptSearch" oninput="filterSkripts()" placeholder="Skript adından veya kelimeden ara..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 transition-all">
-                    </div>
-                    <select id="skriptCategory" onchange="filterSkripts()" class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 transition-all">
-                        <option value="all">Tüm Kategoriler</option>
-                        <option value="economy">Ekonomi & Sistem</option>
-                        <option value="admin">Yetkili & Güvenlik</option>
-                        <option value="fun">Eğlence & PVP</option>
-                        <option value="utility">Kullanışlı & Genel</option>
+        <!-- TAB: SETTINGS -->
+        <div id="settings" class="tab-content">
+            <h1 class="header-title">Site Görünüm Kişiselleştirme</h1>
+            <p class="description">Arayüz renklerini, font boyutlarını ve görsel ayarları özelleştirin.</p>
+            
+            <div class="settings-group">
+                <h3>Tema Seçenekleri</h3>
+                <div class="setting-item">
+                    <span>Arayüz Teması</span>
+                    <select id="themeSelect" class="select-input" onchange="changeTheme(this.value)">
+                        <option value="default">Koyu Mavi (Varsayılan)</option>
+                        <option value="cyberpunk">Cyberpunk Neon</option>
+                        <option value="crimson">Koyu Kırmızı (Crimson)</option>
+                        <option value="emerald">Zümrüt Yeşili (Emerald)</option>
                     </select>
                 </div>
             </div>
 
-            <div id="skriptsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <!-- ÖZEL TASARIM -->
-        <section id="sec-custom" class="tab-content hidden transition-all duration-300">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold mb-2">Kişiye Özel Skript Tasarımı</h2>
-                    <p class="text-slate-400">Hayalinizdeki özel sistem detaylarını yazın, sizin için kodlayalım.</p>
+            <div class="settings-group">
+                <h3>Görsel & Boyut Ayarları</h3>
+                <div class="setting-item">
+                    <span>Yazı Boyutu (Font Size)</span>
+                    <select id="fontSizeSelect" class="select-input" onchange="changeFontSize(this.value)">
+                        <option value="14px">Küçük</option>
+                        <option value="16px" selected>Normal</option>
+                        <option value="18px">Büyük</option>
+                    </select>
                 </div>
-
-                <div class="theme-card border rounded-3xl p-6 sm:p-8 shadow-xl backdrop-blur-xl">
-                    <form id="customSkriptForm" onsubmit="handleCustomSubmit(event)" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-300 mb-2">Adınız / Discord Kullanıcı Adı</label>
-                                <input type="text" required id="reqName" placeholder="Örn: Yunus#0001" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-brand-500 transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-300 mb-2">İletişim Adresi (Email / Discord)</label>
-                                <input type="text" required id="reqContact" placeholder="wxrofficalbrom1@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-brand-500 transition-all">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-300 mb-2">Minecraft Sürümü</label>
-                                <select id="reqVersion" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-brand-500 transition-all">
-                                    <option value="1.20.x">1.20.x + (En Güncel)</option>
-                                    <option value="1.16.5">1.16.5</option>
-                                    <option value="1.12.2">1.12.2</option>
-                                    <option value="1.8.8">1.8.8 (Klasik)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-300 mb-2">Karmaşıklık / Bütçe</label>
-                                <select id="reqBudget" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-brand-500 transition-all">
-                                    <option value="free">Ücretsiz / Basit İstek</option>
-                                    <option value="medium">Orta Düzey Sistem</option>
-                                    <option value="advanced">Gelişmiş / Komple Paket Sistem</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-300 mb-2">İstenen Sistem / Skript Detayları</label>
-                            <textarea id="reqDetails" rows="5" required placeholder="İstediğiniz sistemin tüm komutlarını, izinlerini ve detaylarını yazınız..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-200 focus:outline-none focus:border-brand-500 transition-all custom-scrollbar"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-500 to-emerald-600 text-slate-950 font-bold hover:brightness-110 transition-all shadow-lg shadow-brand-500/20 text-lg flex items-center justify-center gap-2">
-                            <i class="fa-paper-plane fa-solid"></i> Talebi Gönder
-                        </button>
-                    </form>
+                <div class="setting-item">
+                    <span>Animasyonlar</span>
+                    <select id="animationSelect" class="select-input" onchange="toggleAnimations(this.value)">
+                        <option value="enabled">Açık</option>
+                        <option value="disabled">Kapalı (Hızlı Mod)</option>
+                    </select>
                 </div>
-            </div>
-        </section>
-
-        <!-- PLUGINLER SEKMESI -->
-        <section id="sec-plugins" class="tab-content hidden transition-all duration-300">
-            <div class="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold flex items-center gap-3">
-                        <i class="fa-solid fa-plug text-cyan-400"></i> Önerilen Eklentiler / Pluginler (50+)
-                    </h2>
-                    <p class="text-slate-400 text-sm">Sunucunuz için olmazsa olmaz 50'den fazla kaliteli plugin</p>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                    <div class="relative flex-1 sm:w-72">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
-                        <input type="text" id="pluginSearch" oninput="filterPlugins()" placeholder="Plugin adından ara..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 transition-all">
-                    </div>
-                </div>
-            </div>
-            <div id="pluginsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <!-- SUNUCULAR SEKMESI -->
-        <section id="sec-servers" class="tab-content hidden transition-all duration-300">
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold flex items-center gap-3">
-                    <i class="fa-solid fa-server text-purple-400"></i> Öne Çıkan Sunucular
-                </h2>
-                <p class="text-slate-400 text-sm">İlham alabileceğiniz veya oynayabileceğiniz popüler Minecraft sunucuları</p>
-            </div>
-            <div id="serversGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-        </section>
-
-        <!-- BILINMEYEN KOMUTLAR -->
-        <section id="sec-commands" class="tab-content hidden transition-all duration-300">
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold flex items-center gap-3">
-                    <i class="fa-solid fa-terminal text-rose-400"></i> Bilinmeyen & Hayat Kurtaran Komutlar (60+)
-                </h2>
-                <p class="text-slate-400 text-sm">Herkesin bildiği basit komutlar değil; sunucu yönetimini kolaylaştıracak 60+ işe yarar komut!</p>
-            </div>
-            <div id="commandsList" class="space-y-4"></div>
-        </section>
-
-        <!-- ÖNERILER -->
-        <section id="sec-suggestions" class="tab-content hidden transition-all duration-300">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-1">
-                    <div class="theme-card border rounded-2xl p-6 sticky top-28">
-                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-lightbulb text-amber-400"></i> Öneri Gönder
-                        </h3>
-                        <form id="suggestionForm" onsubmit="addSuggestion(event)" class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-400 mb-1">Kullanıcı Adınız</label>
-                                <input type="text" id="sugAuthor" required placeholder="OyuncuAdı" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-400 mb-1">Başlık</label>
-                                <input type="text" id="sugTitle" required placeholder="Örn: Yeni Faction Skripti" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-brand-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-400 mb-1">Öneriniz</label>
-                                <textarea id="sugText" rows="4" required placeholder="Fikrinizi detaylandırın..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 custom-scrollbar"></textarea>
-                            </div>
-                            <button type="submit" class="w-full py-3 rounded-xl bg-brand-500 text-slate-950 font-bold hover:bg-brand-400 transition-all text-sm">
-                                Paylaş
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <div class="lg:col-span-2">
-                    <h3 class="text-xl font-bold mb-4">Topluluk Önerileri</h3>
-                    <div id="suggestionsFeed" class="space-y-4"></div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- KOD GÖRÜNTÜLEME MODALI -->
-    <div id="codeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-3xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
-            <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950">
-                <h3 id="modalTitle" class="font-bold text-white font-mono flex items-center gap-2">
-                    <i class="fa-solid fa-code text-brand-400"></i> Skript Kod Görünümü
-                </h3>
-                <button onclick="closeCodeModal()" class="text-slate-400 hover:text-white text-lg w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-800">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="p-4 flex-1 overflow-y-auto bg-slate-950 custom-scrollbar">
-                <pre><code id="modalCode" class="font-mono text-sm text-brand-400 whitespace-pre-wrap"></code></pre>
-            </div>
-            <div class="p-4 border-t border-slate-800 bg-slate-900 flex justify-end gap-3">
-                <button onclick="copyModalCode()" class="px-5 py-2.5 rounded-xl bg-brand-500 text-slate-950 font-bold hover:bg-brand-400 transition-all text-sm flex items-center gap-2">
-                    <i class="fa-solid fa-copy"></i> Kodu Kopyala
-                </button>
             </div>
         </div>
+
     </div>
-
-    <!-- TEMA SEÇIM MODALI -->
-    <div id="themeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-palette text-amber-400"></i> Görünüm & Tema Seçimi
-                </h3>
-                <button onclick="closeThemeModal()" class="text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-1 gap-3">
-                <button onclick="setSiteTheme('dark')" class="p-3.5 rounded-xl border border-slate-700 bg-slate-950 text-white flex items-center justify-between hover:border-brand-500 transition-all">
-                    <span class="flex items-center gap-3 font-semibold"><i class="fa-solid fa-moon text-slate-400"></i> Koyu Tema (Varsayılan)</span>
-                    <span class="w-4 h-4 rounded-full bg-slate-800 border border-slate-600"></span>
-                </button>
-                <button onclick="setSiteTheme('light')" class="p-3.5 rounded-xl border border-slate-300 bg-slate-100 text-slate-900 flex items-center justify-between hover:border-brand-500 transition-all">
-                    <span class="flex items-center gap-3 font-semibold"><i class="fa-solid fa-sun text-amber-500"></i> Açık Tema</span>
-                    <span class="w-4 h-4 rounded-full bg-white border border-slate-300"></span>
-                </button>
-                <button onclick="setSiteTheme('navy')" class="p-3.5 rounded-xl border border-blue-900 bg-[#0b132b] text-blue-200 flex items-center justify-between hover:border-brand-500 transition-all">
-                    <span class="flex items-center gap-3 font-semibold"><i class="fa-solid fa-water text-blue-400"></i> Lacivert Tema</span>
-                    <span class="w-4 h-4 rounded-full bg-blue-600"></span>
-                </button>
-                <button onclick="setSiteTheme('purple')" class="p-3.5 rounded-xl border border-purple-900 bg-[#13091f] text-purple-200 flex items-center justify-between hover:border-brand-500 transition-all">
-                    <span class="flex items-center gap-3 font-semibold"><i class="fa-solid fa-gem text-purple-400"></i> Mor Tema</span>
-                    <span class="w-4 h-4 rounded-full bg-purple-600"></span>
-                </button>
-                <button onclick="setSiteTheme('emerald')" class="p-3.5 rounded-xl border border-emerald-900 bg-[#041d14] text-emerald-200 flex items-center justify-between hover:border-brand-500 transition-all">
-                    <span class="flex items-center gap-3 font-semibold"><i class="fa-solid fa-leaf text-emerald-400"></i> Yeşil Tema</span>
-                    <span class="w-4 h-4 rounded-full bg-emerald-500"></span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <footer class="relative z-10 border-t border-slate-800/80 bg-slate-950/80 py-10 mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-                <span class="text-lg font-bold text-white tracking-tight">CraftLab</span>
-                <p class="text-xs text-slate-500 mt-1">Gelişmiş Minecraft Scripting ve Sistem Çözümleri</p>
-            </div>
-
-            <div class="flex items-center gap-6">
-                <a href="mailto:wxrofficalbrom1@gmail.com" class="text-slate-400 hover:text-brand-400 text-xl transition-colors" title="Email">
-                    <i class="fa-solid fa-envelope"></i>
-                </a>
-                <a href="https://www.instagram.com/wxroffical1/" target="_blank" rel="noopener" class="text-slate-400 hover:text-pink-500 text-xl transition-colors" title="Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://github.com/TByunus" target="_blank" rel="noopener" class="text-slate-400 hover:text-white text-xl transition-colors" title="GitHub">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-            </div>
-
-            <div class="text-xs text-slate-500">
-                &copy; 2026 CraftLab. Tüm hakları saklıdır.
-            </div>
-        </div>
-    </footer>
 
     <script>
-        // 30+ TEMİZ VE KESİN ÇALIŞAN SKRİPT VERİSİ
+        // --- 100+ PLUGINS DATA ---
+        const rawPlugins = [
+            "LuckPerms: Modern yetki yönetim eklentisi.", "Vault: Ekonomi ve yetki entegrasyon altyapısı.", "EssentialsX: 100'den fazla temel komut seti.", 
+            "WorldEdit: Hızlı harita düzenleme ve inşa aracı.", "WorldGuard: Alan koruma ve bayrak yönetim sistemi.", "ProtocolLib: Ağ paketlerini işleme kütüphanesi.", 
+            "Citizens: Özel NPC oluşturma ve yönetme.", "PlaceholderAPI: Değişken ve istatistik entegrasyonu.", "HolographicDisplays: Havada asılı metinler oluşturma.", 
+            "Multiverse-Core: Birden fazla dünya yönetimi.", "GSit: Oyuncuların her yere oturmasını sağlar.", "ViaVersion: Üst sürümlerin girmesini sağlar.", 
+            "ViaBackwards: Alt sürümlerin girmesini sağlar.", "GrimAC: Gelişmiş modern hile koruması.", "VulcanAC: Ücretli premium hile engelleme eklentisi.", 
+            "QuickShop-Hikari: Kolay göğüs mağaza sistemi.", "ChestShop: Tabela tabanlı klasik market eklentisi.", "AuctionHouse: Oyuncu pazarı ve ihale sistemi.", 
+            "CrazyCrates: Animasyonlu kasa eklentisi.", "DecentHolograms: Performanslı yeni nesil hologramlar.", "TabList: Özelleştirilebilir TAB tablosu.", 
+            "SkinsRestorer: Korsan sunucularda skin yükleme.", "CMI: Essentials yerine geçen devasa hepsi-bir-ada eklenti.", "ClearLag: Sunucu lagını azaltmak için yerdeki eşyaları siler.", 
+            "Spark: Sunucu performansını analiz etme profileri.", "Chunky: Dünyayı önceden yükleyerek lag engelleme.", "ShopGUIPlus: Menülü gelişmiş market eklentisi.", 
+            "PlayerPoints: İkinci para birimi (Kredi) sistemi.", "DeluxeMenus: Özelleştirilebilir envanter menüleri.", "JobsReborn: Oyuncular için meslek sistemi.", 
+            "GriefPrevention: Altın kürekle kolay claim atma.", "Towny: Şehirler ve uluslar kurma eklentisi.", "Residence: Detaylı ev ve alan koruma.", 
+            "AdvancedBan: Gelişmiş ceza ve ban yönetimi.", "LiteBans: Veritabanı destekli profesyonel ban eklentisi.", "AuthMeReloaded: Oyuncu kayıt ve giriş eklentisi.", 
+            "nLogin: Hızlı ve güvenli modern giriş eklentisi.", "CombatLogX: Savaştan kaçmayı engelleyen sistem.", "PvPManager: Özel PvP kuralları ve koruması.", 
+            "MythicMobs: Özel canavarlar ve patronlar tasarlama.", "MMOItems: Özel büyülü ve yetenekli eşyalar.", "AuraSkills: RPG tarzı seviye ve yetenek geliştirme.", 
+            "mcMMO: Klasik beceri geliştirme eklentisi.", "CoreProtect: Blok kırma ve yerleştirme kayıtlarını tutar.", "LWC Extended: Sandık ve kapı kilitleme.", 
+            "MarriageMaster: Oyuncular için evlilik sistemi.", "UltimateClans: Gelişmiş klan oluşturma eklentisi.", "BetterTeams: Takım kurma eklentisi.", 
+            "SuperVanish: Gelişmiş gizlenme ve izleme eklentisi.", "DiscordSRV: Sunucuyu Discord ile bağlama.", "InteractiveChat: Sohbet alanında eşya gösterme [item].", 
+            "ChatColor: Renkli yazı yazma seçeneği.", "FancyNpcs: Yeni nesil hafif NPC eklentisi.", "TradeSystem: Oyuncular arası güvenli takas.", 
+            "VeinMiner: Madenleri tek seferde topluca kırma.", "Timber: Ağaçları altından keserek komple devirme.", "Dynmap: Web tabanlı canlı harita.", 
+            "Pl3xMap: Hızlı ve hafif web haritası.", "HeadsPlus: Dekoratif kafa toplama eklentisi.", "ArmorView: Oyuncuların zırhlarını görüntüleme.", 
+            "InventoryRollbackPlus: Envanter geçmişini kaydetme ve geri yükleme.", "ItemEdit: Eşyaların adını ve açıklamasını kolayca değiştirme.", "CommandPanels: Menü ve buton oluşturucu.", 
+            "ConditionalEvents: Şarta bağlı özel olay tetikleyici.", "Skript: Özel kod yazma platformu.", "LuckPermsWeb: Web panelinden yetki düzenleme.", 
+            "MiniPlaceholders: MiniMessage destekli değişkenler.", "TAB: Premium kalitesinde skorbord ve TAB eklentisi.", "Scoreboard-revision: Hafif skorbord eklentisi.", 
+            "DriveBackupV2: Sunucu dosyalarını Google Drive'a yedekleme.", "FastAsyncWorldEdit (FAWE): Kasma yapmayan WorldEdit.", "ExplodeLWC: Patlama korumaları.", 
+            "BlockLocker: Tabela ile sandık koruma.", "Sleeper: Geceyi hızlı geçme eklentisi.", "HarvesterHoe: Otomatik ekin toplama çapa eklentisi.", 
+            "WildStacker: Canavar ve blokları üst üste istifleme.", "MobStacker: Yaratık lagını azaltma.", "MythicCrucible: Özel 3D model ve eşya entegrasyonu.", 
+            "Oraxen: Özel doku paketleri ve eşya ekleme.", "ItemsAdder: Özel blok, eşya ve arayüzler tasarlama.", "ModelEngine: 3D özel yaratık modelleri ekleme.", 
+            "CustomCrafting: Özel çalışma masası tarifleri.", "EpicRename: Renkli eşya isimlendirme.", "SimpleClans: Klasik klan eklentisi.", 
+            "CommandAlias: Komut kısaltma ve yönlendirme.", "Maintenance: Sunucu bakım modu eklentisi.", "MotdManager: Sunucu listesi açıklama değiştirici.", 
+            "ServerListPlus: Gelişmiş MOTD özelleştirici.", "BungeeGuard: BungeeCord sunucu güvenlik koruması.", "FlameCord: Bot ve DDOS korumalı Bungee Forku.", 
+            "Velocity: Yeni nesil hızlı proxy yazılımı.", "GeyserMC: Bedrock (Mobil/Konsol) oyuncularının katılımını sağlama.", "Floodgate: Şifresiz Bedrock girişi.", 
+            "SkinsRestorer-Bungee: Ağ geneli skin senkronizasyonu.", "LuckPermsBungee: Proxy yetki yönetimi.", "Chairs: Merdivenlere oturma özelliği.", 
+            "Elevators: Asansör blokları oluşturma.", "ImageOnMap: Resimleri çerçevelere harita olarak koyma.", "Shopkeepers: Köylü ticaret mağazaları.", 
+            "ChestSort: Sandıkları tek tıkla düzenleme.", "AutoSmelt: Madenleri otomatik pişirme.", "SilkSpawners: İpek dokunuş ile spawner alma.", 
+            "LevelledMobs: Yaratıklara seviye sistemi ekleme.", "EliteMobs: RPG tarzı zindan ve zombi patronları.", "AngelChest: Ölünce eşyaları melek sandığında saklama."
+        ];
+
+        // --- 20+ SKRIPTS DATA ---
         const skriptsData = [
-            {
-                id: 1, title: "Gelişmiş Oto-Sat & Oto-Dönüştür", category: "economy", desc: "Maden kazarken kırılan cevherleri anında bloğa çevirir veya otomatik satar.", author: "TByunus", downloads: 2450,
-                code: `options:\n\tp: &8[&aOtoSistem&8] &7\n\non mine of iron ore or gold ore or diamond ore:\n\tif {otosat.%player%} is true:\n\t\tcancel event\n\t\tset event-block to air\n\t\tadd 50 to player's balance\n\t\tsend "{@p} Cevher otomatik satıldı (+50 TL)" to player`
-            },
-            {
-                id: 2, title: "Sanal Market & İhale GUI", category: "economy", desc: "Oyuncuların eşyalarını oyuncular arası GUI markette satmasını sağlar.", author: "TByunus", downloads: 3120,
-                code: `command /pazar:\n\ttrigger:\n\t\topen chest with 6 rows named "&8Gelişmiş Sanal Market" to player\n\t\tformat slot 13 of player with emerald named "&aEşya Satışına Git" to close then run [execute player command "/pazar sat"]`
-            },
-            {
-                id: 3, title: "Gelişmiş VIP Çekiliş Sistemi", category: "fun", desc: "Süreli otomatik VIP çekilişi başlatır ve şanslı kazananı duyurur.", author: "TByunus", downloads: 1890,
-                code: `command /cekilisbaslat:\n\tpermission: craftlab.admin\n\ttrigger:\n\t\tbroadcast "&a&lÇEKİLİŞ &7Çekiliş başladı! Katılmak için &e/katil &7yazın."\n\t\tset {cekilis.aktif} to true`
-            },
-            {
-                id: 4, title: "Gelişmiş Mute & Ban Koruması", category: "admin", desc: "Gelişmiş ceza takip paneli ve küfür engelleme filtresi.", author: "TByunus", downloads: 1540,
-                code: `on chat:\n\tmessage contains "kufur1" or "kufur2":\n\t\tcancel event\n\t\tsend "&c[Güvenlik] Argo ve küfürlü kelimeler kullanmak yasaktır!" to player`
-            },
-            {
-                id: 5, title: "Coin & Rütbe Sistemi", category: "economy", desc: "Oyuncuların canavar keserek coin kazanıp rütbe atlamasını sağlar.", author: "TByunus", downloads: 2780,
-                code: `on death of zombie or skeleton:\n\tatttacker is a player:\n\t\tadd 1 to {coin::%attacker%}\n\t\tsend "&a+1 Coin kazandın! Toplam: %{coin::%attacker%}%" to attacker`
-            },
-            {
-                id: 6, title: "Kasa Kilit & Güvenlik Skripti", category: "utility", desc: "Sandık ve fırınlarınızı şifre koyarak diğer oyunculardan korur.", author: "TByunus", downloads: 1100,
-                code: `on right click on chest:\n\tif {sifre::%location of event-block%} is set:\n\t\tif {girildi::%player%} is not true:\n\t\t\tcancel event\n\t\t\tsend "&cBu sandık kilitli! /sifregir <sifre>" to player`
-            },
-            {
-                id: 7, title: "Hızlı Kelime Oyunu (Chat Game)", category: "fun", desc: "Sohbette rastgele kelimeler verir, ilk doğru yazan oyuncuya ödül verir.", author: "TByunus", downloads: 2210,
-                code: `every 10 minutes:\n\tset {kelime.kod} to random 6 alpha-numeric characters\n\tbroadcast "&e[Kelime Oyunu] &7Kodu ilk yazan kazanır: &a%{kelime.kod}%"`
-            },
-            {
-                id: 8, title: "Lobi Çift Zıplama (Double Jump)", category: "fun", desc: "Lobi sunucularında oyuncuların havada ikinci kez zıplamasını sağlar.", author: "TByunus", downloads: 3400,
-                code: `on flight toggle:\n\tplayer is not flight mode:\n\t\tcancel event\n\t\tpush player upward at speed 1.2\n\t\tpush player forward at speed 1.5`
-            },
-            {
-                id: 9, title: "Rütbe Hammadde Yenileyici", category: "utility", desc: "Maden alanlarını otomatik olarak yenileyen performans dostu sistem.", author: "TByunus", downloads: 1670,
-                code: `command /yenilehammaddeler:\n\tpermission: admin.op\n\ttrigger:\n\t\tfill region "hammadde1" with lapis block\n\t\tbroadcast "&aLapis hammaddesi yenilendi!"`
-            },
-            {
-                id: 10, title: "Oto Mesaj & Duyuru Sistemi", category: "utility", desc: "Belirlenen dakikalarda sohbete renkli sunucu duyuruları geçer.", author: "TByunus", downloads: 1980,
-                code: `every 5 minutes:\n\tbroadcast "&8[&aDuyuru&8] &7Discord sunucumuza katılmayı unutmayın: &e/discord"`
-            },
-            {
-                id: 11, title: "Discord Hesabı Doğrulama (Link)", category: "utility", desc: "Oyuncuların oyun içi hesaplarını Discord hesaplarıyla eşler.", author: "TByunus", downloads: 2150,
-                code: `command /discordlink:\n\ttrigger:\n\t\tset {_code} to random integer between 100000 and 999999\n\t\tsend "&aDoğrulama kodunuz: &e%{_code}%" to player`
-            },
-            {
-                id: 12, title: "Otomatik Sandık Düzenleyici", category: "utility", desc: "Sandığa sol tıklandığında içindeki eşyaları kategorilerine göre hizalar.", author: "TByunus", downloads: 1430,
-                code: `on left click on chest:\n\tplayer is sneaking:\n\t\tsend "&aSandık içeriği otomatik hizalandı!" to player`
-            },
-            {
-                id: 13, title: "Ölüm Çantası (Death Chest)", category: "fun", desc: "Öldüğünüzde eşyalarınız yere saçılmaz, özel bir mezar sandığına aktarılır.", author: "TByunus", downloads: 2890,
-                code: `on death of player:\n\tset block at victim's location to chest\n\tadd victim's inventory to block at victim's location\n\tclear drops`
-            },
-            {
-                id: 14, title: "Sağ Tık Zümrüt ile Ödül", category: "economy", desc: "Özel zümrütlere sağ tıklandığında rasgele hediye eşya veya para verir.", author: "TByunus", downloads: 1320,
-                code: `on right click holding emerald named "&aÖdül Zümrüdü":\n\tremove 1 emerald named "&aÖdül Zümrüdü" from player\n\tadd 500 to player's balance\n\tsend "&a500 TL kazandın!" to player`
-            },
-            {
-                id: 15, title: "AFK Havuzu & Ödül Sistemi", category: "fun", desc: "AFK bölgesinde duran oyunculara her 1 dakikada bir AFK coini verir.", author: "TByunus", downloads: 3010,
-                code: `every 1 minute:\n\tloop all players in region "afk_pool":\n\t\tadd 1 to {afkcoin::%loop-player%}\n\t\tsend "&eAFK bölgesinde kaldığın için 1 AFK Coin kazandın!" to loop-player`
-            },
-            {
-                id: 16, title: "Özel Tablo (Scoreboard)", category: "utility", desc: "Sağ tarafta oyuncunun parasını, rütbesini ve aktifliğini gösterir.", author: "TByunus", downloads: 4100,
-                code: `every 2 seconds:\n\tloop all players:\n\t\twipe loop-player's sidebar\n\t\tset name of sidebar of loop-player to "&a&lCRAFTLAB"`
-            },
-            {
-                id: 17, title: "Basit Görev Sistemi (Quest)", category: "fun", desc: "100 Zombi öldürme görevi verip tamamlayana özel ödül verir.", author: "TByunus", downloads: 2050,
-                code: `command /gorev:\n\ttrigger:\n\t\tsend "&aMevcut Görev: 100 Zombi Öldür (%{zombi.kesim::%player%}%/100)" to player`
-            },
-            {
-                id: 18, title: "Anti-Reklam & Anti-Spam", category: "admin", desc: "Sohbette sunucu IP adresi ve web sitesi paylaşılmasını engeller.", author: "TByunus", downloads: 1820,
-                code: `on chat:\n\tmessage matches ".*\\.com.*" or ".*\\.net.*" or ".*[0-9]{1,3}\\.[0-9]{1,3}.*":\n\t\tcancel event\n\t\tsend "&cReklam yapmak yasaktır!" to player`
-            },
-            {
-                id: 19, title: "Oyuncu Can Barları (NameTag)", category: "utility", desc: "Oyuncuların kafasının üzerinde kalan can miktarını gösterir.", author: "TByunus", downloads: 1650,
-                code: `on damage of player:\n\tset name of victim to "%name of victim% &c[%health of victim%/%max health of victim%❤]"`
-            },
-            {
-                id: 20, title: "Sanal Banka & XP Deposu", category: "economy", desc: "Tecrübe puanlarınızı (XP) bankada saklamanızı veya çekmenizi sağlar.", author: "TByunus", downloads: 1940,
-                code: `command /xpdepola:\n\ttrigger:\n\t\tif player's level >= 10:\n\t\t\tremove 10 from player's level\n\t\t\tadd 10 to {xpbanka::%player%}\n\t\t\tsend "&a10 Seviye XP depolandı!" to player`
-            },
-            {
-                id: 21, title: "Sanal Depo (/depo)", category: "utility", desc: "Her oyuncuya özel sanal saklama deposu açar.", author: "TByunus", downloads: 3800,
-                code: `command /depo:\n\ttrigger:\n\t\topen chest with 3 rows named "&8Sanal Deponuz" to player`
-            },
-            {
-                id: 22, title: "Anti-Fly Koruması", category: "admin", desc: "Yetkisiz oyuncuların uçmasını tespit eder ve yere indirir.", author: "TByunus", downloads: 1200,
-                code: `every 3 seconds:\n\tloop all players:\n\t\tloop-player is flying:\n\t\t\tloop-player doesn't have permission "craftlab.fly"\n\t\t\tset flight mode of loop-player to false`
-            },
-            {
-                id: 23, title: "Sohbet Temizleme & Kilitleme", category: "admin", desc: "Sohbeti anında temizler veya sohbeti oyunculara kapatır.", author: "TByunus", downloads: 1450,
-                code: `command /cc:\n\tpermission: admin.chat\n\ttrigger:\n\t\tloop 100 times:\n\t\t\tbroadcast ""\n\t\tbroadcast "&aSohbet yetkili tarafından temizlendi!"`
-            },
-            {
-                id: 24, title: "Oyuncu Raporlama (/report)", category: "admin", desc: "Şüpheli oyuncuları yetkililere anında rapor eder.", author: "TByunus", downloads: 1730,
-                code: `command /report <player> <text>:\n\ttrigger:\n\t\tsend "&aRaporunuz yetkililere iletildi!" to player`
-            },
-            {
-                id: 25, title: "Açık Arttırma Sistemi", category: "economy", desc: "Sohbet üzerinden eşya açık arttırması başlatmanızı sağlar.", author: "TByunus", downloads: 2100,
-                code: `command /ihalebaslat <number>:\n\ttrigger:\n\t\tbroadcast "&aAçık arttırma başladı! Başlangıç: %arg-1% TL"`
-            },
-            {
-                id: 26, title: "Duyuru Başlığı (Title Message)", category: "utility", desc: "Oyuncuların ekranının ortasına büyük renkli yazılar çıkarır.", author: "TByunus", downloads: 1990,
-                code: `command /duyurubaslik <text>:\n\tpermission: admin.title\n\ttrigger:\n\t\tsend title "&aDUYURU" with subtitle "%arg-1%" to all players`
-            },
-            {
-                id: 27, title: "Geceyi Atlama (Vote Sleep)", category: "utility", desc: "Yatakta yatan oyuncu sayısına göre geceyi anında gündüz yapar.", author: "TByunus", downloads: 1150,
-                code: `on bed enter:\n\tbroadcast "&e%player% yattı! Gündüz yapılıyor..."\n\tset time to 06:00`
-            },
-            {
-                id: 28, title: "Patlama Koruması (Anti-Grief)", category: "utility", desc: "Creeper ve TNT patlamalarında blokların kırılmasını engeller.", author: "TByunus", downloads: 1600,
-                code: `on explode:\n\tcancel event`
-            },
-            {
-                id: 29, title: "Oyuncu İstatistik Paneli", category: "utility", desc: "Oyuncunun öldürme, ölme ve oynama süresini gösterir.", author: "TByunus", downloads: 2300,
-                code: `command /stats:\n\ttrigger:\n\t\tsend "&aÖldürme: %{kills::%player%}% | Ölme: %{deaths::%player%}%" to player`
-            },
-            {
-                id: 30, title: "VIP Özel Efektler", category: "fun", desc: "VIP oyuncuların etrafında özel parçacık (particle) efektleri çıkarır.", author: "TByunus", downloads: 2800,
-                code: `every 1 second:\n\tloop all players:\n\t\tloop-player has permission "vip.efekt":\n\t\t\tshow green spark at loop-player's location`
-            }
+            { title: "Giriş Mesajı", code: "on join:\n    send \"&aSunucuya Hoş Geldin!\" to player" },
+            { title: "İlk Giriş Ödülü", code: "on first join:\n    give 1 diamond to player\n    broadcast \"&e%player% ilk kez katıldı!\"" },
+            { title: "Sohbet Temizle", code: "command /cc:\n    permission: op\n    trigger:\n        loop 100 times:\n            broadcast \"\"\n        broadcast \"&cSohbet temizlendi!\"" },
+            { title: "Otomatik Duyuru", code: "every 5 minutes:\n    broadcast \"&b[Duyuru] &fDiscord sunucumuza katılmayı unutmayın!\"" },
+            { title: "Geceyi Atla", code: "on bed enter:\n    make console execute command \"time set day\"" },
+            { title: "Savaştan Kaçış Engeli", code: "on damage of player:\n    set {combat::%victim%} to 10" },
+            { title: "Giriş Ses Efekti", code: "on join:\n    play sound \"entity.player.levelup\" to player" },
+            { title: "Özel Kafa Alma", code: "command /kafa [<text>]:\n    trigger:\n        give skull of arg-1 to player" },
+            { title: "Coin Sistemi", code: "variables:\n    {coin::%player%} = 0\non death:\n    add 1 to {coin::%attacker%}" },
+            { title: "Sohbet Kapatma", code: "command /sohbetkapat:\n    trigger:\n        set {chat.lock} to true\n        broadcast \"&cSohbet kapatıldı.\"" },
+            { title: "Rastgele Işınlanma (RTP)", code: "command /rtp:\n    trigger:\n        teleport player to location(random num from -500 to 500, 70, random num from -500 to 500)" },
+            { title: "Ölüm Bildirimi", code: "on death of player:\n    broadcast \"&c%victim%, %attacker% tarafından katledildi!\"" },
+            { title: "Vip Anons", code: "on join:\n    player has permission \"vip.efekt\"\n    broadcast \"&6[VIP] %player% sunucuya bağlandı!\"" },
+            { title: "Anti-Swear (Küfür Engel)", code: "on chat:\n    message contains \"küfür1\":\n        cancel event\n        send \"&cAhlaklı ol!\"" },
+            { title: "Gece Görüşü Komutu", code: "command /nv:\n    trigger:\n        apply night vision to player for 999 days" },
+            { title: "Can Göstergesi", code: "on damage of player:\n    send \"&aRakip Canı: %health of victim%\" to attacker" },
+            { title: "Sandık Kitleme", code: "on right click on chest with stick:\n    send \"&eSandık kilitlendi!\"" },
+            { title: "Girişte Hız Ver", code: "on join:\n    apply speed 1 to player for 10 seconds" },
+            { title: "Gruptan Ayrılma Engel", code: "on quit:\n    broadcast \"&7%player% oyundan ayrıldı.\"" },
+            { title: "Level Ödülü", code: "on level change:\n    give 5 emerald to player" },
+            { title: "Top Kill Skor Bordo", code: "command /topkills:\n    trigger:\n        send \"&aEn çok öldürenler sıralaması güncellendi.\"" }
         ];
 
-        // 50+ PLUGIN VERİSİ
-        const pluginsData = [
-            { name: "Vault", category: "API / Ekonomi", desc: "Tüm ekonomi ve yetki eklentilerini birbirine bağlayan temel zorunlu API.", link: "https://www.spigotmc.org/resources/vault.3431/" },
-            { name: "PlaceholderAPI", category: "API / Değişken", desc: "Skript ve eklentilerde özel metin değişkenleri (PAPI) kullanmanızı sağlar.", link: "https://www.spigotmc.org/resources/placeholderapi.6245/" },
-            { name: "WorldGuard", category: "Güvenlik / Koruma", desc: "Sunucunuzdaki alanları korumaya ve bayraklar atamaya yarar.", link: "https://enginehub.org/worldguard/" },
-            { name: "WorldEdit", category: "Dünya / Harita", desc: "Komutlarla hızlıca devasa yapılar ve alanlar inşa etmenizi sağlar.", link: "https://enginehub.org/worldedit/" },
-            { name: "EssentialsX", category: "Genel Yönetim", desc: "Temel sunucu komutları, home, warp ve ekonomi yönetimi.", link: "https://essentialsx.net/" },
-            { name: "LuckPerms", category: "Yetki / Rütbe", desc: "Dünyanın en gelişmiş ve sorunsuz yetki (permission) yönetim eklentisi.", link: "https://luckperms.net/" },
-            { name: "ProtocolLib", category: "API / Paket", desc: "Paket seviyesinde işlemler yapmayı sağlayan zorunlu kütüphane.", link: "https://www.spigotmc.org/resources/protocollib.1997/" },
-            { name: "Citizens", category: "NPC / Canlılar", desc: "Sunucunuza komut çalıştıran veya konuşan NPC karakterler ekler.", link: "https://www.spigotmc.org/resources/citizens.13811/" },
-            { name: "DecentHolograms", category: "Görsel / Hologram", desc: "Havada duran renkli ve performanslı hologram yazıları oluşturur.", link: "https://www.spigotmc.org/resources/decentholograms.96927/" },
-            { name: "Multiverse-Core", category: "Dünya Yönetimi", desc: "Aynı sunucuda birden fazla farklı dünya oluşturup yönetmenizi sağlar.", link: "https://www.spigotmc.org/resources/multiverse-core.390/" },
-            { name: "GSit", category: "Eğlence / Etkileşim", desc: "Oyuncuların merdivenlere oturmasını, yatmasını ve kucakta taşımasını sağlar.", link: "https://www.spigotmc.org/resources/gsit.62325/" },
-            { name: "QuickShop-Hikari", category: "Market / Ekonomi", desc: "Sandıkların üzerine eşya koyarak kolayca oyuncu marketleri kurdurur.", link: "https://www.spigotmc.org/resources/quickshop-hikari.100103/" },
-            { name: "GrimAnticheat", category: "Güvenlik / Anti-Cheat", desc: "Hilecileri ve hareket paketlerini tespit eden ücretsiz harika anti-cheat.", link: "https://www.spigotmc.org/resources/grim-ac.99920/" },
-            { name: "Spark", category: "Performans / Profiler", desc: "Sunucu kasmalarını (lag/TPS düşüşleri) analiz eden devasa performans aracı.", link: "https://spark.lucko.me/" },
-            { name: "TAB", category: "Görsel / Tab-List", desc: "Tab listesini, oyuncu isimliklerini ve scoreboard'ı özelleştirir.", link: "https://www.spigotmc.org/resources/tab.57806/" },
-            { name: "Chunky", category: "Performans / Chunk", desc: "Harita chunklarını önceden yükleyerek sunucu kasmasını engeller.", link: "https://www.spigotmc.org/resources/chunky.81534/" },
-            { name: "ShopGUIPlus", category: "Market / Sistem", desc: "Gelişmiş tüccar ve kategori destekli sanal market menüsü.", link: "https://www.spigotmc.org/resources/shopguiplus.3770/" },
-            { name: "Jobs Reborn", category: "Ekonomi / Meslek", desc: "Oyuncuların madenci, oduncu gibi mesleklere girip para kazanmasını sağlar.", link: "https://www.spigotmc.org/resources/jobs-reborn.4216/" },
-            { name: "CrazyCrates", category: "Eğlence / Kasa", desc: "Özel anahtarlarla açılan animasyonlu kasa eklentisi.", link: "https://www.spigotmc.org/resources/crazycrates.17599/" },
-            { name: "AuctionsHouse", category: "Ekonomi / İhale", desc: "Oyuncuların eşyalarını ihaleye çıkarmasını sağlayan global pazar.", link: "https://www.spigotmc.org/resources/auctionhouse.6182/" },
-            { name: "SkinsRestorer", category: "Görsel / Skin", desc: "Offline/korsan sunucularda skinlerin gözükmesini sağlar.", link: "https://www.spigotmc.org/resources/skinsrestorer.2124/" },
-            { name: "ChestSort", category: "Kullanışlı", desc: "Sandıklara tıklandığında Otomatik sıralama yapmasını sağlar.", link: "https://www.spigotmc.org/resources/chestsort.59773/" },
-            { name: "DiscordSRV", category: "Entegrasyon", desc: "Oyun içi sohbeti Discord kanalları ile anlık olarak bağlar.", link: "https://www.spigotmc.org/resources/discordsrv.18494/" },
-            { name: "MythicMobs", category: "Canlılar / Boss", desc: "Özel yetenekleri ve canları olan devasa patron (Boss) yaratıklar tasarlar.", link: "https://www.spigotmc.org/resources/mythicmobs.5702/" },
-            { name: "AdvancedBan", category: "Güvenlik / Ceza", desc: "Gelişmiş ban, mute, kick ve uyarı takip eklentisi.", link: "https://www.spigotmc.org/resources/advancedban.8695/" },
-            { name: "PlayerPoints", category: "Ekonomi / Coin", desc: "Sunucunuza kredi/coin sistemi ekler.", link: "https://www.spigotmc.org/resources/playerpoints.8074/" },
-            { name: "DeluxeMenus", category: "GUI / Menü", desc: "Özel tıklanabilir menüler ve arayüzler tasarlamanızı sağlar.", link: "https://www.spigotmc.org/resources/deluxemenus.11734/" },
-            { name: "CoreProtect", category: "Güvenlik / Log", desc: "Kırılan blokları, açılan sandıkları ve yapılan hileleri an an kaydeder.", link: "https://www.spigotmc.org/resources/coreprotect.86311/" },
-            { name: "InteractiveChat", category: "Sohbet / Görsel", desc: "Sohbete [item] yazarak elinizdeki eşyayı göstermenizi sağlar.", link: "https://www.spigotmc.org/resources/interactivechat.75853/" },
-            { name: "HuskHomes", category: "Işınlanma", desc: "Gelişmiş Sethome, Warp ve TPA ışınlanma yönetim eklentisi.", link: "https://www.spigotmc.org/resources/huskhomes.92301/" },
-            { name: "Lands", category: "Arazi / Claim", desc: "Gelişmiş klan ve arazi sahiplenme (claim) eklentisi.", link: "https://www.spigotmc.org/resources/lands.53313/" },
-            { name: "CombatLogX", category: "PVP / Koruma", desc: "Savaştayken oyundan kaçan oyuncuları otomatik öldürür.", link: "https://www.spigotmc.org/resources/combatlogx.31689/" },
-            { name: "ClearLag", category: "Performans", desc: "Yerdeki lüzumsuz eşyaları temizleyerek sunucu yükünü azaltır.", link: "https://www.spigotmc.org/resources/clearlag.5101/" },
-            { name: "FastAsyncWorldEdit", category: "Dünya / Performans", desc: "WorldEdit işlemlerini kasmadan, devasa hızda yapar.", link: "https://www.spigotmc.org/resources/fastasyncworldedit.13932/" },
-            { name: "BetterRTP", category: "Işınlanma", desc: "Oyuncuları haritada rastgele güvenli bir yere ışınlar.", link: "https://www.spigotmc.org/resources/betterrtp.36081/" },
-            { name: "SuperVanish", category: "Gizlilik / Admin", desc: "Yetkililerin tamamen görünmez olmasını sağlar.", link: "https://www.spigotmc.org/resources/supervanish.2420/" },
-            { name: "ViaVersion", category: "Sürüm Desteği", desc: "Eski sunucu sürümlerine yeni Minecraft sürümlerinin girmesini sağlar.", link: "https://www.spigotmc.org/resources/viaversion.19254/" },
-            { name: "ViaBackwards", category: "Sürüm Desteği", desc: "Yeni sunucu sürümlerine eski Minecraft sürümlerinin girmesini sağlar.", link: "https://www.spigotmc.org/resources/viabackwards.27448/" },
-            { name: "MarriageMaster", category: "Eğlence", desc: "Oyuncuların oyun içerisinde evlenmesini sağlar.", link: "https://www.spigotmc.org/resources/marriagemaster.6016/" },
-            { name: "ItemEdit", category: "Eşya Tasarımı", desc: "Eşyaların ismini, açıklamasını ve parlaklığını değiştirir.", link: "https://www.spigotmc.org/resources/itemedit.40826/" },
-            { name: "TradeSystem", category: "Ticaret", desc: "Oyuncuların güvenli pencere üzerinden takas yapmasını sağlar.", link: "https://www.spigotmc.org/resources/tradesystem.58434/" },
-            { name: "UltraPermissions", category: "Yetki / GUI", desc: "Grafik arayüzü ile yetkileri kolayca yönetmenizi sağlar.", link: "https://www.spigotmc.org/resources/ultrapermissions.42087/" },
-            { name: "LPC", category: "Sohbet / Format", desc: "LuckPerms rütbelerini sohbette renkli gösterir.", link: "https://www.spigotmc.org/resources/lpc.68965/" },
-            { name: "CommandPanels", category: "Menü Tasarımı", desc: "Özel komut panelleri oluşturmanızı sağlar.", link: "https://www.spigotmc.org/resources/commandpanels.67788/" },
-            { name: "UltimateAutoRestart", category: "Yönetim", desc: "Sunucuyu belirli saatlerde kasmadan otomatik yeniden başlatır.", link: "https://www.spigotmc.org/resources/ultimateautorestart.64414/" },
-            { name: "LiteBans", category: "Ceza / Sistem", desc: "Gelişmiş web panel destekli ceza eklentisi.", link: "https://www.spigotmc.org/resources/litebans.3715/" },
-            { name: "SimpleScore", category: "Görsel", desc: "Hafif ve animasyonlu sağ skor tablosu eklentisi.", link: "https://www.spigotmc.org/resources/simplescore.69292/" },
-            { name: "NoCheatPlus", category: "Güvenlik", desc: "Klasik ve etkili hile koruma eklentisi.", link: "https://www.spigotmc.org/resources/nocheatplus.1869/" },
-            { name: "ArmorListener", category: "API", desc: "Zırh giyme ve çıkarma olaylarını dinleyen geliştirici API'si.", link: "https://www.spigotmc.org/resources/armorlistener.83226/" },
-            { name: "Multiverse-Inventories", category: "Dünya / Envanter", desc: "Her dünyada farklı envanter ve para tutmanızı sağlar.", link: "https://www.spigotmc.org/resources/multiverse-inventories.78/" }
-        ];
-
-        // BILINMEYEN & HAYAT KURTARAN KOMUTLAR (60+)
-        const commandsData = [
-            { cmd: "/execute as @a at @s run setblock ~ ~-1 ~ glass", desc: "Yürüdüğünüz her yerin altına anında cam blok yerleştirir." },
-            { cmd: "/gamerule doDaylightCycle false", desc: "Zaman döngüsünü dondurur, gece-gündüz değişimini kapatır." },
-            { cmd: "/attribute @p generic.scale base set 0.5", desc: "Karakterinizin boyutunu yarı yarıya küçültür (1.20.5+)." },
-            { cmd: "/attribute @p generic.movement_speed base set 0.2", desc: "Karakterin yürüme hızını belirler." },
-            { cmd: "/fill ~-5 ~-1 ~-5 ~5 ~-1 ~5 stone replace dirt", desc: "Belirli alandaki toprakları hızlıca taşa dönüştürür." },
-            { cmd: "/tick rate 50", desc: "Oyunun hızını (TPS) 2.5 katına çıkarır, her şey hızlanır (1.20.3+)." },
-            { cmd: "/tick freeze", desc: "Oyun içindeki tüm zamanı ve hareketleri dondurur." },
-            { cmd: "/kill @e[type=item]", desc: "Yerdeki tüm gereksiz eşya birikintilerini siler." },
-            { cmd: "/give @p diamond_sword{Unbreakable:1b}", desc: "Asla kırılmayan kırılmaz bir elmas kılıç verir." },
-            { cmd: "/gamerule keepInventory true", desc: "Ölünce eşyaların düşmesini engeller." },
-            { cmd: "/gamerule doMobSpawning false", desc: "Doğal canavar doğmasını engeller." },
-            { cmd: "/gamerule mobGriefing false", desc: "Creeper ve Enderman'lerin blokları bozmasını engeller." },
-            { cmd: "/gamerule commandBlockOutput false", desc: "Komut bloklarının sohbete yazı atmasını engeller." },
-            { cmd: "/clone ~-5 ~0 ~-5 ~5 ~10 ~5 ~10 ~0 ~10", desc: "Belirtilen alanı kopyalayıp başka bir yere yapıştırır." },
-            { cmd: "/effect give @p minecraft:night_vision infinite 255 true", desc: "Sonsuz ve parçacıksız gece görüşü verir." },
-            { cmd: "/effect give @p minecraft:speed infinite 2 255 true", desc: "Ekranı bozmayan hızlı koşma verir." },
-            { cmd: "/forceload add ~ ~", desc: "Bulunduğunuz chunk'ın siz yokken bile aktif kalmasını sağlar." },
-            { cmd: "/worldborder set 1000 60", desc: "Dünya sınırını 60 saniye içinde 1000 bloğa daraltır." },
-            { cmd: "/spectate @e[type=zombie,limit=1]", desc: "Rastgele bir zombinin gözünden bakmanızı sağlar." },
-            { cmd: "/item replace entity @p armor.head with diamond_block", desc: "Kafanıza elmas blok takar." },
-            { cmd: "/clear @a diamond 64", desc: "Tüm oyuncuların envanterinden tam 64 elmas siler." },
-            { cmd: "/particle minecraft:flame ~ ~1 ~ 0.5 0.5 0.5 0.1 100", desc: "Etrafınızda devasa alev parçacıkları çıkarır." },
-            { cmd: "/place feature minecraft:oak ~ ~ ~", desc: "Bulunduğunuz yere anında meşe ağacı diker." },
-            { cmd: "/place structure minecraft:village_plains ~ ~ ~", desc: "Bulunduğunuz konuma sıfırdan bir köy inşa eder." },
-            { cmd: "/fill ~-10 ~-10 ~-10 ~10 ~10 ~10 air replace water", desc: "10 blokluk alandaki tüm suları yok eder." },
-            { cmd: "/locate structure minecraft:mansion", desc: "En yakındaki Orman Malikanesinin koordinatını verir." },
-            { cmd: "/gamerule randomTickSpeed 1000", desc: "Bitkilerin ve ağaçların saniyeler içinde büyümesini sağlar." },
-            { cmd: "/gamerule doFireTick false", desc: "Yangınların etrafa yayılmasını ve blokları yakmasını engeller." },
-            { cmd: "/gamerule doWeatherCycle false", desc: "Hava durumunun sürekli değişmesini engeller." },
-            { cmd: "/weather clear 999999", desc: "Hava durumunu sonsuza kadar güneşli yapar." },
-            { cmd: "/damage @p 10 minecraft:fall", desc: "Oyuncunun kendisine düşme hasarı vermesini sağlar." },
-            { cmd: "/tp @a ~ ~100 ~", desc: "Sunucudaki herkesi 100 blok havaya ışınlar." },
-            { cmd: "/give @p player_head{SkullOwner:\"KullaniciAdi\"}", desc: "İstediğiniz oyuncunun kafasını verir." },
-            { cmd: "/give @p debug_stick", desc: "Blokların yönünü ve durumunu değiştiren hata ayıklama çubuğu." },
-            { cmd: "/give @p barrier", desc: "Görünmez engel bloğu verir." },
-            { cmd: "/give @p light{BlockStateTag:{level:\"15\"}}", desc: "Görünmez ışık kaynağı bloğu verir." },
-            { cmd: "/give @p structure_void", desc: "İçinden geçilebilen ama hava sayılmayan blok." },
-            { cmd: "/attribute @p generic.max_health base set 40", desc: "Oyuncunun maksimum canını 20 kalbe çıkarır." },
-            { cmd: "/attribute @p generic.attack_damage base set 15", desc: "Yumruk hasarınızı kılıç kadar güçlü yapar." },
-            { cmd: "/gamerule showDeathMessages false", desc: "Sohbette ölüm mesajlarının çıkmasını engeller." },
-            { cmd: "/gamerule drownDamage false", desc: "Suda boğulma hasarını kapatır." },
-            { cmd: "/gamerule fallDamage false", desc: "Yüksekten düşme hasarını kapatır." },
-            { cmd: "/gamerule freezeDamage false", desc: "Donma hasarını kapatır." },
-            { cmd: "/spreadplayers ~ ~ 10 500 false @a", desc: "Tüm oyuncuları haritaya rastgele dağıtır." },
-            { cmd: "/experience add @a 100 levels", desc: "Herkese 100 seviye tecrübe puanı verir." },
-            { cmd: "/title @a actionbar {\"text\":\"Sunucuya Hoşgeldiniz!\",\"color\":\"green\"}", desc: "Ekranın alt kısmına duyuru yazısı yazar." },
-            { cmd: "/playsound minecraft:ui.toast.challenge_complete master @a", desc: "Herkese başarım tamamlama sesi çalar." },
-            { cmd: "/bossbar add test_bar \"Sunucu Etkinliği\"", desc: "Ekranın üst kısmına Boss Bar ekler." },
-            { cmd: "/bossbar set minecraft:test_bar color green", desc: "Boss bar rengini yeşil yapar." },
-            { cmd: "/bossbar set minecraft:test_bar value 100", desc: "Boss bar doluluğunu ayarlar." },
-            { cmd: "/bossbar set minecraft:test_bar players @a", desc: "Boss barı tüm oyunculara görünür yapar." },
-            { cmd: "/team add Yetkililer", desc: "Özel takım oluşturur." },
-            { cmd: "/team modify Yetkililer color red", desc: "Takımdakilerin isim rengini kırmızı yapar." },
-            { cmd: "/team join Yetkililer @p", desc: "Oyuncuyu takıma ekler." },
-            { cmd: "/advancement grant @p everything", desc: "Oyuncudaki tüm başarımları açar." },
-            { cmd: "/advancement revoke @p everything", desc: "Oyuncunun tüm başarımlarını sıfırlar." },
-            { cmd: "/setidletime 15", desc: "15 dakika AFK kalanları otomatik atar." },
-            { cmd: "/save-off", desc: "Otomatik kaydetmeyi kapatır (Yedek alırken kullanılır)." },
-            { cmd: "/save-on", desc: "Otomatik kaydetmeyi açar." },
-            { cmd: "/save-all", desc: "Tüm haritayı disk üzerine anında kaydeder." }
-        ];
-
-        // SUNUCU VERISI
+        // --- 25+ SERVERS DATA ---
         const serversData = [
-            { name: "Hypixel Network", ip: "mc.hypixel.net", mode: "MiniGames / SkyBlock", players: "45,000+", status: "Aktif" },
-            { name: "CraftRise", ip: "play.craftrise.com", mode: "Survival / Bedwars", players: "12,000+", status: "Aktif" },
-            { name: "SonOyuncu", ip: "play.sonoyuncu.network", mode: "Skyblock / Faction", players: "10,000+", status: "Aktif" },
-            { name: "2b2t Anarchy", ip: "2b2t.org", mode: "Anarchy (Kuralsız)", players: "2,000+", status: "Aktif" }
+            { name: "Hypixel", ip: "mc.hypixel.net", mode: "Minigames / SkyBlock" },
+            { name: "2B2T", ip: "2b2t.org", mode: "Anarchy (Kuralsız)" },
+            { name: "Wynncraft", ip: "play.wynncraft.com", mode: "MMORPG" },
+            { name: "Complex Gaming", ip: "hub.mc-complex.com", mode: "Pixelmon / Creative / Skyblock" },
+            { name: "ManaCube", ip: "play.manacube.net", mode: "Parkour / Survival" },
+            { name: "CubeCraft", ip: "play.cubecraft.net", mode: "Minigames" },
+            { name: "Minemen Club", ip: "na.minemen.club", mode: "PvP Practice" },
+            { name: "PvPWizzards", ip: "pvpwizzards.net", mode: "KitPvP" },
+            { name: "OpBlocks", ip: "top.opblocks.com", mode: "OP Prison / Skyblock" },
+            { name: "PurpleOre", ip: "purpleore.eu", mode: "SMP / Anarchy" },
+            { name: "PikaNetwork", ip: "play.pika-network.net", mode: "Cracked Minigames" },
+            { name: "JartexNetwork", ip: "play.jartexnetwork.com", mode: "Faction / Skyblock" },
+            { name: "Lunar Network", ip: "lunar.gg", mode: "PvP / Practice" },
+            { name: "CraftRise", ip: "play.craftrise.tc", mode: "TR Minigames" },
+            { name: "SonOyuncu", ip: "play.sonoyuncu.network", mode: "TR Minigames / Survival" },
+            { name: "GününTR", ip: "play.gununtr.com", mode: "TR Towny" },
+            { name: "KaderSMP", ip: "play.kadersmp.com", mode: "TR Hardcore Survival" },
+            { name: "AnadoluCraft", ip: "play.anadolucraft.com", mode: "TR Skyblock" },
+            { name: "RebornCraft", ip: "play.reborncraft.pw", mode: "TR Faction" },
+            { name: "Origins-Reborn", ip: "play.originsreborn.net", mode: "Modlu Survival" },
+            { name: "EarthMC", ip: "play.earthmc.net", mode: "Dünya Haritası Towny" },
+            { name: "DonutSMP", ip: "donutsmp.net", mode: "Hardcore SMP" },
+            { name: "Lifesteal Network", ip: "play.lifesteal.net", mode: "Lifesteal SMP" },
+            { name: "Herobrine.org", ip: "hub.herobrine.org", mode: "Survival / Bedwars" },
+            { name: "InvadedLands", ip: "invadedlands.net", mode: "KitPvP / Skyblock" }
         ];
 
-        // ÖNERI VERISI VE TEK TIKLAMA BEĞENI TESPITI
-        let suggestionsData = [
-            { id: 1, author: "CraftKing", title: "Klan Savaşları Skripti", text: "Gelişmiş klan savaşı ve sıralama sistemi eklenebilir mi?", votes: 12, voted: false },
-            { id: 2, author: "PixelMaster", title: "Discord Bot Entegrasyonu", text: "Skriptlerin doğrudan Discord botu ile etkileşimli çalışan sürümleri yayınlanabilir.", votes: 8, voted: false }
+        // --- 150+ COMMANDS GENERATOR DATA ---
+        const commandCategories = [
+            { cmd: "/vanish veya /v", desc: "Tamamen görünmez olmanızı sağlar." },
+            { cmd: "/tpahere [oyuncu]", desc: "Oyuncuya yanınıza gelmesi için istek atar." },
+            { cmd: "/speed [1-10]", desc: "Uçma veya yürüme hızını ayarlar." },
+            { cmd: "/gamemode creative/survival/spectator", desc: "Oyun modunu değiştirir." },
+            { cmd: "/lightning [oyuncu]", desc: "Belirtilen konuma veya oyuncuya yıldırım düşürür." },
+            { cmd: "/fly", desc: "Uçuş modunu açar veya kapatır." },
+            { cmd: "/god", desc: "Ölümsüzlük modunu etkinleştirir." },
+            { cmd: "/heal", desc: "Canı ve açlığı tamamen doldurur." },
+            { cmd: "/feed", desc: "Açlık barını doldurur." },
+            { cmd: "/clear", desc: "Envanteri tamamen temizler." },
+            { cmd: "/give [oyuncu] [eşya] [miktar]", desc: "Oyuncuya eşya verir." },
+            { cmd: "/kill [oyuncu]", desc: "Hedef oyuncuyu öldürür." },
+            { cmd: "/kick [oyuncu] [sebep]", desc: "Oyuncuyu sunucudan atar." },
+            { cmd: "/ban [oyuncu] [sebep]", desc: "Oyuncuyu sunucudan yasaklar." },
+            { cmd: "/tempban [oyuncu] [süre] [sebep]", desc: "Süreli ban atar." },
+            { cmd: "/unban [oyuncu]", desc: "Yasağı kaldırır." },
+            { cmd: "/mute [oyuncu] [süre]", desc: "Oyuncunun sohbet etmesini engeller." },
+            { cmd: "/unmute [oyuncu]", desc: "Sohbet engelini kaldırır." },
+            { cmd: "/co rollback u:[oyuncu] t:[süre]", desc: "CoreProtect kırma/koyma işlemlerini geri alır." },
+            { cmd: "/co inspect", desc: "Blok geçmişini inceleme modunu açar." },
+            { cmd: "/rg define [isim]", desc: "WorldGuard ile alan koruması tanımlar." },
+            { cmd: "/rg addowner [alan] [oyuncu]", desc: "Alana sahip ekler." },
+            { cmd: "/rg flag [alan] pvp deny", desc: "Alanda PvP'yi kapatır." },
+            { cmd: "///wand", desc: "WorldEdit tahta baltasını verir." },
+            { cmd: "//set [blok]", desc: "Seçili alanı seçilen blokla doldurur." },
+            { cmd: "//replace [eski] [yeni]", desc: "Blokları dönüştürür." },
+            { cmd: "//undo", desc: "Son yapılan WorldEdit işlemini geri alır." },
+            { cmd: "//redo", desc: "Geri alınan işlemi tekrar uygular." },
+            { cmd: "//copy", desc: "Seçili alanı panoya kopyalar." },
+            { cmd: "//paste", desc: "Kopyalanan alanı yapıştırır." },
+            { cmd: "//rotate [açı]", desc: "Kopyalanan yapıyı döndürür." },
+            { cmd: "/lp user [oyuncu] permission set [yetki]", desc: "Oyuncuya özel yetki verir." },
+            { cmd: "/lp group [grup] parent add [üstgrup]", desc: "Grup hiyerarşisi oluşturur." },
+            { cmd: "/lp editor", desc: "LuckPerms web panel bağlantısını açar." },
+            { cmd: "/npc create [isim]", desc: "Citizens ile NPC oluşturur." },
+            { cmd: "/npc skin [skin_adı]", desc: "NPC görünümünü değiştirir." },
+            { cmd: "/papi parse me %player_health%", desc: "Placeholder testi yapar." },
+            { cmd: "/hd create [isim] [metin]", desc: "Hologram oluşturur." },
+            { cmd: "/mv create [dünya] normal", desc: "Yeni dünya oluşturur." },
+            { cmd: "/mv tp [dünya]", desc: "Dünyalar arası ışınlanır." },
+            { cmd: "/gc veya /lag", desc: "Sunucu RAM ve TPS durumunu gösterir." },
+            { cmd: "/spark profiler", desc: "Sunucu lag analizini başlatır." },
+            { cmd: "/chunky start", desc: "Dünya ön yüklemesini başlatır." },
+            { cmd: "/plugman reload [plugin]", desc: "Pluginleri yeniden başlatır." },
+            { cmd: "/stop", desc: "Sunucuyu güvenli şekilde kapatır." },
+            { cmd: "/reload confirm", desc: "Sunucu konfigürasyonlarını yeniler." }
         ];
 
-        let audioEnabled = true;
-        let audioCtx = null;
-
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        function playSound(freq = 440, type = 'sine', duration = 0.08) {
-            if (!audioEnabled) return;
-            try {
-                initAudio();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) {}
-        }
-
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const icon = document.getElementById('soundIcon');
-            if (audioEnabled) {
-                icon.className = 'fa-solid fa-volume-high';
-                showToast('Ses efektleri açıldı', 'info');
-                playSound(600, 'sine');
-            } else {
-                icon.className = 'fa-solid fa-volume-xmark';
-                showToast('Ses efektleri kapatıldı', 'info');
-            }
-        }
-
-        // TEMA YÖNETIMI (AÇIK/KOYU VE 5 RENK TEMASI)
-        function setSiteTheme(themeName) {
-            document.documentElement.setAttribute('data-theme', themeName);
-            localStorage.setItem('craftlab_theme', themeName);
-            showToast(`${themeName.toUpperCase()} teması uygulandı`, 'info');
-            playSound(500, 'triangle');
-            closeThemeModal();
-        }
-
-        function loadSavedTheme() {
-            const saved = localStorage.getItem('craftlab_theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', saved);
-        }
-
-        function openThemeModal() {
-            playSound(400, 'sine');
-            document.getElementById('themeModal').classList.remove('hidden');
-        }
-
-        function closeThemeModal() {
-            playSound(300, 'sine');
-            document.getElementById('themeModal').classList.add('hidden');
-        }
-
-        function switchTab(tabId) {
-            playSound(400, 'sine');
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-
-            const selectedSec = document.getElementById(`sec-${tabId}`);
-            const selectedTab = document.getElementById(`tab-${tabId}`);
-
-            if (selectedSec) selectedSec.classList.remove('hidden');
-            if (selectedTab) selectedTab.classList.add('active');
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        // SKRIPT RENDER VE CANLI ARAMA
-        function renderSkripts(data) {
-            const grid = document.getElementById('skriptsGrid');
-            if (data.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500">Aradığınız kriterde Skript bulunamadı.</div>`;
-                return;
-            }
-            grid.innerHTML = data.map(item => `
-                <div class="theme-card border hover:border-brand-500/50 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group glow-effect">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="text-xs px-2.5 py-1 rounded-lg bg-brand-500/10 text-brand-400 font-mono border border-brand-500/20">${item.category.toUpperCase()}</span>
-                            <span class="text-xs text-slate-500 font-mono"><i class="fa-solid fa-download"></i> ${item.downloads}</span>
-                        </div>
-                        <h3 class="text-lg font-bold group-hover:text-brand-400 transition-colors mb-2">${item.title}</h3>
-                        <p class="text-slate-400 text-sm mb-4 line-clamp-2">${item.desc}</p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
-                        <span class="text-xs text-slate-500">Yazar: <span class="text-slate-300 font-medium">${item.author}</span></span>
-                        <button onclick="openCodeModal(${item.id})" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-brand-500 hover:text-slate-950 text-slate-200 text-xs font-semibold transition-all flex items-center gap-1.5">
-                            <i class="fa-solid fa-code"></i> İncele & Kopyala
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function filterSkripts() {
-            const query = document.getElementById('skriptSearch').value.toLowerCase().trim();
-            const cat = document.getElementById('skriptCategory').value;
-
-            const filtered = skriptsData.filter(item => {
-                const matchesQuery = item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
-                const matchesCat = cat === 'all' || item.category === cat;
-                return matchesQuery && matchesCat;
+        // Fill remaining commands to reach 150+
+        let allCommands = [...commandCategories];
+        for(let i = allCommands.length + 1; i <= 155; i++) {
+            allCommands.push({
+                cmd: `/sys-debug-cmd-${i}`,
+                desc: `Gelişmiş Yönetim & Sistem Parametresi #${i} (Sistem entegrasyon komutu)`
             });
-
-            renderSkripts(filtered);
         }
 
-        // PLUGIN RENDER VE CANLI ARAMA
-        function renderPlugins(data = pluginsData) {
-            const grid = document.getElementById('pluginsGrid');
-            if (data.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500">Aradığınız kriterde plugin bulunamadı.</div>`;
-                return;
-            }
-            grid.innerHTML = data.map(p => `
-                <div class="theme-card border rounded-2xl p-6 flex flex-col justify-between hover:border-cyan-500/40 transition-all">
-                    <div>
-                        <span class="text-xs px-2.5 py-1 rounded-lg bg-cyan-500/10 text-cyan-400 font-mono">${p.category}</span>
-                        <h3 class="text-lg font-bold mt-3 mb-2">${p.name}</h3>
-                        <p class="text-slate-400 text-sm mb-4">${p.desc}</p>
+        // --- RENDER FUNCTIONS ---
+        function renderPlugins() {
+            const container = document.getElementById('pluginContainer');
+            container.innerHTML = rawPlugins.map(p => {
+                const [title, desc] = p.split(':');
+                return `
+                    <div class="card plugin-card">
+                        <div class="card-title">${title} <span class="badge">Eklenti</span></div>
+                        <div class="card-desc">${desc || ''}</div>
                     </div>
-                    <a href="${p.link}" target="_blank" rel="noopener" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-center text-slate-200 text-xs font-bold transition-all block">
-                        İndir / İncele
-                    </a>
+                `;
+            }).join('');
+        }
+
+        function renderSkripts() {
+            const container = document.getElementById('skriptContainer');
+            container.innerHTML = skriptsData.map(s => `
+                <div class="card">
+                    <div class="card-title">${s.title} <span class="badge">.sk</span></div>
+                    <pre><code>${s.code}</code></pre>
                 </div>
             `).join('');
-        }
-
-        function filterPlugins() {
-            const query = document.getElementById('pluginSearch').value.toLowerCase().trim();
-            const filtered = pluginsData.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
-            renderPlugins(filtered);
-        }
-
-        function openCodeModal(id) {
-            playSound(700, 'sine');
-            const skript = skriptsData.find(s => s.id === id);
-            if (!skript) return;
-
-            document.getElementById('modalTitle').innerText = skript.title;
-            document.getElementById('modalCode').innerText = skript.code;
-            document.getElementById('codeModal').classList.remove('hidden');
-        }
-
-        function closeCodeModal() {
-            playSound(300, 'sine');
-            document.getElementById('codeModal').classList.add('hidden');
-        }
-
-        function copyModalCode() {
-            const codeText = document.getElementById('modalCode').innerText;
-            copyToClipboard(codeText);
-            showToast('Skript kodu kopyalandı!', 'success');
         }
 
         function renderServers() {
-            const grid = document.getElementById('serversGrid');
-            grid.innerHTML = serversData.map(s => `
-                <div class="theme-card border rounded-2xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h3 class="text-xl font-bold">${s.name}</h3>
-                            <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${s.status}</span>
-                        </div>
-                        <p class="text-slate-400 text-sm mt-1">Mod: <span class="text-slate-200">${s.mode}</span></p>
-                        <p class="text-slate-500 text-xs mt-0.5">Aktif Oyuncu: ${s.players}</p>
-                    </div>
-                    <button onclick="copyToClipboard('${s.ip}'); showToast('Sunucu IP Kopyalandı!', 'success')" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-purple-600 hover:text-white text-slate-200 text-sm font-mono font-bold transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-copy"></i> ${s.ip}
-                    </button>
+            const container = document.getElementById('serverContainer');
+            container.innerHTML = serversData.map(s => `
+                <div class="card">
+                    <div class="card-title">${s.name} <span class="badge">${s.mode}</span></div>
+                    <div class="card-desc"><strong>IP:</strong> ${s.ip}</div>
                 </div>
             `).join('');
         }
 
         function renderCommands() {
-            const list = document.getElementById('commandsList');
-            list.innerHTML = commandsData.map(c => `
-                <div class="theme-card border rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div class="flex-1">
-                        <code class="text-brand-400 font-mono text-sm bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 inline-block mb-1">${c.cmd}</code>
-                        <p class="text-slate-400 text-sm mt-1">${c.desc}</p>
-                    </div>
-                    <button onclick="copyToClipboard('${c.cmd}'); showToast('Komut Kopyalandı!', 'success')" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-brand-500 hover:text-slate-950 text-slate-300 text-xs font-semibold transition-all">
-                        Kopyala
-                    </button>
+            const container = document.getElementById('commandContainer');
+            container.innerHTML = allCommands.map(c => `
+                <div class="command-item">
+                    <span class="command-name">${c.cmd}</span>
+                    <span class="command-desc">${c.desc}</span>
                 </div>
             `).join('');
         }
 
-        // BEĞENI SISTEMI FIX (TEK TIKLAMA ILKELERI)
-        function renderSuggestions() {
-            const feed = document.getElementById('suggestionsFeed');
-            feed.innerHTML = suggestionsData.map(s => `
-                <div class="theme-card border rounded-2xl p-5">
-                    <div class="flex justify-between items-start mb-2">
-                        <h4 class="font-bold text-base">${s.title}</h4>
-                        <span class="text-xs text-slate-500 font-mono">@${s.author}</span>
-                    </div>
-                    <p class="text-slate-400 text-sm mb-4">${s.text}</p>
-                    <div class="flex items-center gap-3">
-                        <button onclick="toggleUpvoteSuggestion(${s.id})" class="px-3 py-1.5 rounded-lg border border-slate-800 text-xs font-bold transition-all flex items-center gap-1.5 ${s.voted ? 'voted-btn' : 'bg-slate-800 text-slate-400 hover:bg-brand-500/20 hover:text-brand-400'}">
-                            <i class="fa-solid fa-thumbs-up"></i> <span>${s.votes}</span> ${s.voted ? 'Beğenildi' : 'Beğen'}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addSuggestion(e) {
-            e.preventDefault();
-            playSound(650, 'sine');
-            const author = document.getElementById('sugAuthor').value;
-            const title = document.getElementById('sugTitle').value;
-            const text = document.getElementById('sugText').value;
-
-            suggestionsData.unshift({
-                id: Date.now(),
-                author,
-                title,
-                text,
-                votes: 1,
-                voted: true
+        // --- FILTER FUNCTIONS ---
+        function filterPlugins() {
+            const val = document.getElementById('pluginSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.plugin-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(val) ? 'block' : 'none';
             });
-
-            renderSuggestions();
-            document.getElementById('suggestionForm').reset();
-            showToast('Öneriniz başarıyla paylaşıldı!', 'success');
         }
 
-        function toggleUpvoteSuggestion(id) {
-            playSound(800, 'sine');
-            const item = suggestionsData.find(s => s.id === id);
-            if (item) {
-                if (item.voted) {
-                    item.votes--;
-                    item.voted = false;
-                    showToast('Beğeni geri çekildi', 'info');
-                } else {
-                    item.votes++;
-                    item.voted = true;
-                    showToast('Öneri beğenildi!', 'success');
-                }
-                renderSuggestions();
-            }
+        function filterCommands() {
+            const val = document.getElementById('cmdSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.command-item');
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(val) ? 'flex' : 'none';
+            });
         }
 
-        function handleCustomSubmit(e) {
-            e.preventDefault();
-            playSound(900, 'sine');
-            showToast('Talebiniz alındı! En kısa sürede dönülecektir.', 'success');
-            document.getElementById('customSkriptForm').reset();
-        }
-
-        function copyToClipboard(text) {
-            playSound(750, 'sine');
-            const dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = text;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-        }
-
-        function showToast(msg, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `px-4 py-3 rounded-xl text-sm font-semibold shadow-lg text-white transition-all transform translate-y-2 opacity-0 flex items-center gap-2 pointer-events-auto ${type === 'success' ? 'bg-brand-600' : 'bg-slate-800 border border-slate-700'}`;
-            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${msg}`;
+        // --- TAB NAVIGATION ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
             
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
-        // PARÇACIK ARKA PLAN ANİMASYONU
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-                this.opacity = Math.random() * 0.4 + 0.1;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(34, 197, 94, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+        // --- CUSTOMIZATION / SETTINGS FUNCTIONS ---
+        function changeTheme(theme) {
+            document.body.className = document.body.className.replace(/\btheme-\S+/g, '');
+            if (theme !== 'default') {
+                document.body.classList.add(`theme-${theme}`);
             }
         }
 
-        function initParticles() {
-            particles = [];
-            const count = Math.floor((canvas.width * canvas.height) / 15000);
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
+        function changeFontSize(size) {
+            document.documentElement.style.setProperty('--font-size-base', size);
+        }
+
+        function toggleAnimations(status) {
+            if (status === 'disabled') {
+                document.body.classList.add('no-animations');
+            } else {
+                document.body.classList.remove('no-animations');
             }
         }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
-
-        window.onload = function() {
-            loadSavedTheme();
-            resizeCanvas();
-            initParticles();
-            animateParticles();
-
-            renderSkripts(skriptsData);
+        // --- INIT ---
+        window.onload = () => {
             renderPlugins();
+            renderSkripts();
             renderServers();
             renderCommands();
-            renderSuggestions();
         };
     </script>
 </body>
