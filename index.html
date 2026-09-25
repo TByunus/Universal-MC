@@ -19,7 +19,6 @@
             --transition-speed: 0.3s;
         }
 
-        /* Themes */
         body.theme-cyberpunk {
             --bg-primary: #0d0221;
             --bg-secondary: #02010a;
@@ -73,9 +72,8 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .sidebar {
-            width: 260px;
+            width: 280px;
             background-color: var(--bg-secondary);
             padding: 20px;
             display: flex;
@@ -116,9 +114,8 @@
             color: #fff;
         }
 
-        /* Main Content */
         .main-content {
-            margin-left: 260px;
+            margin-left: 280px;
             flex: 1;
             padding: 30px;
         }
@@ -142,7 +139,6 @@
             margin-bottom: 25px;
         }
 
-        /* Controls / Search Bar */
         .controls-bar {
             display: flex;
             gap: 15px;
@@ -164,10 +160,9 @@
             min-width: 200px;
         }
 
-        /* Grid Cards */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
 
@@ -207,7 +202,6 @@
             border-radius: 4px;
         }
 
-        /* Code Block Style */
         pre {
             background-color: var(--bg-primary);
             padding: 12px;
@@ -218,9 +212,9 @@
             font-size: 0.85rem;
             color: #a5f3fc;
             margin-top: 10px;
+            white-space: pre-wrap;
         }
 
-        /* Settings Customization Form */
         .settings-group {
             background-color: var(--bg-secondary);
             padding: 20px;
@@ -238,7 +232,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -246,7 +240,6 @@
             border-bottom: none;
         }
 
-        /* Command List */
         .command-list {
             display: flex;
             flex-direction: column;
@@ -261,23 +254,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
         }
 
         .command-name {
             font-family: monospace;
             font-weight: bold;
             color: var(--accent);
+            white-space: nowrap;
         }
 
         .command-desc {
             color: var(--text-sub);
             font-size: 0.9rem;
+            text-align: right;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2><i class="fa-solid fa-cube"></i> MC Portal</h2>
         <button class="nav-btn active" onclick="switchTab('plugins')"><i class="fa-solid fa-plug"></i> Pluginler (100+)</button>
@@ -287,47 +282,475 @@
         <button class="nav-btn" onclick="switchTab('settings')"><i class="fa-solid fa-sliders"></i> Özelleştirme</button>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
 
-        <!-- TAB: PLUGINS -->
+        <!-- PLUGIN TAB -->
         <div id="plugins" class="tab-content active">
             <h1 class="header-title">Eklenti (Plugin) Kütüphanesi</h1>
-            <p class="description">Sunucunuz için gerekli 100'den fazla popüler eklenti listesi.</p>
+            <p class="description">Sunucu yönetiminde ve oynanışta kullanılan tam 105 popüler eklenti.</p>
             <div class="controls-bar">
-                <input type="text" id="pluginSearch" class="search-input" placeholder="Plugin ara..." onkeyup="filterPlugins()">
+                <input type="text" id="pluginSearch" class="search-input" placeholder="Plugin veya açıklama ara..." onkeyup="filterList('.plugin-card', 'pluginSearch')">
             </div>
-            <div class="grid-container" id="pluginContainer"></div>
+            <div class="grid-container">
+                <div class="card plugin-card"><div class="card-title">LuckPerms <span class="badge">Yetki</span></div><div class="card-desc">Gelişmiş, esnek ve web panelli yetki yönetim eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">Vault <span class="badge">Altyapı</span></div><div class="card-desc">Ekonomi, grup ve sohbet eklentileri arasında köprü kurar.</div></div>
+                <div class="card plugin-card"><div class="card-title">EssentialsX <span class="badge">Temel</span></div><div class="card-desc">Sunucular için 100'den fazla temel komut seti.</div></div>
+                <div class="card plugin-card"><div class="card-title">WorldEdit <span class="badge">Harita</span></div><div class="card-desc">Oyun içinden blok yerleştirme ve harita düzenleme aracı.</div></div>
+                <div class="card plugin-card"><div class="card-title">WorldGuard <span class="badge">Koruma</span></div><div class="card-desc">Belirli alanları koruma altına alma ve bayrak ayarları.</div></div>
+                <div class="card plugin-card"><div class="card-title">ProtocolLib <span class="badge">Kütüphane</span></div><div class="card-desc">Ağ paketlerini işleyen diğer eklentilerin bağımlılık kütüphanesi.</div></div>
+                <div class="card plugin-card"><div class="card-title">Citizens <span class="badge">NPC</span></div><div class="card-desc">Özel insan ve yaratık NPC'leri oluşturma eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">PlaceholderAPI <span class="badge">Değişken</span></div><div class="card-desc">Eklentiler arası bilgi aktarımı ve metin değişkenleri.</div></div>
+                <div class="card plugin-card"><div class="card-title">HolographicDisplays <span class="badge">Görsel</span></div><div class="card-desc">Havada duran metin ve resim yazıları oluşturur.</div></div>
+                <div class="card plugin-card"><div class="card-title">Multiverse-Core <span class="badge">Dünya</span></div><div class="card-desc">Sunucuda birden fazla dünya açma ve yönetme.</div></div>
+                <div class="card plugin-card"><div class="card-title">GSit <span class="badge">Animasyon</span></div><div class="card-desc">Oyuncuların merdiven, yarım blok ve havaya oturmasını sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">ViaVersion <span class="badge">Sürüm</span></div><div class="card-desc">Üst sürümlerdeki oyuncuların sunucuya girmesini sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">ViaBackwards <span class="badge">Sürüm</span></div><div class="card-desc">Alt sürümlerdeki oyuncuların sunucuya erişmesini sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">GrimAC <span class="badge">Güvenlik</span></div><div class="card-desc">Ücretsiz ve modern tahmin tabanlı hile koruma eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">VulcanAC <span class="badge">Güvenlik</span></div><div class="card-desc">Kapsamlı hareket ve combat hilesi engelleme yazılımı.</div></div>
+                <div class="card plugin-card"><div class="card-title">QuickShop-Hikari <span class="badge">Market</span></div><div class="card-desc">Sandık üzerine eşya koyarak kolay pazar kurma.</div></div>
+                <div class="card plugin-card"><div class="card-title">ChestShop <span class="badge">Market</span></div><div class="card-desc">Tabela ve sandık kombinasyonu ile klasik market.</div></div>
+                <div class="card plugin-card"><div class="card-title">AuctionHouse <span class="badge">Pazar</span></div><div class="card-desc">Oyuncuların açık artırma ile eşya satmasını sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">CrazyCrates <span class="badge">Kasa</span></div><div class="card-desc">Animasyonlu ve anahtarlı özel kasa açma sistemi.</div></div>
+                <div class="card plugin-card"><div class="card-title">DecentHolograms <span class="badge">Görsel</span></div><div class="card-desc">Yüksek performanslı yeni nesil hologram eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">TabList <span class="badge">Arayüz</span></div><div class="card-desc">TAB tuşuna basınca açılan oyuncu listesini düzenler.</div></div>
+                <div class="card plugin-card"><div class="card-title">SkinsRestorer <span class="badge">Karakter</span></div><div class="card-desc">Korsan sunucularda skin görünmeme sorununu çözer.</div></div>
+                <div class="card plugin-card"><div class="card-title">CMI <span class="badge">Yönetim</span></div><div class="card-desc">Essentials yerine geçen hepsi-bir-arada dev yönetim sistemi.</div></div>
+                <div class="card plugin-card"><div class="card-title">ClearLag <span class="badge">Optimizasyon</span></div><div class="card-desc">Yerdeki fazla eşyaları silerek lagı azaltır.</div></div>
+                <div class="card plugin-card"><div class="card-title">Spark <span class="badge">Analiz</span></div><div class="card-desc">Sunucu CPU, RAM ve TPS değerlerini profiller.</div></div>
+                <div class="card plugin-card"><div class="card-title">Chunky <span class="badge">Harita</span></div><div class="card-desc">Dünyayı önceden yükleyerek gezinme lagını engeller.</div></div>
+                <div class="card plugin-card"><div class="card-title">ShopGUIPlus <span class="badge">Market</span></div><div class="card-desc">Gelişmiş grafiksel arayüze sahip sanal market.</div></div>
+                <div class="card plugin-card"><div class="card-title">PlayerPoints <span class="badge">Ekonomi</span></div><div class="card-desc">Sunucu içi kredi ve puan para birimi altyapısı.</div></div>
+                <div class="card plugin-card"><div class="card-title">DeluxeMenus <span class="badge">Arayüz</span></div><div class="card-desc">Özel GUI menüleri ve buton yapıları oluşturur.</div></div>
+                <div class="card plugin-card"><div class="card-title">JobsReborn <span class="badge">Meslek</span></div><div class="card-desc">Madenci, oduncu gibi mesleklerle para kazanma.</div></div>
+                <div class="card plugin-card"><div class="card-title">GriefPrevention <span class="badge">Koruma</span></div><div class="card-desc">Altın kürekle kolay alan koruması almayı sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">Towny <span class="badge">Kasaba</span></div><div class="card-desc">Şehirler, uluslar ve vergi sistemleri kurma.</div></div>
+                <div class="card plugin-card"><div class="card-title">Residence <span class="badge">Koruma</span></div><div class="card-desc">3 boyutlu alan kiralama ve koruma eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">AdvancedBan <span class="badge">Yönetim</span></div><div class="card-desc">Gelişmiş ban, mute ve uyarı yönetim paneli.</div></div>
+                <div class="card plugin-card"><div class="card-title">LiteBans <span class="badge">Yönetim</span></div><div class="card-desc">MySQL destekli profesyonel ceza eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">AuthMeReloaded <span class="badge">Güvenlik</span></div><div class="card-desc">Oyuncu kayıt, giriş ve şifreleme sistemi.</div></div>
+                <div class="card plugin-card"><div class="card-title">nLogin <span class="badge">Güvenlik</span></div><div class="card-desc">Hızlı ve modern alternatif giriş yetkilendirmesi.</div></div>
+                <div class="card plugin-card"><div class="card-title">CombatLogX <span class="badge">PvP</span></div><div class="card-desc">Savaştan kaçan oyuncuları cezalandırır.</div></div>
+                <div class="card plugin-card"><div class="card-title">PvPManager <span class="badge">PvP</span></div><div class="card-desc">Özel PvP kuralları ve yeni başlayan koruması.</div></div>
+                <div class="card plugin-card"><div class="card-title">MythicMobs <span class="badge">Yaratık</span></div><div class="card-desc">Özel yetenekli canavarlar ve bosslar oluşturur.</div></div>
+                <div class="card plugin-card"><div class="card-title">MMOItems <span class="badge">Eşya</span></div><div class="card-desc">RPG tarzı özel büyülü ve istatistikli eşyalar.</div></div>
+                <div class="card plugin-card"><div class="card-title">AuraSkills <span class="badge">RPG</span></div><div class="card-desc">Oyuncu yetenek seviyelerini artırma sistemi.</div></div>
+                <div class="card plugin-card"><div class="card-title">mcMMO <span class="badge">RPG</span></div><div class="card-desc">Klasik yetenek ve seviye atlama eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">CoreProtect <span class="badge">Log</span></div><div class="card-desc">Kırma, yerleştirme ve sandık geçmişini kaydeder.</div></div>
+                <div class="card plugin-card"><div class="card-title">LWC Extended <span class="badge">Koruma</span></div><div class="card-desc">Sandık, kapı ve fırın Otomatik kilitleme.</div></div>
+                <div class="card plugin-card"><div class="card-title">MarriageMaster <span class="badge">Sosyal</span></div><div class="card-desc">Oyuncular için oyun içi evlilik sistemi.</div></div>
+                <div class="card plugin-card"><div class="card-title">UltimateClans <span class="badge">Klan</span></div><div class="card-desc">Gelişmiş klan kurma ve klan savaşları.</div></div>
+                <div class="card plugin-card"><div class="card-title">BetterTeams <span class="badge">Takım</span></div><div class="card-desc">Basit ve verimli takım oluşturma mekaniği.</div></div>
+                <div class="card plugin-card"><div class="card-title">SuperVanish <span class="badge">Görünmezlik</span></div><div class="card-desc">Yetkililer için iz bırakmayan gizlenme modları.</div></div>
+                <div class="card plugin-card"><div class="card-title">DiscordSRV <span class="badge">Entagrasyon</span></div><div class="card-desc">Discord ile oyun içi sohbeti birbirine bağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">InteractiveChat <span class="badge">Sohbet</span></div><div class="card-desc">Sohbete [item] yazarak eşya gösterme özelliği.</div></div>
+                <div class="card plugin-card"><div class="card-title">ChatColor <span class="badge">Sohbet</span></div><div class="card-desc">Oyuncuların yazı renklerini değiştirmesini sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">FancyNpcs <span class="badge">NPC</span></div><div class="card-desc">Paket tabanlı modern ve hafif NPC eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">TradeSystem <span class="badge">Ticaret</span></div><div class="card-desc">Oyuncular arasında güvenli takas menüsü.</div></div>
+                <div class="card plugin-card"><div class="card-title">VeinMiner <span class="badge">Maden</span></div><div class="card-desc">Tek bir cevher kırınca tüm damarı yok eder.</div></div>
+                <div class="card plugin-card"><div class="card-title">Timber <span class="badge">Maden</span></div><div class="card-desc">Ağacın en altını kesince tüm ağacı devirir.</div></div>
+                <div class="card plugin-card"><div class="card-title">Dynmap <span class="badge">Harita</span></div><div class="card-desc">Web tarayıcısından canlı harita görüntüsü.</div></div>
+                <div class="card plugin-card"><div class="card-title">Pl3xMap <span class="badge">Harita</span></div><div class="card-desc">Daha hafif ve performanslı web harita seçeneği.</div></div>
+                <div class="card plugin-card"><div class="card-title">HeadsPlus <span class="badge">Koleksiyon</span></div><div class="card-desc">Dekorasyon amaçlı binlerce özel kafa kütüphanesi.</div></div>
+                <div class="card plugin-card"><div class="card-title">ArmorView <span class="badge">İnceleme</span></div><div class="card-desc">Diğer oyuncuların zırh ve envanterini görme.</div></div>
+                <div class="card plugin-card"><div class="card-title">InventoryRollbackPlus <span class="badge">Yedek</span></div><div class="card-desc">Ölen veya eşyası çalınan oyuncunun envanterini geri getirir.</div></div>
+                <div class="card plugin-card"><div class="card-title">ItemEdit <span class="badge">Eşya</span></div><div class="card-desc">Eşyaların ismini ve lore açıklamasını oyun içinde düzenler.</div></div>
+                <div class="card plugin-card"><div class="card-title">CommandPanels <span class="badge">Arayüz</span></div><div class="card-desc">Tıklanabilir özel menüler oluşturma aracı.</div></div>
+                <div class="card plugin-card"><div class="card-title">ConditionalEvents <span class="badge">Mantık</span></div><div class="card-desc">Şartlara bağlı özel oyun içi olaylar tetikler.</div></div>
+                <div class="card plugin-card"><div class="card-title">Skript <span class="badge">Kodlama</span></div><div class="card-desc">İngilizce benzeri basit sözdizimi ile özel eklenti yazma.</div></div>
+                <div class="card plugin-card"><div class="card-title">LuckPermsWeb <span class="badge">Web</span></div><div class="card-desc">LuckPerms arayüzünü tarayıcıya bağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">MiniPlaceholders <span class="badge">Metin</span></div><div class="card-desc">MiniMessage formatlı gelişmiş değişken altyapısı.</div></div>
+                <div class="card plugin-card"><div class="card-title">TAB <span class="badge">Arayüz</span></div><div class="card-desc">Skorbord, TAB ve isim üzeri yazıları yönetir.</div></div>
+                <div class="card plugin-card"><div class="card-title">Scoreboard-revision <span class="badge">Arayüz</span></div><div class="card-desc">Kasım yapmayan hafif skorbord alternatifi.</div></div>
+                <div class="card plugin-card"><div class="card-title">DriveBackupV2 <span class="badge">Yedekleme</span></div><div class="card-desc">Sunucuyu buluta veya Google Drive'a otomatik yedekler.</div></div>
+                <div class="card plugin-card"><div class="card-title">FAWE <span class="badge">Harita</span></div><div class="card-desc">WorldEdit işlemlerini kasmadan çok hızlı yapar.</div></div>
+                <div class="card plugin-card"><div class="card-title">ExplodeLWC <span class="badge">Koruma</span></div><div class="card-desc">Kilitli sandıkların patlamalarda zarar görmesini engeller.</div></div>
+                <div class="card plugin-card"><div class="card-title">BlockLocker <span class="badge">Koruma</span></div><div class="card-desc">Tabela kullanarak sandık kilitleme eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">Sleeper <span class="badge">Dünya</span></div><div class="card-desc">Birkaç kişi yatınca gecenin hızlıca geçmesini sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">HarvesterHoe <span class="badge">Tarım</span></div><div class="card-desc">Gelişmiş otomatik tarım yapan özel çapa.</div></div>
+                <div class="card plugin-card"><div class="card-title">WildStacker <span class="badge">Optimizasyon</span></div><div class="card-desc">Yaratık, spawner ve blokları üst üste istifler.</div></div>
+                <div class="card plugin-card"><div class="card-title">MobStacker <span class="badge">Optimizasyon</span></div><div class="card-desc">Aşırı yaratık doğmasını engelleyip üst üste toplar.</div></div>
+                <div class="card plugin-card"><div class="card-title">MythicCrucible <span class="badge">Eşya</span></div><div class="card-desc">3D modelleri ve özel büyüleri eşyalara işler.</div></div>
+                <div class="card plugin-card"><div class="card-title">Oraxen <span class="badge">Model</span></div><div class="card-desc">Özel kaynak paketi yükleyerek yeni eşyalar ekler.</div></div>
+                <div class="card plugin-card"><div class="card-title">ItemsAdder <span class="badge">Model</span></div><div class="card-desc">Yeni blok, eşya ve arayüz ekleme altyapısı.</div></div>
+                <div class="card plugin-card"><div class="card-title">ModelEngine <span class="badge">Model</span></div><div class="card-desc">Minecraft'a 3D özel yaratık animasyonları entegre eder.</div></div>
+                <div class="card plugin-card"><div class="card-title">CustomCrafting <span class="badge">Tarif</span></div><div class="card-desc">Çalışma masasına özel eşya tarifleri ekler.</div></div>
+                <div class="card plugin-card"><div class="card-title">EpicRename <span class="badge">Eşya</span></div><div class="card-desc">Eşyaların isimlerini renk kodlarıyla değiştirmeyi sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">SimpleClans <span class="badge">Klan</span></div><div class="card-desc">Geleneksel ve hafif klan eklentisi.</div></div>
+                <div class="card plugin-card"><div class="card-title">CommandAlias <span class="badge">Komut</span></div><div class="card-desc">Uzun komutları kısaltarak çalıştırmayı sağlar.</div></div>
+                <div class="card plugin-card"><div class="card-title">Maintenance <span class="badge">Bakım</span></div><div class="card-desc">Sunucuyu bakıma alma ve özel erişim izni verme.</div></div>
+                <div class="card plugin-card"><div class="card-title">MotdManager <span class="badge">Arayüz</span></div><div class="card-desc">Sunucu listesindeki yazıyı anlık olarak değiştirir.</div></div>
+                <div class="card plugin-card"><div class="card-title">ServerListPlus <span class="badge">Arayüz</span></div><div class="card-desc">Oyuncuya özel dinamik MOTD mesajları gösterir.</div></div>
+                <div class="card plugin-card"><div class="card-title">BungeeGuard <span class="badge">Güvenlik</span></div><div class="card-desc">BungeeCord port açıklarını kapatır.</div></div>
+                <div class="card plugin-card"><div class="card-title">FlameCord <span class="badge">Güvenlik</span></div><div class="card-desc">Bot ve DDOS saldırılarına dirençli Proxy yazılımı.</div></div>
+                <div class="card plugin-card"><div class="card-title">Velocity <span class="badge">Proxy</span></div><div class="card-desc">Yeni nesil yüksek performanslı sunucu bağlama yazılımı.</div></div>
+                <div class="card plugin-card"><div class="card-title">GeyserMC <span class="badge">Çapraz</span></div><div class="card-desc">Bedrock (Mobil/Konsol) oyuncularının Java sunucuya girmesi.</div></div>
+                <div class="card plugin-card"><div class="card-title">Floodgate <span class="badge">Çapraz</span></div><div class="card-desc">Bedrock oyuncularının Java hesabı olmadan girmesi.</div></div>
+                <div class="card plugin-card"><div class="card-title">Chairs <span class="badge">Eğlence</span></div><div class="card-desc">Merdiven bloklarına sağ tıklayarak oturma.</div></div>
+                <div class="card plugin-card"><div class="card-title">Elevators <span class="badge">Ulaşım</span></div><div class="card-desc">Süzülen bloklarla asansör mekaniği oluşturur.</div></div>
+                <div class="card plugin-card"><div class="card-title">ImageOnMap <span class="badge">Görsel</span></div><div class="card-desc">İnternetteki resimleri haritalara yükleme.</div></div>
+                <div class="card plugin-card"><div class="card-title">Shopkeepers <span class="badge">Market</span></div><div class="card-desc">Köylüleri özel eşya satan tüccarlara dönüştürür.</div></div>
+                <div class="card plugin-card"><div class="card-title">ChestSort <span class="badge">Düzen</span></div><div class="card-desc">Sandıkları tek tıkla sıralama sistemi.</div></div>
+                <div class="card plugin-card"><div class="card-title">AutoSmelt <span class="badge">Maden</span></div><div class="card-desc">Kırılan madenleri direkt külçe olarak düşürür.</div></div>
+                <div class="card plugin-card"><div class="card-title">SilkSpawners <span class="badge">Maden</span></div><div class="card-desc">İpek dokunuş kazma ile spawner kırma.</div></div>
+                <div class="card plugin-card"><div class="card-title">LevelledMobs <span class="badge">Mekanik</span></div><div class="card-desc">Oyuncudan uzaklaştıkça yaratıkların seviyesini artırır.</div></div>
+                <div class="card plugin-card"><div class="card-title">EliteMobs <span class="badge">Mekanik</span></div><div class="card-desc">Özel ganimetli ve seviyeli dev bosslar.</div></div>
+                <div class="card plugin-card"><div class="card-title">AngelChest <span class="badge">Mekanik</span></div><div class="card-desc">Ölünce eşyaların lavda yanmasını engelleyen Melek Sandığı.</div></div>
+                <div class="card plugin-card"><div class="card-title">GriefDefender <span class="badge">Koruma</span></div><div class="card-desc">Gelişmiş arazi ve mülk koruma altyapısı.</div></div>
+                <div class="card plugin-card"><div class="card-title">ChunkyBorder <span class="badge">Dünya</span></div><div class="card-desc">Dünya sınırlarını belirleme ve lag yapmasını önleme.</div></div>
+            </div>
         </div>
 
-        <!-- TAB: SKRIPTS -->
+        <!-- SKRIPT TAB -->
         <div id="skripts" class="tab-content">
-            <h1 class="header-title">Hazır Skript Kütüphanesi</h1>
-            <p class="description">Sunucunuza doğrudan ekleyebileceğiniz kullanışlı Skript kodları.</p>
-            <div class="grid-container" id="skriptContainer"></div>
-        </div>
-
-        <!-- TAB: SERVERS -->
-        <div id="servers" class="tab-content">
-            <h1 class="header-title">Popüler Sunucu Önerileri</h1>
-            <p class="description">Global ve Türkiye'nin en bilinen 25+ popüler Minecraft sunucusu.</p>
-            <div class="grid-container" id="serverContainer"></div>
-        </div>
-
-        <!-- TAB: COMMANDS -->
-        <div id="commands" class="tab-content">
-            <h1 class="header-title">Bilinmeyen & İşe Yarar Komutlar</h1>
-            <p class="description">Yöneticiler ve oyuncular için az bilinen 150+ komut rehberi.</p>
-            <div class="controls-bar">
-                <input type="text" id="cmdSearch" class="search-input" placeholder="Komut veya açıklama ara..." onkeyup="filterCommands()">
+            <h1 class="header-title">Hazır Skript Kütüphanesi (21 Adet)</h1>
+            <p class="description">Doğrudan sunucunuza ekleyebileceğiniz hazır `.sk` kodları.</p>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-title">1. Hoş Geldin Mesajı <span class="badge">.sk</span></div>
+                    <pre><code>on join:
+    send "&aSunucuya Hoş Geldin %player%!" to player</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">2. İlk Giriş Ödülü <span class="badge">.sk</span></div>
+                    <pre><code>on first join:
+    give 1 diamond to player
+    broadcast "&e%player% sunucuya ilk kez katıldı!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">3. Sohbet Temizleme <span class="badge">.sk</span></div>
+                    <pre><code>command /cc:
+    permission: op
+    trigger:
+        loop 100 times:
+            broadcast ""
+        broadcast "&cSohbet yetkili tarafından temizlendi!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">4. Otomatik Duyuru <span class="badge">.sk</span></div>
+                    <pre><code>every 5 minutes:
+    broadcast "&b[Duyuru] &fDiscord sunucumuza katılmayı unutmayın!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">5. Gece Atlatıcı <span class="badge">.sk</span></div>
+                    <pre><code>on bed enter:
+    execute console command "time set day"
+    broadcast "&eBiri yatağa girdi, sabah yapılıyor!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">6. Savaştan Kaçış Takibi <span class="badge">.sk</span></div>
+                    <pre><code>on damage of player:
+    set {combat::%victim%} to 10
+    set {combat::%attacker%} to 10</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">7. Giriş Ses Efekti <span class="badge">.sk</span></div>
+                    <pre><code>on join:
+    play sound "entity.player.levelup" to player</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">8. Oyuncu Kafası Alma <span class="badge">.sk</span></div>
+                    <pre><code>command /kafa [<text>]:
+    trigger:
+        give skull of arg-1 to player</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">9. Ölüm Coin Sistemi <span class="badge">.sk</span></div>
+                    <pre><code>variables:
+    {coin::%player%} = 0
+on death of player:
+    add 1 to {coin::%attacker%}
+    send "&aKill aldın! +1 Coin" to attacker</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">10. Sohbet Kilitleme <span class="badge">.sk</span></div>
+                    <pre><code>command /sohbetkapat:
+    permission: op
+    trigger:
+        set {chat.lock} to true
+        broadcast "&cSohbet kapatılmıştır."</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">11. Rastgele Işınlanma (RTP) <span class="badge">.sk</span></div>
+                    <pre><code>command /rtp:
+    trigger:
+        set {_x} to random integer from -500 to 500
+        set {_z} to random integer from -500 to 500
+        teleport player to location({_x}, 70, {_z})</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">12. Özel Ölüm Mesajı <span class="badge">.sk</span></div>
+                    <pre><code>on death of player:
+    set death message to "&c%victim%, %attacker% tarafından yok edildi!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">13. VIP Giriş Duyurusu <span class="badge">.sk</span></div>
+                    <pre><code>on join:
+    player has permission "vip.giris":
+        broadcast "&6[VIP] %player% oyuna bağlandı!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">14. Küfür Engelleyici <span class="badge">.sk</span></div>
+                    <pre><code>on chat:
+    message contains "kötükelime":
+        cancel event
+        send "&cLütfen sohbet kurallarına uyunuz!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">15. Gece Görüşü Verici <span class="badge">.sk</span></div>
+                    <pre><code>command /nv:
+    trigger:
+        apply night vision to player for 999 days</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">16. Can Bilgisi Gösterici <span class="badge">.sk</span></div>
+                    <pre><code>on damage of player:
+    send "&aRakibin Kalan Canı: %health of victim%" to attacker</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">17. Sandık Kitleme (Çubuk ile) <span class="badge">.sk</span></div>
+                    <pre><code>on right click on chest with stick:
+    send "&eBu sandık kilitlendi!" to player</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">18. Süreli Hız Desteği <span class="badge">.sk</span></div>
+                    <pre><code>on join:
+    apply speed 1 to player for 10 seconds</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">19. Çıkış Mesajı <span class="badge">.sk</span></div>
+                    <pre><code>on quit:
+    broadcast "&7%player% oyundan ayrıldı."</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">20. Seviye Ödülü <span class="badge">.sk</span></div>
+                    <pre><code>on level change:
+    give 5 emerald to player
+    send "&aSeviye atladığın için ödül kazandın!"</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-title">21. Otomatik Çöp Kutusu <span class="badge">.sk</span></div>
+                    <pre><code>command /cop:
+    trigger:
+        open chest with 3 rows named "&cÇöp Kutusu" to player</code></pre>
+                </div>
             </div>
-            <div class="command-list" id="commandContainer"></div>
         </div>
 
-        <!-- TAB: SETTINGS -->
+        <!-- SERVER TAB -->
+        <div id="servers" class="tab-content">
+            <h1 class="header-title">Popüler Sunucu Önerileri (25 Adet)</h1>
+            <p class="description">Global ve Türkiye'de öne çıkan Minecraft sunucu adresleri.</p>
+            <div class="grid-container">
+                <div class="card"><div class="card-title">Hypixel <span class="badge">Minigames</span></div><div class="card-desc"><strong>IP:</strong> mc.hypixel.net</div></div>
+                <div class="card"><div class="card-title">2B2T <span class="badge">Anarchy</span></div><div class="card-desc"><strong>IP:</strong> 2b2t.org</div></div>
+                <div class="card"><div class="card-title">Wynncraft <span class="badge">MMORPG</span></div><div class="card-desc"><strong>IP:</strong> play.wynncraft.com</div></div>
+                <div class="card"><div class="card-title">Complex Gaming <span class="badge">Pixelmon</span></div><div class="card-desc"><strong>IP:</strong> hub.mc-complex.com</div></div>
+                <div class="card"><div class="card-title">ManaCube <span class="badge">Parkour</span></div><div class="card-desc"><strong>IP:</strong> play.manacube.net</div></div>
+                <div class="card"><div class="card-title">CubeCraft <span class="badge">Minigames</span></div><div class="card-desc"><strong>IP:</strong> play.cubecraft.net</div></div>
+                <div class="card"><div class="card-title">Minemen Club <span class="badge">PvP Practice</span></div><div class="card-desc"><strong>IP:</strong> na.minemen.club</div></div>
+                <div class="card"><div class="card-title">PvPWizzards <span class="badge">KitPvP</span></div><div class="card-desc"><strong>IP:</strong> pvpwizzards.net</div></div>
+                <div class="card"><div class="card-title">OpBlocks <span class="badge">Prison</span></div><div class="card-desc"><strong>IP:</strong> top.opblocks.com</div></div>
+                <div class="card"><div class="card-title">PurpleOre <span class="badge">SMP</span></div><div class="card-desc"><strong>IP:</strong> purpleore.eu</div></div>
+                <div class="card"><div class="card-title">PikaNetwork <span class="badge">Cracked</span></div><div class="card-desc"><strong>IP:</strong> play.pika-network.net</div></div>
+                <div class="card"><div class="card-title">JartexNetwork <span class="badge">Faction</span></div><div class="card-desc"><strong>IP:</strong> play.jartexnetwork.com</div></div>
+                <div class="card"><div class="card-title">Lunar Network <span class="badge">PvP</span></div><div class="card-desc"><strong>IP:</strong> lunar.gg</div></div>
+                <div class="card"><div class="card-title">CraftRise <span class="badge">TR Minigames</span></div><div class="card-desc"><strong>IP:</strong> play.craftrise.tc</div></div>
+                <div class="card"><div class="card-title">SonOyuncu <span class="badge">TR Minigames</span></div><div class="card-desc"><strong>IP:</strong> play.sonoyuncu.network</div></div>
+                <div class="card"><div class="card-title">GününTR <span class="badge">TR Towny</span></div><div class="card-desc"><strong>IP:</strong> play.gununtr.com</div></div>
+                <div class="card"><div class="card-title">KaderSMP <span class="badge">TR Hardcore</span></div><div class="card-desc"><strong>IP:</strong> play.kadersmp.com</div></div>
+                <div class="card"><div class="card-title">AnadoluCraft <span class="badge">TR Skyblock</span></div><div class="card-desc"><strong>IP:</strong> play.anadolucraft.com</div></div>
+                <div class="card"><div class="card-title">RebornCraft <span class="badge">TR Faction</span></div><div class="card-desc"><strong>IP:</strong> play.reborncraft.pw</div></div>
+                <div class="card"><div class="card-title">Origins-Reborn <span class="badge">Modlu SMP</span></div><div class="card-desc"><strong>IP:</strong> play.originsreborn.net</div></div>
+                <div class="card"><div class="card-title">EarthMC <span class="badge">Dünya Towny</span></div><div class="card-desc"><strong>IP:</strong> play.earthmc.net</div></div>
+                <div class="card"><div class="card-title">DonutSMP <span class="badge">Hardcore</span></div><div class="card-desc"><strong>IP:</strong> donutsmp.net</div></div>
+                <div class="card"><div class="card-title">Lifesteal Net <span class="badge">Lifesteal</span></div><div class="card-desc"><strong>IP:</strong> play.lifesteal.net</div></div>
+                <div class="card"><div class="card-title">Herobrine.org <span class="badge">Survival</span></div><div class="card-desc"><strong>IP:</strong> hub.herobrine.org</div></div>
+                <div class="card"><div class="card-title">InvadedLands <span class="badge">KitPvP</span></div><div class="card-desc"><strong>IP:</strong> invadedlands.net</div></div>
+            </div>
+        </div>
+
+        <!-- COMMANDS TAB -->
+        <div id="commands" class="tab-content">
+            <h1 class="header-title">Gelişmiş Komut Kütüphanesi (150 Adet)</h1>
+            <p class="description">İşe yarar, az bilinen ve yönetimsel komutlar.</p>
+            <div class="controls-bar">
+                <input type="text" id="cmdSearch" class="search-input" placeholder="Komut ara..." onkeyup="filterList('.command-item', 'cmdSearch')">
+            </div>
+            <div class="command-list">
+                <div class="command-item"><span class="command-name">/vanish</span><span class="command-desc">Diğer oyunculardan gizlenmenizi sağlar.</span></div>
+                <div class="command-item"><span class="command-name">/tpahere [oyuncu]</span><span class="command-desc">Oyuncunun sizin yanınıza gelmesi için istek atar.</span></div>
+                <div class="command-item"><span class="command-name">/speed [1-10]</span><span class="command-desc">Uçma veya yürüme hızını belirler.</span></div>
+                <div class="command-item"><span class="command-name">/gamemode creative/survival/spectator</span><span class="command-desc">Oyun modunu değiştirir.</span></div>
+                <div class="command-item"><span class="command-name">/lightning [oyuncu]</span><span class="command-desc">Belirtilen hedefe yıldırım düşürür.</span></div>
+                <div class="command-item"><span class="command-name">/fly</span><span class="command-desc">Uçuş modunu açar veya kapatır.</span></div>
+                <div class="command-item"><span class="command-name">/god</span><span class="command-desc">Ölümsüzlük modunu aktifleştirir.</span></div>
+                <div class="command-item"><span class="command-name">/heal</span><span class="command-desc">Canı ve açlığı yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/feed</span><span class="command-desc">Açlık seviyesini fullemeye yarar.</span></div>
+                <div class="command-item"><span class="command-name">/clear</span><span class="command-desc">Envanteri tamamen temizler.</span></div>
+                <div class="command-item"><span class="command-name">/give [oyuncu] [eşya] [miktar]</span><span class="command-desc">Oyuncunun envanterine eşya verir.</span></div>
+                <div class="command-item"><span class="command-name">/kill [oyuncu]</span><span class="command-desc">Oyuncuyu anında öldürür.</span></div>
+                <div class="command-item"><span class="command-name">/kick [oyuncu] [sebep]</span><span class="command-desc">Oyuncuyu sunucudan atar.</span></div>
+                <div class="command-item"><span class="command-name">/ban [oyuncu] [sebep]</span><span class="command-desc">Oyuncunun sunucuya erişimini yasaklar.</span></div>
+                <div class="command-item"><span class="command-name">/tempban [oyuncu] [süre] [sebep]</span><span class="command-desc">Belirli bir süre için banlar.</span></div>
+                <div class="command-item"><span class="command-name">/unban [oyuncu]</span><span class="command-desc">Yasaklamayı kaldırır.</span></div>
+                <div class="command-item"><span class="command-name">/mute [oyuncu] [süre]</span><span class="command-desc">Sohbette yazı yazmasını engeller.</span></div>
+                <div class="command-item"><span class="command-name">/unmute [oyuncu]</span><span class="command-desc">Sohbet engelini açar.</span></div>
+                <div class="command-item"><span class="command-name">/co rollback u:[oyuncu] t:[süre]</span><span class="command-desc">CoreProtect ile yapılan kırma/koyma işlemlerini geri alır.</span></div>
+                <div class="command-item"><span class="command-name">/co inspect</span><span class="command-desc">Blok geçmişini inceleme modunu açar.</span></div>
+                <div class="command-item"><span class="command-name">/rg define [isim]</span><span class="command-desc">Seçili alanda koruma oluşturur.</span></div>
+                <div class="command-item"><span class="command-name">/rg addowner [alan] [oyuncu]</span><span class="command-desc">Alana sahip yetkisi ekler.</span></div>
+                <div class="command-item"><span class="command-name">/rg flag [alan] pvp deny</span><span class="command-desc">Alanda vuruşmayı engeller.</span></div>
+                <div class="command-item"><span class="command-name">//wand</span><span class="command-desc">WorldEdit seçim baltasını verir.</span></div>
+                <div class="command-item"><span class="command-name">//set [blok]</span><span class="command-desc">Seçilen alanı belirtilen blokla doldurur.</span></div>
+                <div class="command-item"><span class="command-name">//replace [eski] [yeni]</span><span class="command-desc">Mevcut blokları yenisiyle değiştirir.</span></div>
+                <div class="command-item"><span class="command-name">//undo</span><span class="command-desc">Son WorldEdit hamlesini geri alır.</span></div>
+                <div class="command-item"><span class="command-name">//redo</span><span class="command-desc">Geri alınan hamleyi tekrar eder.</span></div>
+                <div class="command-item"><span class="command-name">//copy</span><span class="command-desc">Seçili yapıyı hafızaya kopyalar.</span></div>
+                <div class="command-item"><span class="command-name">//paste</span><span class="command-desc">Kopyalanan yapıyı yapıştırır.</span></div>
+                <div class="command-item"><span class="command-name">//rotate [derece]</span><span class="command-desc">Kopyalanan yapıyı yön olarak çevirir.</span></div>
+                <div class="command-item"><span class="command-name">/lp user [oyuncu] permission set [yetki]</span><span class="command-desc">Oyuncuya özel yetki tanımlar.</span></div>
+                <div class="command-item"><span class="command-name">/lp group [grup] parent add [üstgrup]</span><span class="command-desc">Grupları birbirine bağlar.</span></div>
+                <div class="command-item"><span class="command-name">/lp editor</span><span class="command-desc">LuckPerms web arayüzünü açar.</span></div>
+                <div class="command-item"><span class="command-name">/npc create [isim]</span><span class="command-desc">NPC oluşturur.</span></div>
+                <div class="command-item"><span class="command-name">/npc skin [isim]</span><span class="command-desc">NPC kaplamasını değiştirir.</span></div>
+                <div class="command-item"><span class="command-name">/papi parse me %player_health%</span><span class="command-desc">Değişken çalışmasını kontrol eder.</span></div>
+                <div class="command-item"><span class="command-name">/hd create [isim] [yazı]</span><span class="command-desc">Hologram yazısı oluşturur.</span></div>
+                <div class="command-item"><span class="command-name">/mv create [isim] normal</span><span class="command-desc">Yeni bir dünya yaratır.</span></div>
+                <div class="command-item"><span class="command-name">/mv tp [dünya]</span><span class="command-desc">Dünyalar arası geçiş yapar.</span></div>
+                <div class="command-item"><span class="command-name">/gc</span><span class="command-desc">Sunucu RAM ve TPS performansını gösterir.</span></div>
+                <div class="command-item"><span class="command-name">/spark profiler</span><span class="command-desc">Sunucu performans profilini başlatır.</span></div>
+                <div class="command-item"><span class="command-name">/chunky start</span><span class="command-desc">Ön harita yüklemesini başlatır.</span></div>
+                <div class="command-item"><span class="command-name">/plugman reload [plugin]</span><span class="command-desc">Sadece belirtilen eklentiyi yeniden başlatır.</span></div>
+                <div class="command-item"><span class="command-name">/stop</span><span class="command-desc">Sunucuyu güvenli olarak durdurur.</span></div>
+                <div class="command-item"><span class="command-name">/reload confirm</span><span class="command-desc">Sunucu konfigürasyonlarını yeniler.</span></div>
+                <!-- Devam eden komutlar -->
+                <div class="command-item"><span class="command-name">/op [oyuncu]</span><span class="command-desc">Oyuncuya tam yetki verir.</span></div>
+                <div class="command-item"><span class="command-name">/deop [oyuncu]</span><span class="command-desc">Oyuncunun tam yetkisini alır.</span></div>
+                <div class="command-item"><span class="command-name">/whitelist on</span><span class="command-desc">Beyaz liste modunu aktif eder.</span></div>
+                <div class="command-item"><span class="command-name">/whitelist add [oyuncu]</span><span class="command-desc">Beyaz listeye oyuncu ekler.</span></div>
+                <div class="command-item"><span class="command-name">/gamerule doDaylightCycle false</span><span class="command-desc">Zaman akışını dondurur.</span></div>
+                <div class="command-item"><span class="command-name">/gamerule keepInventory true</span><span class="command-desc">Ölünce eşyaların düşmesini engeller.</span></div>
+                <div class="command-item"><span class="command-name">/gamerule mobGriefing false</span><span class="command-desc">Creeper ve Enderman'lerin blok bozmasını engeller.</span></div>
+                <div class="command-item"><span class="command-name">/gamerule doMobSpawning false</span><span class="command-desc">Doğal yaratık doğmasını kapatır.</span></div>
+                <div class="command-item"><span class="command-name">/gamerule doFireTick false</span><span class="command-desc">Yangının yayılmasını engeller.</span></div>
+                <div class="command-item"><span class="command-name">/time set day</span><span class="command-desc">Saati gündüz yapar.</span></div>
+                <div class="command-item"><span class="command-name">/time set night</span><span class="command-desc">Saati gece yapar.</span></div>
+                <div class="command-item"><span class="command-name">/weather clear</span><span class="command-desc">Hava durumunu güneşli yapar.</span></div>
+                <div class="command-item"><span class="command-name">/weather rain</span><span class="command-desc">Hava durumunu yağmurlu yapar.</span></div>
+                <div class="command-item"><span class="command-name">/effect give [oyuncu] [efekt] [süre] [seviye]</span><span class="command-desc">İksir efekti verir.</span></div>
+                <div class="command-item"><span class="command-name">/effect clear [oyuncu]</span><span class="command-desc">Bütün iksir efektlerini temizler.</span></div>
+                <div class="command-item"><span class="command-name">/enchant [oyuncu] [büyü] [seviye]</span><span class="command-desc">Eldeki eşyaya büyü basar.</span></div>
+                <div class="command-item"><span class="command-name">/worldborder set [boyut]</span><span class="command-desc">Dünya sınırlarını ayarlar.</span></div>
+                <div class="command-item"><span class="command-name">/defaultgamemode [mod]</span><span class="command-desc">Varsayılan oyun modunu seçer.</span></div>
+                <div class="command-item"><span class="command-name">/difficulty peaceful/easy/normal/hard</span><span class="command-desc">Oyun zorluk derecesini ayarlar.</span></div>
+                <div class="command-item"><span class="command-name">/seed</span><span class="command-desc">Dünyanın seed kodunu verir.</span></div>
+                <div class="command-item"><span class="command-name">/setworldspawn</span><span class="command-desc">Dünyanın doğma noktasını ayarlar.</span></div>
+                <div class="command-item"><span class="command-name">/spawnpoint [oyuncu]</span><span class="command-desc">Oyuncunun doğma noktasını ayarlar.</span></div>
+                <div class="command-item"><span class="command-name">/fill [x1 y1 z1] [x2 y2 z2] [blok]</span><span class="command-desc">Koordinatlar arasını doldurur.</span></div>
+                <div class="command-item"><span class="command-name">/clone [x1 y1 z1] [x2 y2 z2] [hedefX hedefY hedefZ]</span><span class="command-desc">Blok alanını kopyalar.</span></div>
+                <div class="command-item"><span class="command-name">/summon [yaratık]</span><span class="command-desc">Yaratık veya obje çağırır.</span></div>
+                <div class="command-item"><span class="command-name">/particle [isim]</span><span class="command-desc">Efekt parçacıkları oluşturur.</span></div>
+                <div class="command-item"><span class="command-name">/playsound [ses]</span><span class="command-desc">Özel ses efektlerini çalar.</span></div>
+                <div class="command-item"><span class="command-name">/title [oyuncu] title [metin]</span><span class="command-desc">Ekrana büyük başlık yazısı yansıtır.</span></div>
+                <div class="command-item"><span class="command-name">/actionbar [oyuncu] [metin]</span><span class="command-desc">Eski eşya barının üstüne yazı yazar.</span></div>
+                <div class="command-item"><span class="command-name">/attribute [oyuncu] [özellik] base set [değer]</span><span class="command-desc">Oyuncu özelliklerini (hız, can vb.) değiştirir.</span></div>
+                <div class="command-item"><span class="command-name">/ban-ip [ip_adresi]</span><span class="command-desc">IP adresini sunucudan engeller.</span></div>
+                <div class="command-item"><span class="command-name">/pardon-ip [ip_adresi]</span><span class="command-desc">IP engelini kaldırır.</span></div>
+                <div class="command-item"><span class="command-name">/save-all</span><span class="command-desc">Haritayı ve verileri anlık kaydeder.</span></div>
+                <div class="command-item"><span class="command-name">/save-off</span><span class="command-desc">Otomatik kaydetmeyi dondurur.</span></div>
+                <div class="command-item"><span class="command-name">/save-on</span><span class="command-desc">Otomatik kaydetmeyi tekrar açar.</span></div>
+                <div class="command-item"><span class="command-name">/debug start</span><span class="command-desc">Sistem hata ayıklama modunu başlatır.</span></div>
+                <div class="command-item"><span class="command-name">/debug stop</span><span class="command-desc">Hata ayıklama modunu durdurur.</span></div>
+                <div class="command-item"><span class="command-name">/recipe give [oyuncu] *</span><span class="command-desc">Bütün tarifleri oyuncuya açar.</span></div>
+                <div class="command-item"><span class="command-name">/advancement grant [oyuncu] everything</span><span class="command-desc">Bütün başarımları verir.</span></div>
+                <div class="command-item"><span class="command-name">/datapack list</span><span class="command-desc">Yüklü veri paketlerini listeler.</span></div>
+                <div class="command-item"><span class="command-name">/forceload add [x] [z]</span><span class="command-desc">Chunk'ı sürekli yüklü tutar.</span></div>
+                <div class="command-item"><span class="command-name">/locate structure [yapı_adı]</span><span class="command-desc">En yakın yapının koordinatını verir.</span></div>
+                <div class="command-item"><span class="command-name">/locate biome [biyom_adı]</span><span class="command-desc">En yakın biyomun koordinatını verir.</span></div>
+                <div class="command-item"><span class="command-name">/place feature [özellik]</span><span class="command-desc">Özel yapı objesi yerleştirir.</span></div>
+                <div class="command-item"><span class="command-name">/spreadplayers [x] [z] [mesafe] [maxMesafe] false [oyuncu]</span><span class="command-desc">Oyuncuları rastgele dağıtır.</span></div>
+                <div class="command-item"><span class="command-name">/team add [takım]</span><span class="command-desc">Skorbord takımı oluşturur.</span></div>
+                <div class="command-item"><span class="command-name">/team join [takım] [oyuncu]</span><span class="command-desc">Oyuncuyu takıma ekler.</span></div>
+                <div class="command-item"><span class="command-name">/scoreboard objectives add [isim] [kriter]</span><span class="command-desc">Skorbord hedefi açar.</span></div>
+                <div class="command-item"><span class="command-name">/scoreboard players set [oyuncu] [hedef] [değer]</span><span class="command-desc">Skorbord değerini ayarlar.</span></div>
+                <div class="command-item"><span class="command-name">/tag [oyuncu] add [etiket]</span><span class="command-desc">Oyuncuya özel etiket ekler.</span></div>
+                <div class="command-item"><span class="command-name">/bossbar add [id] [isim]</span><span class="command-desc">Ekranın üstüne Boss barı ekler.</span></div>
+                <div class="command-item"><span class="command-name">/spectate [hedef]</span><span class="command-desc">İzleyici modunda hedefe kilitlenir.</span></div>
+                <div class="command-item"><span class="command-name">/item replace entity [oyuncu] [slot] with [eşya]</span><span class="command-desc">Belirli slottaki eşyayı değiştirir.</span></div>
+                <div class="command-item"><span class="command-name">/loot give [oyuncu] fish</span><span class="command-desc">Ganimet tablosundan eşya üretir.</span></div>
+                <div class="command-item"><span class="command-name">/schedule function [fonksiyon] [süre]</span><span class="command-desc">Zamanlamış komut çalıştırır.</span></div>
+                <div class="command-item"><span class="command-name">/experience add [oyuncu] [miktar] points</span><span class="command-desc">Tecrübe puanı verir.</span></div>
+                <div class="command-item"><span class="command-name">/experience set [oyuncu] [miktar] levels</span><span class="command-desc">Tecrübe seviyesini sabitler.</span></div>
+                <div class="command-item"><span class="command-name">/kickall</span><span class="command-desc">Sunucudaki herkesi dışarı atar.</span></div>
+                <div class="command-item"><span class="command-name">/sk reload all</span><span class="command-desc">Bütün Skriptleri yeniden yükler.</span></div>
+                <div class="command-item"><span class="command-name">/sk enable [skript]</span><span class="command-desc">Skript dosyasını aktif eder.</span></div>
+                <div class="command-item"><span class="command-name">/sk disable [skript]</span><span class="command-desc">Skript dosyasını deaktif eder.</span></div>
+                <div class="command-item"><span class="command-name">/plugman list</span><span class="command-desc">Yüklü bütün eklentileri listeler.</span></div>
+                <div class="command-item"><span class="command-name">/plugman load [plugin]</span><span class="command-desc">Yeni eklenen eklentiyi yükler.</span></div>
+                <div class="command-item"><span class="command-name">/plugman unload [plugin]</span><span class="command-desc">Eklentiyi devre dışı bırakır.</span></div>
+                <div class="command-item"><span class="command-name">/viaversion displayleaks</span><span class="command-desc">Sürüm uyuşmazlık sızıntılarını kontrol eder.</span></div>
+                <div class="command-item"><span class="command-name">/vault info</span><span class="command-desc">Ekonomi altyapı durumunu raporlar.</span></div>
+                <div class="command-item"><span class="command-name">/worldguard reload</span><span class="command-desc">WorldGuard ayarlarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/worldedit reload</span><span class="command-desc">WorldEdit konfigürasyonunu yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/dynmap fullrender</span><span class="command-desc">Canlı haritayı sıfırdan tamamen işler.</span></div>
+                <div class="command-item"><span class="command-name">/dynmap cancel</span><span class="command-desc">Harita oluşturma işlemini iptal eder.</span></div>
+                <div class="command-item"><span class="command-name">/citizens reload</span><span class="command-desc">NPC ayarlarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/authme reload</span><span class="command-desc">Giriş eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/holograms reload</span><span class="command-desc">Hologram verilerini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/crazycrates reload</span><span class="command-desc">Kasa ayarlarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/cmi reload</span><span class="command-desc">CMI eklentisini günceller.</span></div>
+                <div class="command-item"><span class="command-name">/essentials reload</span><span class="command-desc">Essentials ayarlarını sıfırlar.</span></div>
+                <div class="command-item"><span class="command-name">/multiverse reload</span><span class="command-desc">Dünya bağlantılarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/placeholderapi reload</span><span class="command-desc">Değişken entegrasyonunu yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/skinsrestorer reload</span><span class="command-desc">Skin servisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/clearlag reload</span><span class="command-desc">Temizlik eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/auctionhouse reload</span><span class="command-desc">Pazar sistemini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/shopguiplus reload</span><span class="command-desc">Market menülerini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/playerpoints reload</span><span class="command-desc">Puan eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/deluxemenus reload</span><span class="command-desc">Menü dosyalarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/jobs reload</span><span class="command-desc">Meslek oranlarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/griefprevention reload</span><span class="command-desc">Claim eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/towny reload</span><span class="command-desc">Kasaba ayarlarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/residence reload</span><span class="command-desc">Alan kiralama ayarlarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/advancedban reload</span><span class="command-desc">Ceza eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/litebans reload</span><span class="command-desc">Veritabanı ceza sistemini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/combatlogx reload</span><span class="command-desc">Savaş engeli eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/mythicmobs reload</span><span class="command-desc">Özel canavarları yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/mmoitems reload</span><span class="command-desc">Özel eşyaları yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/auraskills reload</span><span class="command-desc">Yetenek eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/mcmmo reload</span><span class="command-desc">Seviye sistemini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/coreprotect reload</span><span class="command-desc">Loglama eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/marriagemaster reload</span><span class="command-desc">Evlilik eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/ultimateclans reload</span><span class="command-desc">Klan sistemini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/supervanish reload</span><span class="command-desc">Gizlenme eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/discordsrv reload</span><span class="command-desc">Bot bağlantısını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/trade reload</span><span class="command-desc">Takas eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/veinminer reload</span><span class="command-desc">Maden kırma eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/headsplus reload</span><span class="command-desc">Kafa kütüphanesini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/itemedit reload</span><span class="command-desc">Eşya düzenleyiciyi yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/commandpanels reload</span><span class="command-desc">Panel menülerini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/conditionalevents reload</span><span class="command-desc">Olay eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/tab reload</span><span class="command-desc">TAB ve Skorbordu yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/drivebackup reload</span><span class="command-desc">Yedekleme sistemini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/harvesterhoe reload</span><span class="command-desc">Çapa eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/wildstacker reload</span><span class="command-desc">İstifleme sistemini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/oraxen reload</span><span class="command-desc">Özel kaplamaları yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/itemsadder reload</span><span class="command-desc">Eşya ve modelleri yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/modelengine reload</span><span class="command-desc">3D modelleri yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/customcrafting reload</span><span class="command-desc">Özel tarifleri yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/maintenance reload</span><span class="command-desc">Bakım modunu yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/geyser reload</span><span class="command-desc">Bedrock köprüsünü yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/shopkeepers reload</span><span class="command-desc">Köylü tüccarları yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/chestsort reload</span><span class="command-desc">Düzenleme eklentisini yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/silkspawners reload</span><span class="command-desc">Spawner kırma ayarlarını yeniler.</span></div>
+                <div class="command-item"><span class="command-name">/elitemobs reload</span><span class="command-desc">Boss eklentisini yeniler.</span></div>
+            </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
         <div id="settings" class="tab-content">
             <h1 class="header-title">Site Görünüm Kişiselleştirme</h1>
-            <p class="description">Arayüz renklerini, font boyutlarını ve görsel ayarları özelleştirin.</p>
+            <p class="description">Arayüz renklerini, font boyutlarını ve görsel modları özelleştirin.</p>
             
             <div class="settings-group">
                 <h3>Tema Seçenekleri</h3>
@@ -365,222 +788,6 @@
     </div>
 
     <script>
-        // --- 100+ PLUGINS DATA ---
-        const rawPlugins = [
-            "LuckPerms: Modern yetki yönetim eklentisi.", "Vault: Ekonomi ve yetki entegrasyon altyapısı.", "EssentialsX: 100'den fazla temel komut seti.", 
-            "WorldEdit: Hızlı harita düzenleme ve inşa aracı.", "WorldGuard: Alan koruma ve bayrak yönetim sistemi.", "ProtocolLib: Ağ paketlerini işleme kütüphanesi.", 
-            "Citizens: Özel NPC oluşturma ve yönetme.", "PlaceholderAPI: Değişken ve istatistik entegrasyonu.", "HolographicDisplays: Havada asılı metinler oluşturma.", 
-            "Multiverse-Core: Birden fazla dünya yönetimi.", "GSit: Oyuncuların her yere oturmasını sağlar.", "ViaVersion: Üst sürümlerin girmesini sağlar.", 
-            "ViaBackwards: Alt sürümlerin girmesini sağlar.", "GrimAC: Gelişmiş modern hile koruması.", "VulcanAC: Ücretli premium hile engelleme eklentisi.", 
-            "QuickShop-Hikari: Kolay göğüs mağaza sistemi.", "ChestShop: Tabela tabanlı klasik market eklentisi.", "AuctionHouse: Oyuncu pazarı ve ihale sistemi.", 
-            "CrazyCrates: Animasyonlu kasa eklentisi.", "DecentHolograms: Performanslı yeni nesil hologramlar.", "TabList: Özelleştirilebilir TAB tablosu.", 
-            "SkinsRestorer: Korsan sunucularda skin yükleme.", "CMI: Essentials yerine geçen devasa hepsi-bir-ada eklenti.", "ClearLag: Sunucu lagını azaltmak için yerdeki eşyaları siler.", 
-            "Spark: Sunucu performansını analiz etme profileri.", "Chunky: Dünyayı önceden yükleyerek lag engelleme.", "ShopGUIPlus: Menülü gelişmiş market eklentisi.", 
-            "PlayerPoints: İkinci para birimi (Kredi) sistemi.", "DeluxeMenus: Özelleştirilebilir envanter menüleri.", "JobsReborn: Oyuncular için meslek sistemi.", 
-            "GriefPrevention: Altın kürekle kolay claim atma.", "Towny: Şehirler ve uluslar kurma eklentisi.", "Residence: Detaylı ev ve alan koruma.", 
-            "AdvancedBan: Gelişmiş ceza ve ban yönetimi.", "LiteBans: Veritabanı destekli profesyonel ban eklentisi.", "AuthMeReloaded: Oyuncu kayıt ve giriş eklentisi.", 
-            "nLogin: Hızlı ve güvenli modern giriş eklentisi.", "CombatLogX: Savaştan kaçmayı engelleyen sistem.", "PvPManager: Özel PvP kuralları ve koruması.", 
-            "MythicMobs: Özel canavarlar ve patronlar tasarlama.", "MMOItems: Özel büyülü ve yetenekli eşyalar.", "AuraSkills: RPG tarzı seviye ve yetenek geliştirme.", 
-            "mcMMO: Klasik beceri geliştirme eklentisi.", "CoreProtect: Blok kırma ve yerleştirme kayıtlarını tutar.", "LWC Extended: Sandık ve kapı kilitleme.", 
-            "MarriageMaster: Oyuncular için evlilik sistemi.", "UltimateClans: Gelişmiş klan oluşturma eklentisi.", "BetterTeams: Takım kurma eklentisi.", 
-            "SuperVanish: Gelişmiş gizlenme ve izleme eklentisi.", "DiscordSRV: Sunucuyu Discord ile bağlama.", "InteractiveChat: Sohbet alanında eşya gösterme [item].", 
-            "ChatColor: Renkli yazı yazma seçeneği.", "FancyNpcs: Yeni nesil hafif NPC eklentisi.", "TradeSystem: Oyuncular arası güvenli takas.", 
-            "VeinMiner: Madenleri tek seferde topluca kırma.", "Timber: Ağaçları altından keserek komple devirme.", "Dynmap: Web tabanlı canlı harita.", 
-            "Pl3xMap: Hızlı ve hafif web haritası.", "HeadsPlus: Dekoratif kafa toplama eklentisi.", "ArmorView: Oyuncuların zırhlarını görüntüleme.", 
-            "InventoryRollbackPlus: Envanter geçmişini kaydetme ve geri yükleme.", "ItemEdit: Eşyaların adını ve açıklamasını kolayca değiştirme.", "CommandPanels: Menü ve buton oluşturucu.", 
-            "ConditionalEvents: Şarta bağlı özel olay tetikleyici.", "Skript: Özel kod yazma platformu.", "LuckPermsWeb: Web panelinden yetki düzenleme.", 
-            "MiniPlaceholders: MiniMessage destekli değişkenler.", "TAB: Premium kalitesinde skorbord ve TAB eklentisi.", "Scoreboard-revision: Hafif skorbord eklentisi.", 
-            "DriveBackupV2: Sunucu dosyalarını Google Drive'a yedekleme.", "FastAsyncWorldEdit (FAWE): Kasma yapmayan WorldEdit.", "ExplodeLWC: Patlama korumaları.", 
-            "BlockLocker: Tabela ile sandık koruma.", "Sleeper: Geceyi hızlı geçme eklentisi.", "HarvesterHoe: Otomatik ekin toplama çapa eklentisi.", 
-            "WildStacker: Canavar ve blokları üst üste istifleme.", "MobStacker: Yaratık lagını azaltma.", "MythicCrucible: Özel 3D model ve eşya entegrasyonu.", 
-            "Oraxen: Özel doku paketleri ve eşya ekleme.", "ItemsAdder: Özel blok, eşya ve arayüzler tasarlama.", "ModelEngine: 3D özel yaratık modelleri ekleme.", 
-            "CustomCrafting: Özel çalışma masası tarifleri.", "EpicRename: Renkli eşya isimlendirme.", "SimpleClans: Klasik klan eklentisi.", 
-            "CommandAlias: Komut kısaltma ve yönlendirme.", "Maintenance: Sunucu bakım modu eklentisi.", "MotdManager: Sunucu listesi açıklama değiştirici.", 
-            "ServerListPlus: Gelişmiş MOTD özelleştirici.", "BungeeGuard: BungeeCord sunucu güvenlik koruması.", "FlameCord: Bot ve DDOS korumalı Bungee Forku.", 
-            "Velocity: Yeni nesil hızlı proxy yazılımı.", "GeyserMC: Bedrock (Mobil/Konsol) oyuncularının katılımını sağlama.", "Floodgate: Şifresiz Bedrock girişi.", 
-            "SkinsRestorer-Bungee: Ağ geneli skin senkronizasyonu.", "LuckPermsBungee: Proxy yetki yönetimi.", "Chairs: Merdivenlere oturma özelliği.", 
-            "Elevators: Asansör blokları oluşturma.", "ImageOnMap: Resimleri çerçevelere harita olarak koyma.", "Shopkeepers: Köylü ticaret mağazaları.", 
-            "ChestSort: Sandıkları tek tıkla düzenleme.", "AutoSmelt: Madenleri otomatik pişirme.", "SilkSpawners: İpek dokunuş ile spawner alma.", 
-            "LevelledMobs: Yaratıklara seviye sistemi ekleme.", "EliteMobs: RPG tarzı zindan ve zombi patronları.", "AngelChest: Ölünce eşyaları melek sandığında saklama."
-        ];
-
-        // --- 20+ SKRIPTS DATA ---
-        const skriptsData = [
-            { title: "Giriş Mesajı", code: "on join:\n    send \"&aSunucuya Hoş Geldin!\" to player" },
-            { title: "İlk Giriş Ödülü", code: "on first join:\n    give 1 diamond to player\n    broadcast \"&e%player% ilk kez katıldı!\"" },
-            { title: "Sohbet Temizle", code: "command /cc:\n    permission: op\n    trigger:\n        loop 100 times:\n            broadcast \"\"\n        broadcast \"&cSohbet temizlendi!\"" },
-            { title: "Otomatik Duyuru", code: "every 5 minutes:\n    broadcast \"&b[Duyuru] &fDiscord sunucumuza katılmayı unutmayın!\"" },
-            { title: "Geceyi Atla", code: "on bed enter:\n    make console execute command \"time set day\"" },
-            { title: "Savaştan Kaçış Engeli", code: "on damage of player:\n    set {combat::%victim%} to 10" },
-            { title: "Giriş Ses Efekti", code: "on join:\n    play sound \"entity.player.levelup\" to player" },
-            { title: "Özel Kafa Alma", code: "command /kafa [<text>]:\n    trigger:\n        give skull of arg-1 to player" },
-            { title: "Coin Sistemi", code: "variables:\n    {coin::%player%} = 0\non death:\n    add 1 to {coin::%attacker%}" },
-            { title: "Sohbet Kapatma", code: "command /sohbetkapat:\n    trigger:\n        set {chat.lock} to true\n        broadcast \"&cSohbet kapatıldı.\"" },
-            { title: "Rastgele Işınlanma (RTP)", code: "command /rtp:\n    trigger:\n        teleport player to location(random num from -500 to 500, 70, random num from -500 to 500)" },
-            { title: "Ölüm Bildirimi", code: "on death of player:\n    broadcast \"&c%victim%, %attacker% tarafından katledildi!\"" },
-            { title: "Vip Anons", code: "on join:\n    player has permission \"vip.efekt\"\n    broadcast \"&6[VIP] %player% sunucuya bağlandı!\"" },
-            { title: "Anti-Swear (Küfür Engel)", code: "on chat:\n    message contains \"küfür1\":\n        cancel event\n        send \"&cAhlaklı ol!\"" },
-            { title: "Gece Görüşü Komutu", code: "command /nv:\n    trigger:\n        apply night vision to player for 999 days" },
-            { title: "Can Göstergesi", code: "on damage of player:\n    send \"&aRakip Canı: %health of victim%\" to attacker" },
-            { title: "Sandık Kitleme", code: "on right click on chest with stick:\n    send \"&eSandık kilitlendi!\"" },
-            { title: "Girişte Hız Ver", code: "on join:\n    apply speed 1 to player for 10 seconds" },
-            { title: "Gruptan Ayrılma Engel", code: "on quit:\n    broadcast \"&7%player% oyundan ayrıldı.\"" },
-            { title: "Level Ödülü", code: "on level change:\n    give 5 emerald to player" },
-            { title: "Top Kill Skor Bordo", code: "command /topkills:\n    trigger:\n        send \"&aEn çok öldürenler sıralaması güncellendi.\"" }
-        ];
-
-        // --- 25+ SERVERS DATA ---
-        const serversData = [
-            { name: "Hypixel", ip: "mc.hypixel.net", mode: "Minigames / SkyBlock" },
-            { name: "2B2T", ip: "2b2t.org", mode: "Anarchy (Kuralsız)" },
-            { name: "Wynncraft", ip: "play.wynncraft.com", mode: "MMORPG" },
-            { name: "Complex Gaming", ip: "hub.mc-complex.com", mode: "Pixelmon / Creative / Skyblock" },
-            { name: "ManaCube", ip: "play.manacube.net", mode: "Parkour / Survival" },
-            { name: "CubeCraft", ip: "play.cubecraft.net", mode: "Minigames" },
-            { name: "Minemen Club", ip: "na.minemen.club", mode: "PvP Practice" },
-            { name: "PvPWizzards", ip: "pvpwizzards.net", mode: "KitPvP" },
-            { name: "OpBlocks", ip: "top.opblocks.com", mode: "OP Prison / Skyblock" },
-            { name: "PurpleOre", ip: "purpleore.eu", mode: "SMP / Anarchy" },
-            { name: "PikaNetwork", ip: "play.pika-network.net", mode: "Cracked Minigames" },
-            { name: "JartexNetwork", ip: "play.jartexnetwork.com", mode: "Faction / Skyblock" },
-            { name: "Lunar Network", ip: "lunar.gg", mode: "PvP / Practice" },
-            { name: "CraftRise", ip: "play.craftrise.tc", mode: "TR Minigames" },
-            { name: "SonOyuncu", ip: "play.sonoyuncu.network", mode: "TR Minigames / Survival" },
-            { name: "GününTR", ip: "play.gununtr.com", mode: "TR Towny" },
-            { name: "KaderSMP", ip: "play.kadersmp.com", mode: "TR Hardcore Survival" },
-            { name: "AnadoluCraft", ip: "play.anadolucraft.com", mode: "TR Skyblock" },
-            { name: "RebornCraft", ip: "play.reborncraft.pw", mode: "TR Faction" },
-            { name: "Origins-Reborn", ip: "play.originsreborn.net", mode: "Modlu Survival" },
-            { name: "EarthMC", ip: "play.earthmc.net", mode: "Dünya Haritası Towny" },
-            { name: "DonutSMP", ip: "donutsmp.net", mode: "Hardcore SMP" },
-            { name: "Lifesteal Network", ip: "play.lifesteal.net", mode: "Lifesteal SMP" },
-            { name: "Herobrine.org", ip: "hub.herobrine.org", mode: "Survival / Bedwars" },
-            { name: "InvadedLands", ip: "invadedlands.net", mode: "KitPvP / Skyblock" }
-        ];
-
-        // --- 150+ COMMANDS GENERATOR DATA ---
-        const commandCategories = [
-            { cmd: "/vanish veya /v", desc: "Tamamen görünmez olmanızı sağlar." },
-            { cmd: "/tpahere [oyuncu]", desc: "Oyuncuya yanınıza gelmesi için istek atar." },
-            { cmd: "/speed [1-10]", desc: "Uçma veya yürüme hızını ayarlar." },
-            { cmd: "/gamemode creative/survival/spectator", desc: "Oyun modunu değiştirir." },
-            { cmd: "/lightning [oyuncu]", desc: "Belirtilen konuma veya oyuncuya yıldırım düşürür." },
-            { cmd: "/fly", desc: "Uçuş modunu açar veya kapatır." },
-            { cmd: "/god", desc: "Ölümsüzlük modunu etkinleştirir." },
-            { cmd: "/heal", desc: "Canı ve açlığı tamamen doldurur." },
-            { cmd: "/feed", desc: "Açlık barını doldurur." },
-            { cmd: "/clear", desc: "Envanteri tamamen temizler." },
-            { cmd: "/give [oyuncu] [eşya] [miktar]", desc: "Oyuncuya eşya verir." },
-            { cmd: "/kill [oyuncu]", desc: "Hedef oyuncuyu öldürür." },
-            { cmd: "/kick [oyuncu] [sebep]", desc: "Oyuncuyu sunucudan atar." },
-            { cmd: "/ban [oyuncu] [sebep]", desc: "Oyuncuyu sunucudan yasaklar." },
-            { cmd: "/tempban [oyuncu] [süre] [sebep]", desc: "Süreli ban atar." },
-            { cmd: "/unban [oyuncu]", desc: "Yasağı kaldırır." },
-            { cmd: "/mute [oyuncu] [süre]", desc: "Oyuncunun sohbet etmesini engeller." },
-            { cmd: "/unmute [oyuncu]", desc: "Sohbet engelini kaldırır." },
-            { cmd: "/co rollback u:[oyuncu] t:[süre]", desc: "CoreProtect kırma/koyma işlemlerini geri alır." },
-            { cmd: "/co inspect", desc: "Blok geçmişini inceleme modunu açar." },
-            { cmd: "/rg define [isim]", desc: "WorldGuard ile alan koruması tanımlar." },
-            { cmd: "/rg addowner [alan] [oyuncu]", desc: "Alana sahip ekler." },
-            { cmd: "/rg flag [alan] pvp deny", desc: "Alanda PvP'yi kapatır." },
-            { cmd: "///wand", desc: "WorldEdit tahta baltasını verir." },
-            { cmd: "//set [blok]", desc: "Seçili alanı seçilen blokla doldurur." },
-            { cmd: "//replace [eski] [yeni]", desc: "Blokları dönüştürür." },
-            { cmd: "//undo", desc: "Son yapılan WorldEdit işlemini geri alır." },
-            { cmd: "//redo", desc: "Geri alınan işlemi tekrar uygular." },
-            { cmd: "//copy", desc: "Seçili alanı panoya kopyalar." },
-            { cmd: "//paste", desc: "Kopyalanan alanı yapıştırır." },
-            { cmd: "//rotate [açı]", desc: "Kopyalanan yapıyı döndürür." },
-            { cmd: "/lp user [oyuncu] permission set [yetki]", desc: "Oyuncuya özel yetki verir." },
-            { cmd: "/lp group [grup] parent add [üstgrup]", desc: "Grup hiyerarşisi oluşturur." },
-            { cmd: "/lp editor", desc: "LuckPerms web panel bağlantısını açar." },
-            { cmd: "/npc create [isim]", desc: "Citizens ile NPC oluşturur." },
-            { cmd: "/npc skin [skin_adı]", desc: "NPC görünümünü değiştirir." },
-            { cmd: "/papi parse me %player_health%", desc: "Placeholder testi yapar." },
-            { cmd: "/hd create [isim] [metin]", desc: "Hologram oluşturur." },
-            { cmd: "/mv create [dünya] normal", desc: "Yeni dünya oluşturur." },
-            { cmd: "/mv tp [dünya]", desc: "Dünyalar arası ışınlanır." },
-            { cmd: "/gc veya /lag", desc: "Sunucu RAM ve TPS durumunu gösterir." },
-            { cmd: "/spark profiler", desc: "Sunucu lag analizini başlatır." },
-            { cmd: "/chunky start", desc: "Dünya ön yüklemesini başlatır." },
-            { cmd: "/plugman reload [plugin]", desc: "Pluginleri yeniden başlatır." },
-            { cmd: "/stop", desc: "Sunucuyu güvenli şekilde kapatır." },
-            { cmd: "/reload confirm", desc: "Sunucu konfigürasyonlarını yeniler." }
-        ];
-
-        // Fill remaining commands to reach 150+
-        let allCommands = [...commandCategories];
-        for(let i = allCommands.length + 1; i <= 155; i++) {
-            allCommands.push({
-                cmd: `/sys-debug-cmd-${i}`,
-                desc: `Gelişmiş Yönetim & Sistem Parametresi #${i} (Sistem entegrasyon komutu)`
-            });
-        }
-
-        // --- RENDER FUNCTIONS ---
-        function renderPlugins() {
-            const container = document.getElementById('pluginContainer');
-            container.innerHTML = rawPlugins.map(p => {
-                const [title, desc] = p.split(':');
-                return `
-                    <div class="card plugin-card">
-                        <div class="card-title">${title} <span class="badge">Eklenti</span></div>
-                        <div class="card-desc">${desc || ''}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function renderSkripts() {
-            const container = document.getElementById('skriptContainer');
-            container.innerHTML = skriptsData.map(s => `
-                <div class="card">
-                    <div class="card-title">${s.title} <span class="badge">.sk</span></div>
-                    <pre><code>${s.code}</code></pre>
-                </div>
-            `).join('');
-        }
-
-        function renderServers() {
-            const container = document.getElementById('serverContainer');
-            container.innerHTML = serversData.map(s => `
-                <div class="card">
-                    <div class="card-title">${s.name} <span class="badge">${s.mode}</span></div>
-                    <div class="card-desc"><strong>IP:</strong> ${s.ip}</div>
-                </div>
-            `).join('');
-        }
-
-        function renderCommands() {
-            const container = document.getElementById('commandContainer');
-            container.innerHTML = allCommands.map(c => `
-                <div class="command-item">
-                    <span class="command-name">${c.cmd}</span>
-                    <span class="command-desc">${c.desc}</span>
-                </div>
-            `).join('');
-        }
-
-        // --- FILTER FUNCTIONS ---
-        function filterPlugins() {
-            const val = document.getElementById('pluginSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.plugin-card');
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                card.style.display = text.includes(val) ? 'block' : 'none';
-            });
-        }
-
-        function filterCommands() {
-            const val = document.getElementById('cmdSearch').value.toLowerCase();
-            const items = document.querySelectorAll('.command-item');
-            items.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                item.style.display = text.includes(val) ? 'flex' : 'none';
-            });
-        }
-
-        // --- TAB NAVIGATION ---
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -589,7 +796,15 @@
             event.currentTarget.classList.add('active');
         }
 
-        // --- CUSTOMIZATION / SETTINGS FUNCTIONS ---
+        function filterList(selector, inputId) {
+            const val = document.getElementById(inputId).value.toLowerCase();
+            const items = document.querySelectorAll(selector);
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(val) ? '' : 'none';
+            });
+        }
+
         function changeTheme(theme) {
             document.body.className = document.body.className.replace(/\btheme-\S+/g, '');
             if (theme !== 'default') {
@@ -608,14 +823,6 @@
                 document.body.classList.remove('no-animations');
             }
         }
-
-        // --- INIT ---
-        window.onload = () => {
-            renderPlugins();
-            renderSkripts();
-            renderServers();
-            renderCommands();
-        };
     </script>
 </body>
 </html>
