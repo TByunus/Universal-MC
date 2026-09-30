@@ -1,750 +1,1262 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<html lang="tr" class="dark">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Sunucu Kurucusu ve Geliştirici Rehberi v3.0</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="cUadzSujMXm64sqI7Hf54Mth5t3LiscyLdtTgQLJ">
+    <script>
+        (function () {
+            window.applyAppTheme = function () {
+                var html = document.documentElement;
+                var body = document.body;
+                html.classList.add('dark');
+                html.dataset.theme = 'dark';
+                html.style.colorScheme = 'dark';
+                html.style.backgroundColor = '#09090b';
+                if (body) body.style.backgroundColor = '#09090b';
+            };
+
+            try {
+                localStorage.setItem('darkMode', 'true');
+                window.applyAppTheme();
+            } catch (e) {
+                window.applyAppTheme();
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                try {
+                    localStorage.setItem('darkMode', 'true');
+                    window.applyAppTheme();
+                } catch (e) {}
+                if (typeof window.startHeaderClock === 'function') {
+                    window.startHeaderClock();
+                }
+            });
+
+            document.addEventListener('livewire:navigated', function () {
+                try {
+                    localStorage.setItem('darkMode', 'true');
+                    window.applyAppTheme();
+                } catch (e) {}
+                if (typeof window.startHeaderClock === 'function') {
+                    window.startHeaderClock();
+                }
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            var formatter = new Intl.DateTimeFormat('tr-TR', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            window.updateHeaderClock = function () {
+                var el = document.getElementById('header-clock');
+                if (!el) return;
+                el.textContent = formatter.format(new Date());
+            };
+
+            window.startHeaderClock = function () {
+                if (window.__headerClockTimer) {
+                    clearInterval(window.__headerClockTimer);
+                }
+                window.updateHeaderClock();
+                window.__headerClockTimer = setInterval(window.updateHeaderClock, 60000);
+            };
+        })();
+    </script>
+
+    <title>TeknoX AI - 5B Digital Eğitim</title>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+
+    <link rel="preload" as="style" href="https://5bdigitalegitim.com/build/assets/app-Ddt9m5bu.css" /><link rel="preload" as="style" href="https://5bdigitalegitim.com/build/assets/app-DVOY9FJe.css" /><link rel="modulepreload" as="script" href="https://5bdigitalegitim.com/build/assets/app-UwAZsJkY.js" /><link rel="modulepreload" as="script" href="https://5bdigitalegitim.com/build/assets/tr-phone-mask-Bqvt5Ak7.js" /><link rel="stylesheet" href="https://5bdigitalegitim.com/build/assets/app-Ddt9m5bu.css" data-navigate-track="reload" /><link rel="stylesheet" href="https://5bdigitalegitim.com/build/assets/app-DVOY9FJe.css" data-navigate-track="reload" /><script type="module" src="https://5bdigitalegitim.com/build/assets/app-UwAZsJkY.js" data-navigate-track="reload"></script>    <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+
+
+    <script type="text/javascript" src="https://5bdigitalegitim.com/jwplayer/jwplayer.js"></script>
+    <script type="text/javascript">
+        window.__jwPlayerLicenseKey = 'WbtWzGvcRNi6Tk+gtKldIbx+nn6lXZFvKiaO2g==';
+
+        (function ensureJwPlayerKey(maxRetry = 60, intervalMs = 100) {
+            let retryCount = 0;
+
+            const applyKey = () => {
+                if (window.jwplayer && typeof window.jwplayer === 'function') {
+                    window.jwplayer.key = window.__jwPlayerLicenseKey;
+                    return true;
+                }
+
+                return false;
+            };
+
+            if (applyKey()) return;
+
+            const timer = setInterval(() => {
+                retryCount++;
+
+                if (applyKey() || retryCount >= maxRetry) {
+                    clearInterval(timer);
+                }
+            }, intervalMs);
+        })();
+    </script>
     <style>
-        :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: #334155;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8;
-            --accent-hover: #0284c7;
-            --border: #475569;
-            --font-size: 16px;
-        }
-
-        [data-theme="light"] {
-            --bg-primary: #f1f5f9;
-            --bg-secondary: #e2e8f0;
-            --bg-card: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --accent: #0284c7;
-            --accent-hover: #0369a1;
-            --border: #cbd5e1;
-        }
-
-        [data-theme="cyberpunk"] {
-            --bg-primary: #000000;
-            --bg-secondary: #121212;
-            --bg-card: #1f1f00;
-            --text-primary: #ffe600;
-            --text-secondary: #00ffcc;
-            --accent: #ffe600;
-            --accent-hover: #cca800;
-            --border: #ffe600;
-        }
-
-        [data-theme="neon"] {
-            --bg-primary: #090014;
-            --bg-secondary: #16002c;
-            --bg-card: #27004d;
-            --text-primary: #ff007f;
-            --text-secondary: #00f0ff;
-            --accent: #ff007f;
-            --accent-hover: #cc0066;
-            --border: #7b00ff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-size: var(--font-size);
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar Navigasyon */
-        .sidebar {
-            width: 280px;
-            background-color: var(--bg-secondary);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid var(--border);
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .sidebar h2 {
-            margin-bottom: 20px;
-            color: var(--accent);
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .nav-links li a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-
-        .nav-links li a:hover, .nav-links li a.active {
-            background-color: var(--accent);
-            color: #fff;
-        }
-
-        /* Ana İçerik */
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 30px;
-            max-width: 1400px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .search-box {
-            position: relative;
-            width: 300px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 10px 15px 10px 35px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .grid-container.list-view {
-            grid-template-columns: 1fr !important;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .card h3 {
-            color: var(--accent);
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.9em;
-            line-height: 1.5;
-        }
-
-        .tag {
-            background-color: var(--bg-secondary);
-            color: var(--accent);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75em;
-            border: 1px solid var(--border);
-        }
-
-        /* Kod Blokları */
-        pre {
-            background-color: var(--bg-primary);
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            overflow-x: auto;
-            margin-top: 10px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.85em;
-            color: #38bdf8;
-        }
-
-        /* Ayarlar Menüsü */
-        .settings-panel {
-            background-color: var(--bg-card);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            max-width: 600px;
-        }
-
-        .setting-item {
-            margin-bottom: 20px;
-        }
-
-        .setting-item label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .setting-item select, .setting-item input[type="checkbox"] {
-            padding: 8px;
-            border-radius: 4px;
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        /* Tablo Stilleri */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            background-color: var(--bg-secondary);
-            color: var(--accent);
-        }
-
-        tr:hover {
-            background-color: var(--bg-secondary);
-        }
-
-        code {
-            background-color: var(--bg-primary);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--accent);
-            font-family: monospace;
-        }
+        [x-cloak] { display: none !important; }
+        html { background-color: #f8fafc; }
+        html.dark { background-color: #09090b; }
+        body { background-color: #f8fafc; }
+        html.dark body { background-color: #09090b; }
     </style>
 </head>
-<body>
-
-    <!-- Sidebar Navigasyon -->
-    <div class="sidebar">
-        <h2><i class="fa-solid =>-cube"></i> MC Dev Hub</h2>
-        <ul class="nav-links">
-            <li><a href="#" class="active" onclick="switchTab('plugins')"><i class="fa-solid fa-plug"></i> Eklentiler (100+)</a></li>
-            <li><a href="#" onclick="switchTab('skripts')"><i class="fa-solid fa-code"></i> Skriptler (20+)</a></li>
-            <li><a href="#" onclick="switchTab('servers')"><i class="fa-solid fa-server"></i> Sunucu Önerileri (25+)</a></li>
-            <li><a href="#" onclick="switchTab('commands')"><i class="fa-solid fa-terminal"></i> Gizli Komutlar (150+)</a></li>
-            <li><a href="#" onclick="switchTab('settings')"><i class="fa-solid fa-gear"></i> Kişiselleştirme</a></li>
-        </ul>
+<body class="font-sans antialiased bg-zinc-950 text-zinc-100">
+<div x-data="{
+        isSidebarCollapsed: window.innerWidth < 1024,
+        isMobile: window.innerWidth < 1024
+    }"
+     x-init="
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth < 1024;
+            if (isMobile) isSidebarCollapsed = true;
+        });
+        document.addEventListener('livewire:navigated', () => {
+            if (window.innerWidth < 1024) isSidebarCollapsed = true;
+        });
+     "
+     class="relative min-h-screen"
+>
+    <div class="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <div class="absolute inset-0 bg-zinc-950"></div>
+        <div class="absolute -right-24 -top-32 h-[28rem] w-[28rem] rounded-full bg-indigo-600/25 blur-3xl sm:h-[34rem] sm:w-[34rem]"></div>
+        <div class="absolute -bottom-40 -left-16 h-[26rem] w-[26rem] rounded-full bg-violet-600/20 blur-3xl"></div>
+        <div class="absolute left-1/2 top-1/2 h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-600/10 blur-3xl"></div>
+        <div class="absolute inset-0 opacity-[0.35] [background-image:linear-gradient(to_right,rgb(39_39_42/0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgb(39_39_42/0.5)_1px,transparent_1px)] [background-size:48px_48px]"></div>
+        <div class="absolute inset-0 bg-zinc-950/65"></div>
     </div>
 
-    <!-- Ana İçerik Paneli -->
-    <div class="main-content">
-        <header>
-            <h1 id="page-title">Minecraft Eklenti Arşivi (100+)</h1>
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Arayın (Eklenti, komut, skript...)...">
+    <div class="relative z-10">
+    <header class="fixed left-0 right-0 top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/75 shadow-sm shadow-black/20 backdrop-blur-md">
+        <div class="flex h-16 items-center justify-between px-4 lg:px-8">
+            <div class="flex items-center gap-4">
+                <button type="button" @click="isSidebarCollapsed = !isSidebarCollapsed" class="rounded-xl p-2 transition-all duration-200 hover:bg-zinc-800/80 active:scale-95 lg:hidden">
+                    <svg class="h-5 w-5 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+
+                <a href="https://5bdigitalegitim.com/portal" wire:navigate class="group flex items-center gap-3">
+    
+    <span class="max-w-44 truncate text-sm font-bold tracking-tight text-white sm:max-w-64 sm:text-lg">5B Digital Eğitim</span>
+</a>
             </div>
-        </header>
 
-        <!-- SEKTÖR 1: PLUGİNLER (100+) -->
-        <div id="plugins" class="section active">
-            <h2>Önemli Ve Gerekli Sunucu Eklentileri</h2>
-            <div class="grid-container" id="pluginGrid">
-                <!-- Javascript dinamik yükleyecek/sabit içerik aşağıdadır -->
+                            <div class="hidden flex-1 justify-center px-8 lg:flex">
+                    <div class="flex w-full max-w-3xl items-center gap-3">
+                        <div class="flex-1">
+                            <div wire:key="lw-3009995531-0-0" wire:snapshot="{&quot;data&quot;:{&quot;query&quot;:&quot;&quot;,&quot;results&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;isOpen&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;cn2f3N5R0GooDE5p3aeS&quot;,&quot;name&quot;:&quot;header-search&quot;,&quot;path&quot;:&quot;portal\/chat&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;tr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;dc937b899584c79e7d9e7a91eb4e4e50bdc0d78b18e590c36104a3d86592da16&quot;}" wire:effects="{&quot;partials&quot;:[]}" wire:id="cn2f3N5R0GooDE5p3aeS" wire:name="header-search" class="relative w-full max-w-md group" x-data @click.away="$wire.isOpen = false">
+    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-zinc-500 group-focus-within:text-indigo-400 transition-colors"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+    </svg>
+
+    <input
+        type="text"
+        wire:model.live.debounce.300ms="query"
+        wire:focus="$set('isOpen', true)"
+        placeholder="Ders, ünite, video veya deneme ara..."
+        class="w-full pl-11 pr-12 py-2.5 bg-gray-100/80 dark:bg-zinc-900/80 border border-gray-200 dark:border-zinc-800 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:bg-white dark:focus:bg-zinc-800 focus:border-indigo-200 dark:focus:border-indigo-700 transition-all text-sm dark:text-zinc-200 placeholder:text-gray-400 dark:placeholder:text-zinc-500">
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    <div class="absolute right-3 top-1/2 -translate-y-1/2">
+        <span class="text-[11px] font-mono text-gray-400 dark:text-zinc-500 bg-white dark:bg-zinc-900 px-1.5 py-0.5 rounded-md border border-gray-200 dark:border-zinc-800 shadow-sm">⌘K</span>
+    </div>
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+                        </div>
+                        <a href="https://5bdigitalegitim.com/portal/gunluk-gorevlerim" wire:navigate class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-emerald-700/50 bg-emerald-950/30 px-3 py-2 text-sm font-semibold text-emerald-300 transition-colors hover:bg-emerald-950/45">
+                            <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="4" y="4" width="16" height="16" rx="2.5" stroke-width="2"></rect>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12l2.5 2.5L16 9"></path>
+                            </svg>
+                            Günlük Görevlerim
+                        </a>
+                    </div>
+                </div>
+            
+            <div class="flex items-center gap-1 lg:gap-3">
+                <div class="hidden items-center whitespace-nowrap rounded-xl border border-zinc-700/60 bg-zinc-900/50 px-3 py-1.5 text-xs font-medium text-zinc-300 lg:flex">
+                    <span id="header-clock"></span>
+                </div>
+
+                <div class="hidden items-center gap-1 lg:flex">
+                    <button
+                        type="button"
+                        wire:navigate
+                        href="https://5bdigitalegitim.com/portal/chat"
+                        class="group relative cursor-pointer rounded-xl p-2 transition-all bg-indigo-950/60 text-indigo-300"
+                        x-data="{ tooltip: false }"
+                        @mouseenter="tooltip = true"
+                        @mouseleave="tooltip = false"
+                    >
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="4" y="5" width="16" height="14" rx="3" stroke-width="2"></rect>
+                            <circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle>
+                            <circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 16h6"></path>
+                        </svg>
+
+                        <div x-show="tooltip" x-cloak x-transition class="absolute -bottom-10 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-lg bg-zinc-800 px-2 py-1 text-xs text-white shadow-lg">
+                            Yapay Zeka
+                        </div>
+                    </button>
+
+                    <button
+                        type="button"
+                        wire:navigate
+                        href="https://5bdigitalegitim.com/portal/soru-bankasi/atistirmalik-sorular"
+                        class="group relative cursor-pointer rounded-xl p-2 transition-all text-zinc-400 hover:bg-zinc-800/80"
+                        x-data="{ tooltip: false }"
+                        @mouseenter="tooltip = true"
+                        @mouseleave="tooltip = false"
+                    >
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="4" y="4" width="16" height="16" rx="3" stroke-width="2"></rect>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h6v6H9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v4M12 18v4M2 12h4M18 12h4"></path>
+                        </svg>
+
+                        <div x-show="tooltip" x-cloak x-transition class="absolute -bottom-10 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-lg bg-zinc-800 px-2 py-1 text-xs text-white shadow-lg">
+                            Atıştırmalık Sorular
+                        </div>
+                    </button>
+
+                    <button
+                        type="button"
+                        wire:navigate
+                        href="https://5bdigitalegitim.com/portal/rehberlik"
+                        class="group relative cursor-pointer rounded-xl p-2 transition-all text-zinc-400 hover:bg-zinc-800/80"
+                        x-data="{ tooltip: false }"
+                        @mouseenter="tooltip = true"
+                        @mouseleave="tooltip = false"
+                    >
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="8" r="3" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 19c1.2-2.4 3.2-3.5 6-3.5s4.8 1.1 6 3.5"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5v6h2"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 5v6h-2"></path>
+                        </svg>
+
+                        <div x-show="tooltip" x-cloak x-transition class="absolute -bottom-10 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-lg bg-zinc-800 px-2 py-1 text-xs text-white shadow-lg">
+                            Rehberlik Servisi
+                        </div>
+                    </button>
+                </div>
+
+                
+                <div class="hidden items-center gap-2 lg:flex">
+                    <div wire:key="lw-3009995531-1-0" wire:snapshot="{&quot;data&quot;:{&quot;open&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;dABJUWcB3yTPfdbKcFRh&quot;,&quot;name&quot;:&quot;header-notifications&quot;,&quot;path&quot;:&quot;portal\/chat&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;tr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;b6811f31453ad332fd2fe34fa8c1c33ea831a5b1afa3aeb4679ca06a5f07ad7c&quot;}" wire:effects="{&quot;partials&quot;:[]}" wire:id="dABJUWcB3yTPfdbKcFRh" wire:name="header-notifications" class="relative" wire:poll.20s>
+    <button
+         wire:click="openDropdown"             class="relative p-2.5 hover:bg-gray-100 dark:hover:bg-zinc-800/80 rounded-xl transition-all duration-200 cursor-pointer group"
+            aria-label="Bildirimler"
+        >
+        <svg class="w-5 h-5 text-gray-500 dark:text-zinc-400 group-hover:text-gray-700 dark:group-hover:text-zinc-200 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+        </svg>
+
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    </button>
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+
+                                            <span class="rounded-full border px-2.5 py-1 text-[11px] font-semibold border-indigo-800 bg-indigo-950/30 text-indigo-300">
+                            359 gün kaldı
+                        </span>
+                                    </div>
+
+                <div class="mx-1 hidden h-7 w-px bg-zinc-800 lg:block"></div>
+
+                <div class="relative" x-data="{ open: false }">
+                    <button type="button" @click="open = !open" class="flex items-center gap-3 rounded-2xl border border-zinc-700/60 bg-zinc-900/50 px-2 py-1.5 transition-all duration-200 hover:border-zinc-600 hover:bg-zinc-800/60 hover:shadow-md lg:px-3">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 to-violet-600 text-sm font-bold text-white shadow-md">
+                            Y
+                        </div>
+
+                        <div class="hidden text-left lg:block">
+                            <div class="text-sm font-semibold text-zinc-100">YUNUS EMRE ÖLMEZ</div>
+                            <div class="text-xs text-zinc-400">Hiç Bilmeyenler İçin Matematik</div>
+                        </div>
+
+                        <svg class="h-4 w-4 text-zinc-500 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+
+                    <div x-show="open" x-cloak @click.away="open = false" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="translate-y-1 opacity-0" x-transition:enter-end="translate-y-0 opacity-100" class="absolute right-0 z-50 mt-2 w-72 rounded-2xl border border-zinc-800/90 bg-zinc-950/95 py-2 shadow-2xl shadow-black/40 backdrop-blur-md">
+                        <div class="mb-2 border-b border-zinc-800 px-4 py-3">
+                            <p class="text-sm font-semibold text-zinc-50">YUNUS EMRE ÖLMEZ</p>
+                            <p class="truncate text-xs text-zinc-400"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f2023222a35363a213a3c2a223d2a7d7f0f28222e2623612c2022">[email&#160;protected]</a></p>
+                        </div>
+
+                        <a href="https://5bdigitalegitim.com/portal/profilim" wire:navigate class="flex items-center gap-3 px-4 py-2.5 text-zinc-300 transition-colors hover:bg-zinc-900/80">
+                            <svg class="h-4 w-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <span class="text-sm">Profilim</span>
+                        </a>
+
+                        <a href="https://5bdigitalegitim.com/portal/paketler" class="flex items-center gap-3 px-4 py-2.5 text-zinc-300 transition-colors hover:bg-zinc-900/80">
+                            <svg class="h-4 w-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10v10M12 7v10"/></svg>
+                            <span class="text-sm">Paketlerim</span>
+                        </a>
+
+                        <div class="my-2 border-t border-zinc-800"></div>
+
+                        <form method="POST" action="https://5bdigitalegitim.com/portal/auth/logout">
+                            <input type="hidden" name="_token" value="cUadzSujMXm64sqI7Hf54Mth5t3LiscyLdtTgQLJ" autocomplete="off">                            <button type="submit" class="flex w-full items-center gap-3 px-4 py-2.5 text-red-400 transition-colors hover:bg-red-950/40">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                                <span class="text-sm font-medium">Çıkış Yap</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+    </header>
 
-        <!-- SEKTÖR 2: SKRİPTLER (20+) -->
-        <div id="skripts" class="section">
-            <h2>Hazır ve Kullanışlı Skriptler</h2>
-            <div id="skriptList"></div>
+    <div class="flex pt-16">
+        <aside x-cloak :class="isSidebarCollapsed ? '-translate-x-full' : 'translate-x-0'" class="custom-scroll fixed bottom-0 left-0 top-16 z-40 w-72 -translate-x-full overflow-y-auto border-r border-zinc-800/80 bg-zinc-950/80 shadow-xl shadow-black/30 backdrop-blur-md transition-transform duration-300 lg:translate-x-0">
+            <div class="p-5">
+                <nav class="mt-2 space-y-1.5">
+                    <a href="https://5bdigitalegitim.com/portal" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-blue-500 to-cyan-400 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
         </div>
 
-        <!-- SEKTÖR 3: SUNUCULAR (25+) -->
-        <div id="servers" class="section">
-            <h2>Dünya & Türkiye Popüler Sunucu Listesi</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sunucu Adı</th>
-                        <th>İp Adresi</th>
-                        <th>Oyun Türü</th>
-                        <th>Ort. Oyuncu</th>
-                        <th>Açıklama</th>
-                    </tr>
-                </thead>
-                <tbody id="serverTableBody">
-                </tbody>
-            </table>
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Ana Sayfa
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    <a href="https://5bdigitalegitim.com/portal/dersler" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-orange-400 to-red-400 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
         </div>
 
-        <!-- SEKTÖR 4: BİLİNMEYEN KOMUTLAR (150+) -->
-        <div id="commands" class="section">
-            <h2>150+ Gelişmiş Komut ve İşlev Rehberi</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Komut / Kısayol</th>
-                        <th>Kategori</th>
-                        <th>Açıklama & Kullanım Amacı</th>
-                    </tr>
-                </thead>
-                <tbody id="commandTableBody">
-                </tbody>
-            </table>
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Dersler
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                                        <a href="https://5bdigitalegitim.com/portal/okulum" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-sky-500 to-cyan-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
         </div>
 
-        <!-- SEKTÖR 5: KİŞİSELLEŞTİRME VE TEMA -->
-        <div id="settings" class="section">
-            <h2>Site Görünüm Ayarları</h2>
-            <div class="settings-panel">
-                <div class="setting-item">
-                    <label for="themeSelect">Renk Teması Seçin:</label>
-                    <select id="themeSelect" onchange="changeTheme(this.value)">
-                        <option value="dark">Koyu Tema (Karanlık Moda Özel)</option>
-                        <option value="light">Açık Tema (Aydınlık)</option>
-                        <option value="cyberpunk">Cyberpunk Neon Sarı</option>
-                        <option value="neon">Retro Synthwave</option>
-                    </select>
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Okulum
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    <a href="https://5bdigitalegitim.com/portal/soru-bankasi" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-pink-400 to-purple-400 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Soru Bankası
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    <a href="https://5bdigitalegitim.com/portal/deneme-sinavi" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-green-400 to-emerald-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Deneme Sınavları
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    <a href="https://5bdigitalegitim.com/portal/rehberlik" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-blue-400 to-indigo-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12a4 4 0 100-8 4 4 0 000 8z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 20a6 6 0 0112 0" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Rehberlik Servisi
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    <a href="https://5bdigitalegitim.com/portal/ozel-ders" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-sky-500 to-cyan-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Özel Ders
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    <a href="https://5bdigitalegitim.com/portal/raporlar/istatistikler" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-yellow-400 to-orange-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19h16" /><rect x="6" y="10" width="2" height="6" rx="1" /><rect x="11" y="7" width="2" height="9" rx="1" /><rect x="16" y="4" width="2" height="12" rx="1" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 3l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        İstatistikler
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    <a href="https://5bdigitalegitim.com/portal/raporlar/sana-ozel" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-teal-400 to-teal-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Sana Özel
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+                </nav>
+
+                <div class="mt-8">
+                    <h3 class="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                        DİJİTAL ÜRÜNLER
+                    </h3>
+
+                    <nav class="space-y-1.5">
+                        <a href="https://5bdigitalegitim.com/portal/dijital-kitaplar" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-orange-400 to-red-400 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Dijital Kitaplar
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                        <a href="https://5bdigitalegitim.com/portal/raporlar/beni-analiz-et" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-indigo-500 to-blue-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9" stroke-width="2" /><circle cx="12" cy="12" r="5" stroke-width="2" /><circle cx="12" cy="12" r="2" stroke-width="2" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Beni Analiz Et
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                        <a href="https://5bdigitalegitim.com/portal/soru-cozucu" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-indigo-500 to-purple-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Soru Çözücü
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                        <a href="https://5bdigitalegitim.com/portal/chat" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-950/40" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-white/20 dark:bg-white/10">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8L3 20l1.2-3.2A7.64 7.64 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 3l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" />
+            </svg>
+        </div>
+
+                    <span class="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-white ring-2 ring-indigo-400" style="z-index: 3;"></span>
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-white" style="z-index: 2;">
+        TeknoX AI
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                        <a href="https://5bdigitalegitim.com/portal/takvim" wire:navigate="" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 overflow-hidden group
+    text-zinc-300 hover:bg-zinc-800/55" style="z-index: 1;">
+
+    <div class="relative shrink-0" style="z-index: 2;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110
+            bg-linear-to-br from-teal-400 to-cyan-500 text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+        </div>
+
+            </div>
+
+    <span class="flex-1 min-w-0 font-bold text-sm leading-snug text-zinc-300" style="z-index: 2;">
+        Takvim
+    </span>
+
+            <svg class="w-4 h-4 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0
+            text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="z-index: 2;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
+
+                    </nav>
                 </div>
-                <div class="setting-item">
-                    <label for="fontSizeSelect">Metin Boyutu:</label>
-                    <select id="fontSizeSelect" onchange="changeFontSize(this.value)">
-                        <option value="14px">Küçük (14px)</option>
-                        <option value="16px" selected>Normal (16px)</option>
-                        <option value="18px">Büyük (18px)</option>
-                    </select>
+
+                <div class="mt-8 border-t border-zinc-800/80 pt-5">
+                    <p class="mb-2.5 px-1 text-[10px] font-bold uppercase tracking-widest text-zinc-500">Oturum</p>
+                    <form method="POST" action="https://5bdigitalegitim.com/portal/auth/logout">
+                        <input type="hidden" name="_token" value="cUadzSujMXm64sqI7Hf54Mth5t3LiscyLdtTgQLJ" autocomplete="off">                        <button
+                            type="submit"
+                            class="group relative flex w-full cursor-pointer items-center gap-3 overflow-hidden rounded-2xl border border-rose-900/40 bg-linear-to-br from-rose-950/35 to-zinc-900/70 px-3 py-3 text-left shadow-sm ring-1 ring-rose-900/25 transition-all duration-200 hover:border-rose-800/60 hover:shadow-md hover:shadow-rose-950/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                        >
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-rose-500 to-pink-600 text-white shadow-md shadow-rose-500/25 transition-transform duration-200 group-hover:scale-105">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
+                                </svg>
+                            </span>
+                            <span class="min-w-0 flex-1">
+                                <span class="block text-sm font-extrabold text-rose-100">Çıkış Yap</span>
+                                <span class="mt-0.5 block text-[11px] font-medium leading-snug text-rose-300/90">Oturumu güvenle sonlandır</span>
+                            </span>
+                            <svg class="h-4 w-4 shrink-0 text-rose-400/90 opacity-60 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
-                <div class="setting-item">
-                    <label for="layoutSelect">Kart Düzeni:</label>
-                    <select id="layoutSelect" onchange="changeLayout(this.value)">
-                        <option value="grid">Izgara Düzeni (Grid)</option>
-                        <option value="list">Liste Düzeni (Tek Sıra)</option>
-                    </select>
+            </div>
+        </aside>
+
+        <main class="min-h-screen flex-1 bg-transparent lg:ml-72">
+            <div class="px-4 py-6 md:px-6 lg:px-8">
+                <div class="mx-auto max-w-6xl xl:max-w-7xl">
+                    <div wire:snapshot="{&quot;data&quot;:{&quot;messages&quot;:[[[{&quot;type&quot;:&quot;ai&quot;,&quot;content&quot;:&quot;Merhaba! Ben TeknoX yapay zeka asistan\u0131y\u0131m. Size nas\u0131l yard\u0131mc\u0131 olabilirim? \ud83d\ude0a&quot;,&quot;time&quot;:&quot;21:44&quot;,&quot;avatar&quot;:&quot;\ud83e\udd16&quot;},{&quot;s&quot;:&quot;arr&quot;}]],{&quot;s&quot;:&quot;arr&quot;}],&quot;newMessage&quot;:&quot;&quot;,&quot;isTyping&quot;:false,&quot;showChat&quot;:true,&quot;messageInput&quot;:&quot;&quot;},&quot;memo&quot;:{&quot;id&quot;:&quot;Dh9kKLZ1XoxIj2Sw6Lja&quot;,&quot;name&quot;:&quot;pages::ai.chat&quot;,&quot;path&quot;:&quot;portal\/chat&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;tr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;f274cc15e535dd6a93dbe14ca908f9e7880f3c46f91bf02514e231fe067fa71f&quot;}" wire:effects="{&quot;partials&quot;:[]}" wire:id="Dh9kKLZ1XoxIj2Sw6Lja" wire:name="pages::ai.chat">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <div
+                class="inline-flex items-center gap-2 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm mb-4">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                </span>
+
+                <span class="text-xs font-medium text-gray-600 dark:text-zinc-400">Online • Aktif</span>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-bold bg-linear-to-r from-teal-600 via-cyan-600 to-teal-600 bg-clip-text mb-3">
+                🤖 <span class="dark:text-white">TeknoX AI Asistan</span>
+            </h1>
+
+            <p class="text-gray-500 dark:text-zinc-400 text-lg max-w-2xl mx-auto">7/24 yapay zeka destekli rehberlik hizmeti</p>
+        </div>
+
+        <div class="relative">
+            <div class="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-zinc-800">
+                <div class="bg-linear-to-r from-teal-500 to-cyan-500 px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <div
+                                    class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shadow-lg">
+                                    🤖
+                                </div>
+
+                                <div
+                                    class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white dark:border-zinc-900"></div>
+                            </div>
+
+                            <div class="text-white">
+                                <h3 class="font-semibold text-lg">TeknoX Asistan</h3>
+                                <p class="text-xs text-white/80">Yapay Zeka Destekli • Anında Yanıt</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button wire:click="clearChat" class="text-white/80 hover:text-white transition-colors p-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-125 overflow-y-auto custom-scroll p-6 space-y-4 bg-linear-to-b from-gray-50 to-white dark:from-zinc-950 dark:to-gray-800" id="chatMessages">
+                    <!--[if BLOCK]><![endif]-->                        <div
+                            class="flex justify-start animate-slideIn"
+                            wire:key="0">
+                            <div
+                                class="flex gap-3 max-w-[80%] ">
+                                <div class="shrink-0">
+                                    <div
+                                        class="w-9 h-9 rounded-full flex items-center justify-center text-lg bg-linear-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800">
+                                        🤖
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="relative">
+                                        <div class="rounded-2xl px-4 py-2 bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-zinc-200">
+                                            <p class="text-sm leading-relaxed whitespace-pre-line">Merhaba! Ben TeknoX yapay zeka asistanıyım. Size nasıl yardımcı olabilirim? 😊</p>
+                                        </div>
+
+                                        <div
+                                            class="text-xs text-gray-400 dark:text-zinc-500 mt-1 text-left">
+                                            21:44
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--[if ENDBLOCK]><![endif]-->
+                    <div wire:loading wire:target="sendMessage">
+                        <div class="flex justify-start animate-fadeIn mb-4">
+                            <div class="flex gap-3 max-w-[80%]">
+                                <div class="shrink-0">
+                                    <div class="w-9 h-9 rounded-full bg-linear-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center text-lg">
+                                        🤖
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="bg-gray-100 dark:bg-zinc-800 rounded-2xl px-4 py-3">
+                                        <div class="flex gap-1">
+                                            <span class="w-2 h-2 bg-gray-400 dark:bg-zinc-900/350 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+                                            <span class="w-2 h-2 bg-gray-400 dark:bg-zinc-900/350 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+                                            <span class="w-2 h-2 bg-gray-400 dark:bg-zinc-900/350 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900">
+                    <div class="flex gap-3">
+                        <div class="flex-1 relative">
+                            <textarea wire:model="newMessage"
+                                      wire:keydown.enter.prevent="sendMessage"
+                                      rows="1"
+                                      class="w-full px-4 py-3 border-2 border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 rounded-xl focus:border-teal-400 dark:focus:border-teal-500 focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900/30 transition-all resize-none text-gray-900 dark:text-zinc-100 placeholder:text-gray-400 dark:placeholder:text-zinc-500"
+                                      placeholder="Mesajınızı yazın... (Enter ile gönder)"
+                                      style="min-height: 50px;"></textarea>
+                        </div>
+
+                        <button wire:click="sendMessage" wire:loading.attr="disabled"
+                                class="px-6 bg-linear-to-r from-teal-500 to-cyan-500 text-white rounded-xl hover:from-teal-600 hover:to-cyan-600 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between mt-2 text-xs text-gray-400 dark:text-zinc-500">
+                        <span>💡 İpucu: Enter ile gönderebilirsiniz</span>
+                        <span>🔒 Gizlilik garantilidir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <p class="text-sm text-gray-500 dark:text-zinc-400 mb-3 text-center">Hızlı Başlangıç Soruları:</p>
+
+                <div class="flex flex-wrap justify-center gap-2">
+                    <button wire:click="newMessage = 'Merhaba, yardıma ihtiyacım var'"
+                            class="px-3 py-1.5 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-full text-xs text-gray-600 dark:text-zinc-400 hover:border-teal-300 dark:hover:border-teal-600 hover:text-teal-600 dark:hover:text-teal-400 transition-all">
+                        👋 Merhaba
+                    </button>
+
+                    <button wire:click="newMessage = 'Sınav kaygısı hakkında bilgi alabilir miyim?'"
+                            class="px-3 py-1.5 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-full text-xs text-gray-600 dark:text-zinc-400 hover:border-teal-300 dark:hover:border-teal-600 hover:text-teal-600 dark:hover:text-teal-400 transition-all">
+                        📝 Sınav kaygısı
+                    </button>
+
+                    <button wire:click="newMessage = 'Kariyer planlaması için yardım istiyorum'"
+                            class="px-3 py-1.5 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-full text-xs text-gray-600 dark:text-zinc-400 hover:border-teal-300 dark:hover:border-teal-600 hover:text-teal-600 dark:hover:text-teal-400 transition-all">
+                        💼 Kariyer planlama
+                    </button>
+
+                    <button wire:click="newMessage = 'Randevu nasıl alabilirim?'"
+                            class="px-3 py-1.5 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-full text-xs text-gray-600 dark:text-zinc-400 hover:border-teal-300 dark:hover:border-teal-600 hover:text-teal-600 dark:hover:text-teal-400 transition-all">
+                        📅 Randevu
+                    </button>
+
+                    <button wire:click="newMessage = 'Stres yönetimi önerileri verir misin?'"
+                            class="px-3 py-1.5 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-full text-xs text-gray-600 dark:text-zinc-400 hover:border-teal-300 dark:hover:border-teal-600 hover:text-teal-600 dark:hover:text-teal-400 transition-all">
+                        🧘 Stres yönetimi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        document.addEventListener('livewire:initialized', () => {
+            const messagesContainer = document.getElementById('chatMessages');
+
+            const scrollToBottom = () => {
+                if (messagesContainer) {
+                    messagesContainer.scrollTo({
+                        top: messagesContainer.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+
+            Livewire.hook('morph.updated', () => {
+                scrollToBottom();
+            });
+
+            setTimeout(scrollToBottom, 100);
+            window.addEventListener('scroll-to-bottom', scrollToBottom);
+        });
+    </script>
+</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div wire:key="lw-3009995531-2-0" wire:snapshot="{&quot;data&quot;:[],&quot;memo&quot;:{&quot;id&quot;:&quot;izVvb762RlKhch03wmR8&quot;,&quot;name&quot;:&quot;pages::ai.teknox-voice&quot;,&quot;path&quot;:&quot;portal\/chat&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;tr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;b38da4eb952d43bb7ce4a932ae48bad67a6a06b56118f2f3738c6fbf89371f34&quot;}" wire:effects="{&quot;partials&quot;:[]}" wire:id="izVvb762RlKhch03wmR8" wire:name="pages::ai.teknox-voice" x-data="TeknoModal()" class="relative">
+    <button @click="openModal" class="cursor-pointer fixed bottom-8 right-8 p-5 bg-linear-to-br from-blue-600 via-indigo-600 to-blue-600 text-white rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 z-40 group dark:shadow-blue-900/50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+
+        <span class="absolute top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-pulse ring-2 ring-white dark:ring-zinc-900"></span>
+    </button>
+
+    <div x-show="isOpen"
+         @click.self="closeModal"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/95 dark:bg-black/95 backdrop-blur-xl"
+         style="display: none;">
+
+        <div @click.away="closeModal"
+             x-show="isOpen"
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="opacity-0 scale-90 translate-y-4"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             class="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-indigo-950 to-blue-950 dark:from-zinc-950 dark:via-indigo-950/50 dark:to-blue-950/50 shadow-2xl border border-white/10 dark:border-white/5">
+
+            <button type="button" @click.stop.prevent="closeModal" class="cursor-pointer pointer-events-auto absolute top-6 right-6 z-120 p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="relative z-10 p-8 md:p-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl md:text-5xl font-bold bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent mb-3">
+                        TeknoX Asistan
+                    </h2>
+
+                    <p x-text="status" class="text-gray-300 dark:text-zinc-400 text-lg min-h-6 transition-all duration-300"></p>
+
+                    <div x-show="isThinking" class="mt-4 w-full max-w-md mx-auto">
+                        <div class="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                            <div class="h-full bg-linear-to-r from-blue-500 to-indigo-400 transition-all duration-200"
+                                 :style="`width: ${thinkingProgress}%`"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative flex flex-col items-center justify-center mb-10">
+                    <div class="relative w-36 h-36 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.3)] dark:shadow-[0_0_50px_rgba(59,130,246,0.15)]" :class="isRecording ? 'scale-110' : 'scale-100 transition-all duration-500'">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 4a3 3 0 00-3 3v4a3 3 0 006 0V7a3 3 0 00-3-3z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11a7 7 0 01-14 0"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 18v3"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 21h6"></path>
+                        </svg>
+
+                        <div x-show="isRecording" class="absolute inset-0 rounded-full bg-blue-500/20 animate-ping"></div>
+                    </div>
+
+                    <div x-show="isRecording" class="mt-8 w-48 h-1.5 bg-gray-800 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500 transition-all duration-75" :style="`width: ${audioLevel}%`"></div>
+                    </div>
+
+                    <div class="flex gap-3 mt-6">
+                        <span x-text="badgeText" class="px-4 py-1 rounded-full bg-blue-500/10 dark:bg-blue-500/5 border border-blue-500/20 dark:border-blue-500/10 text-blue-400 text-xs font-bold tracking-widest"></span>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button @click="toggleRecording" class="px-10 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg transition-all active:scale-95 dark:shadow-blue-900/30">
+                        <span x-text="isRecording ? 'Kaydı Durdur' : 'Konuşmaya Başla'"></span>
+                    </button>
+                </div>
+
+                <div class="mt-6 text-center text-xs text-gray-500 dark:text-zinc-500">
+                    <span>🎤 Mikrofon izni gereklidir • Sesiniz kaydedilmez</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- DATA DEPOLARI ---
+        function TeknoModal() {
+            return {
+                isOpen: false,
+                isRecording: false,
+                status: 'Seni dinliyorum... Nasıl yardımcı olabilirim?',
+                badgeText: 'Dinleniyor',
+                mediaRecorder: null,
+                audioChunks: [],
+                audioContext: null,
+                analyser: null,
+                silenceTimer: null,
+                audioLevel: 0,
+                currentAiAudio: null,
+                outputAudioContext: null,
+                outputGainNode: null,
+                outputCompressor: null,
+                currentSourceNode: null,
+                safeGainTarget: 0.62,
 
-        // 100+ PLUGINS DATA
-        const pluginsData = [
-            { name: "EssentialsX", tag: "Yönetim", desc: "Teleport, ev oluşturma, ekonomi ve temel komut setlerini barındıran temel eklenti." },
-            { name: "LuckPerms", tag: "Yetki", desc: "Oyuncu grupları, roller ve yetki düzenlemelerini kolayca yapan web panelli perm eklentisi." },
-            { name: "Vault", tag: "Sistem", desc: "Ekonomi, yetki ve sohbet eklentileri arasındaki köprüyü sağlayan zorunlu kütüphane." },
-            { name: "WorldEdit", tag: "Harita", desc: "Komutlar ve blok tahtaları ile devasa yapı düzenleme ve harita yapım aracı." },
-            { name: "WorldGuard", tag: "Koruma", desc: "Belirli bölgeleri (WG) koruma altına alan, PvP kapatma ve kırma engelleme eklentisi." },
-            { name: "ProtocolLib", tag: "Kütüphane", desc: "Minecraft paket protokollerini okuyup düzenlemeye yarayan eklentiler için altyapı." },
-            { name: "PlaceholderAPI", tag: "Arayüz", desc: "Skor tabloları ve metinlerde dinamik verileri (%player_name%) gösterme eklentisi." },
-            { name: "HolographicDisplays", tag: "Arayüz", desc: "Havada süzülen renkli ve haraketli hologram yazılar yazmaya yarayan popüler eklenti." },
-            { name: "DecentHolograms", tag: "Arayüz", desc: "HolographicDisplays alternatifi, daha az kaynak tüketen ve satır içi görsel destekli hologram." },
-            { name: "Citizens", tag: "NPC", desc: "Sunucunuza tıklanabilir, komut çalıştıran veya görev veren yapay zeka NPC'ler ekler." },
-            { name: "Multiverse-Core", tag: "Dünya", desc: "Sunucuda birden fazla dünya (Nether, End, Flat, Custom) oluşturma ve yönetme aracı." },
-            { name: "ViaVersion", tag: "Sürüm", desc: "Eski sürümlere sahip sunuculara daha yeni Minecraft sürümlerindeki oyuncuların girmesini sağlar." },
-            { name: "ViaBackwards", tag: "Sürüm", desc: "Yeni sürüm sunuculara eski Minecraft sürümlerindeki oyuncuların bağlanmasına izin verir." },
-            { name: "GrimAC", tag: "Güvenlik", desc: "Ücretsiz, açık kaynaklı ve paket tabanlı gelişmiş hile engelleme (Anti-Cheat) eklentisi." },
-            { name: "Vulcan AntiCheat", tag: "Güvenlik", desc: "Gelişmiş hareket ve savaş hilelerini %99 oranında engellemeye yarayan ücretli/popüler sistem." },
-            { name: "PAPI (PlaceholderAPI)", tag: "Arayüz", desc: "Sunucu üzerindeki tüm verileri tek bir yerde toplayan evrensel değişken eklentisi." },
-            { name: "TAB", tag: "Arayüz", desc: "Tab listesini, oyuncu başı üzerindeki unvanları (Tag) ve Skor Tahtasını (Scoreboard) düzenler." },
-            { name: "AuthMeReloaded", tag: "Güvenlik", desc: "Kayıtsız veya şifresiz oyuncuların sunucuya girmesini engelleyen şifreli giriş eklentisi." },
-            { name: "FastAsyncWorldEdit (FAWE)", tag: "Harita", desc: "WorldEdit eklentisinin sunucuyu hiç çökertmeden devasa alanları saniyeler içinde değiştiren versiyonu." },
-            { name: "ChestSort", tag: "Oyuncu", desc: "Sandıklara tıklandığında otomatik olarak eşyaları alfabetik ve tür olarak düzenleme sistemi." },
-            { name: "GSit", tag: "Görsel", desc: "Oyuncuların blokların, merdivenlerin üzerine oturmasını (/sit) veya yatmasını sağlayan eklenti." },
-            { name: "CoreProtect", tag: "Güvenlik", desc: "Blok kırma, koyma, sandık karıştırma ve patlamaları loglayıp saniyeler içinde geri alma eklentisi." },
-            { name: "CMI", tag: "Yönetim", desc: "Essentials, Hologram, Economy vb. 80'den fazla eklentiyi tek çatı altında toplayan devasa eklenti." },
-            { name: "Chunky", tag: "Performans", desc: "Sunucu dünyasının harita sınırlarını önden yükleyerek (Pre-render) kasılmaları ve lagları önler." },
-            { name: "Spark", tag: "Performans", desc: "Sunucudaki kasmalara (TPS Düşüşü) nelerin sebep olduğunu analiz eden gelişmiş Profiler." },
-            { name: "LWC Extended", tag: "Koruma", desc: "Sandıklar, kapılar ve fırınlar için oyuncu bazlı kilit ve koruma koyma eklentisi." },
-            { name: "Towny", tag: "Oyun Modu", desc: "Towny sunucuları için şehir kurma, vergi toplama, ulus olma ve arazi sahipliği eklentisi." },
-            { name: "Lands", tag: "Oyun Modu", desc: "Modern claim ve arazi yönetim eklentisi. Şehir kurma ve yönetim için optimize edilmiştir." },
-            { name: "GriefPrevention", tag: "Koruma", desc: "Altın kürek ile oyuncuların alanlarını kolayca sahiplenip korumasını (Claim) sağlayan eklenti." },
-            { name: "Residence", tag: "Koruma", desc: "Oyuncuların para karşılığı belirli alanları kiralayıp/satın alıp ev koruması yapmasını sağlar." },
-            { name: "SuperVanish", tag: "Admin", desc: "Yetkilileri tamamen gizleyen, oyuna giriş mesajı simüle edebilen gelişmiş görünmezlik eklentisi." },
-            { name: "AdvancedBan", tag: "Ban", desc: "Süreli/Süresiz Ban, Mute, Warn ve Kick işlemlerini MySQL veritabanı destekli yönetme sistemi." },
-            { name: "LiteBans", tag: "Ban", desc: "Web paneli destekli, gelişmiş ve hafif ban/ceza takip yazılımı." },
-            { name: "ShopGUIPlus", tag: "Ekonomi", desc: "Oyuncuların menü (GUI) üzerinden eşya alıp satmasını sağlayan gelişmiş market eklentisi." },
-            { name: "EconomyShopGUI", tag: "Ekonomi", desc: "ShopGUIPlus için ücretsiz, kolay yapılandırılabilir gelişmiş görsel market eklentisi." },
-            { name: "QuickShop-Hikari", tag: "Ekonomi", desc: "Sandıkların üzerine görsel 3D eşya koyarak oyuncular arası pazar kurmayı sağlayan eklenti." },
-            { name: "ChestCommands", tag: "Arayüz", desc: "Özel tıklandığında komut çalıştıran menüler (GUI) oluşturmaya yarayan basit eklenti." },
-            { name: "DeluxeMenus", tag: "Arayüz", desc: "Gelişmiş koşullu menüler, VIP marketler ve profil menüleri yapmaya imkan sağlayan devasa araç." },
-            { name: "PlayerPoints", tag: "Ekonomi", desc: "Sunucunuza gerçek para veya etkinlik ödülü olarak dağıtılabilecek ikinci bir birim (Kredi/Coin) ekler." },
-            { name: "JobsReborn", tag: "Ekonomi", desc: "Madenci, oduncu, avcı gibi meslekler ekleyerek blok kırdıkça oyunculara para/XP kazandırır." },
-            { name: "AuctionHouse", tag: "Ekonomi", desc: "Oyuncuların kendi eşyalarını açık artırma veya açık pazar mantığıyla satmasını sağlayan sistem." },
-            { name: "BountyHunters", tag: "PvP", desc: "Oyuncuların birbirlerinin başına ödül koymasını sağlayan Kelle Avcısı eklentisi." },
-            { name: "CombatLogX", tag: "PvP", desc: "Savaştayken oyundan kaçan oyuncuları otomatik öldüren ve komut kullanmalarını engelleyen eklenti." },
-            { name: "PvPManager", tag: "PvP", desc: "Savaş engelleyici, koruma kalkanları ve PvP modlarını düzenleyen kapsamlı eklenti." },
-            { name: "MythicMobs", tag: "Canavar", desc: "Özel yetenekli, özel can barına sahip devasa Boss'lar ve özel canavarlar oluşturma aracı." },
-            { name: "MMOItems", tag: "Eşya", desc: "Özel yetenekli, kritik vuruşlu, özel dokulu RPG tarzı kılıçlar, zırhlar ve asalar ekler." },
-            { name: "ItemsAdder", tag: "Görsel", desc: "Sunucuya kaynak paketi indirtilerek sıfırdan custom bloklar, moblar ve şapkalar ekleyen eklenti." },
-            { name: "Oraxen", tag: "Görsel", desc: "ItemsAdder gibi sunucunuza özel dokular, görseller, eşyalar ve arayüzler eklemenizi sağlayan eklenti." },
-            { name: "SkinsRestorer", tag: "Skin", desc: "Korsan/Crack sunucularda oyuncuların ve premium kullanıcıların skinlerinin görünmesini sağlar." },
-            { name: "UltimateChat", tag: "Sohbet", desc: "Kanal bazlı (Yerel, Genel, Ticaret, VIP) chat yönetimini kolaylaştıran modern sohbet eklentisi." },
-            { name: "ChatControl Red", tag: "Sohbet", desc: "Küfür, reklam engelleme, spam koruması ve sohbet temizleme fonksiyonlarına sahip devasa koruma." },
-            { name: "DiscordSRV", tag: "Entegrasyon", desc: "Minecraft sohbetini Discord sunucunuzdaki kanallarla iki taraflı canlı olarak bağlayan eklenti." },
-            { name: "PlugManX", tag: "Admin", desc: "Sunucuyu yeniden başlatmadan eklentileri anlık yükleme, kaldırma ve yeniden başlatma eklentisi." },
-            { name: "ClearLag", tag: "Performans", desc: "Yerdeki lüzumsuz eşyaları belirli aralıklarla silerek RAM kullanımı ve gecikmeyi azaltır." },
-            { name: "GeyserMC", tag: "Çapraz Platform", desc: "Bedrock Edition (Telefon, Konsol) oyuncularının Java sunucunuza girmesini sağlayan devrimsel eklenti." },
-            { name: "Floodgate", tag: "Çapraz Platform", desc: "GeyserMC kullanan Bedrock oyuncularının Xbox/Minecraft hesabı zorunluluğunu kaldırır." },
-            { name: "LuckPermsWeb", tag: "Yetki", desc: "LuckPerms verilerini tarayıcı üzerinde görsel matris olarak düzenlemeye yarayan web panel." },
-            { name: "Multiverse-Inventories", tag: "Dünya", desc: "Farklı dünyaların envanterlerini, canlarını ve tecrübe puanlarını birbirinden ayırır." },
-            { name: "DynamicBans", tag: "Güvenlik", desc: "Otomatik ip takibi ile banlanan oyuncuların yan hesap açarak girmesini engelleyen sistem." },
-            { name: "VaultChatFormatter", tag: "Sohbet", desc: "LuckPerms unvanlarını chat üzerinde hızlı ve sorunsuz biçimde renklendirerek gösterir." },
-            { name: "CustomHeads", tag: "Dekorasyon", desc: "Binlerce farklı dekoratif oyuncu kafasını kategoriler halinde sunan dekorasyon eklentisi." },
-            { name: "HeadDatabase", tag: "Dekorasyon", desc: "Özel tasarlanmış 50,000+ kafadan oluşan arama yapılabilir dev kafa kütüphanesi." },
-            { name: "MarriageMaster", tag: "Sosyal", desc: "Oyuncuların birbirleriyle evlenmesine, birbirlerine ışınlanmasına ve ortak XP kazanmasına izin verir." },
-            { name: "PetMaster", tag: "Sosyal", desc: "Evcilleştirilen kurt, kedi ve atların sahipliğini yöneten ve korunmasını sağlayan eklenti." },
-            { name: "Slimefun4", tag: "Teknoloji", desc: "Mod yüklemeden Minecraft'a elektrik, fabrikalar, otomatik madencilik ve teknoloji ekler." },
-            { name: "BetterRTP", tag: "Işınlanma", desc: "Vahşi doğaya oyuncuları rastgele, güvenli ve lav/su olmayan bloklara ışınlayan eklenti." },
-            { name: "CrazyCrates", tag: "Kasa", desc: "Animasyonlu, efektli ve anahtarlı özel ödül kasaları oluşturmaya yarayan popüler eklenti." },
-            { name: "ExcellentCrates", tag: "Kasa", desc: "3D animasyonlu son derece modern yeni nesil ödül kasası eklentisi." },
-            { name: "ProCosmetics", tag: "Kozmetik", desc: "VIP oyuncular için binekler, kanatlar, efektler, petler ve havai fişekler ekleyen kozmetik seti." },
-            { name: "GadgetsMenu", tag: "Kozmetik", desc: "Lobilere eğlenceli eşyalar, iz efektleri, gizemli kutular ve şapkalar ekleyen harika eklenti." },
-            { name: "LuckPermsGUI", tag: "Admin", desc: "Yetki verme işlemlerini komut yazmadan oyun içi gömülü grafik arayüzüyle halleden eklenti." },
-            { name: "ImageOnMap", tag: "Görsel", desc: "İnternet üzerindeki resim bağlantılarını (URL) Minecraft haritalarına (Resim tablosu) dönüştürür." },
-            { name: "MapManager", tag: "Görsel", desc: "Harita çizimlerini performans kaybı yaşatmadan arka planda işleyen render eklentisi." },
-            { name: "ArmorStandTools", tag: "Dekorasyon", desc: "Zırh askılarına özel pozlar verdirip ellerine eşya verdirmeye yarayan stilize aracı." },
-            { name: "mcMMO", tag: "RPG", desc: "Madencilik, kılıç, okçuluk gibi yetenek seviyeleri (Level) ve özel güce dayalı devasa RPG eklentisi." },
-            { name: "AureliumSkills", tag: "RPG", desc: "mcMMO'ya alternatif daha modern stat (Güç, Can, Savunma) veren yeni nesil skill eklentisi." },
-            { name: "Quest", tag: "Görev", desc: "NPC'lerden veya GUI menülerden alınabilen detaylı, zincirleme görev oluşturma sistemi." },
-            { name: "BeautyQuests", tag: "Görev", desc: "Grafik arayüz üzerinden tıkla-yap mantığıyla basit ve görsel görevler hazırlama aracı." },
-            { name: "CitizensCMD", tag: "NPC", desc: "Citizens NPC'lerine tıklandığında para kesme, ışınlama ve komut çalıştırma özelliği ekler." },
-            { name: "Denizen", tag: "Scripting", desc: "NPC'ler ve sunucu mekanikleri için detaylı kodlama yapmaya imkan sunan güçlü eklenti." },
-            { name: "Skript", tag: "Geliştirme", desc: "İngilizceye benzer basit kod satırlarıyla eklenti yazmadan sunucuya özel sistem yapma aracı." },
-            { name: "SkQuery", tag: "Geliştirme", desc: "Skript eklentisinin menü açma, ses çalma gibi ek özelliklerini aktif eden eklenti." },
-            { name: "SkBee", tag: "Geliştirme", desc: "Güncel Skript sürümleri için NBT verileri, skorbordlar ve blok yapıları eklentisi." },
-            { name: "Skit", tag: "Geliştirme", desc: "Skript kodlarını oyun içinden hızlıca test edip canlı derlemenizi sağlayan aracı." },
-            { name: "LWC", tag: "Koruma", desc: "Geleneksel kapı, tabela ve sandık kilitleme eklentisi." },
-            { name: "WorldGuardExtraFlags", tag: "Koruma", desc: "WG bölgelerine uçma izni, komut engeli, giriş mesajı gibi 30+ yeni flag ekler." },
-            { name: "FastChunkPregenerator", tag: "Performans", desc: "Haritayı önceden jet hızıyla yükleyerek oyuncular gezerken oluşan işlemci yükünü sıfırlar." },
-            { name: "LaggRemover", tag: "Performans", desc: "RAM kullanımını optimize eden ve lüzumsuz varlıkları yok eden performans koruyucu." },
-            { name: "VillagerOptimizations", tag: "Performans", desc: "Köylülerin (Villager) yapay zekasını optimize ederek sunucunun kasmasını engeller." },
-            { name: "StackMob", tag: "Performans", desc: "Aynı türdeki canavarları tek bir yaratık üstünde (ör: 5x Inek) birleştirerek lagı önler." },
-            { name: "WildStacker", tag: "Performans", desc: "Mobları, spawnerları ve blokları üst üste birleştirerek devasa performans sağlayan eklenti." },
-            { name: "ServerListPlus", tag: "Arayüz", desc: "Oyun listesindeki sunucu ikonunu, oyuncu sayısını ve MOTD yazısını özelleştirir." },
-            { name: "MiniMOTD", tag: "Arayüz", desc: "RGB renkli ve animasyonlu modern MOTD (Sunucu Listesi Açıklaması) eklentisi." },
-            { name: "Maintenance", tag: "Yönetim", desc: "Sunucuyu tek komutla bakıma alan ve sadece yetkililerin girmesine izin veren sistem." },
-            { name: "BungeeGuard", tag: "Güvenlik", desc: "BungeeCord/Velocity ağlarında port sızmalarını engelleyen güvenlik kalkanı." },
-            { name: "IPSecurity", tag: "Güvenlik", desc: "Admin hesaplarının sadece belirledikleri IP adresinden giriş yapmasına izin verir." },
-            { name: "CommandPanels", tag: "Arayüz", desc: "Tıklanabilir özel GUI panelleri ve özel tüccarlar yapmak için alternatif menü motoru." },
-            { name: "EpicHoppers", tag: "Sistem", desc: "Huni (Hopper) menzillerini, aktarım hızlarını artıran ve filtre koymayı sağlayan eklenti." },
-            { name: "VoidGen", tag: "Dünya", desc: "Skyblock sunucuları için tamamen boş (Void) haritalar üreten dunya motoru." },
-            { name: "Multiverse-Portals", tag: "Dünya", desc: "Dünyalar arası geçiş yapmak için obsidyen veya sudan yapılmış kapılar/portallar kurar." },
-            { name: "LiteSpiders", tag: "Performans", desc: "Örümceklerin duvara tırmanma Zekasını optimize ederek sunucu işlemcisini rahatlatır." }
-        ];
+                hataAudio: new Audio('https://5bdigitalegitim.com/sound/error.wav'),
 
-        // 20+ SKRIPTS DATA
-        const skriptsData = [
-            { name: "Oto Duyuru Sistemi", code: "every 5 minutes:\n    broadcast \"&a[Sunucu] &fWeb sitemizi ziyaret edin: &ewww.site.com\"" },
-            { name: "Gelişmiş Rapor Sistemi", code: "command /rapor <player> <reason>:\n    trigger:\n        send \"&c[Rapor] &7%player% bildirildi: %arg-2%\" to all ops" },
-            { name: "Giriş-Çıkış Mesajı Özelleştirici", code: "on join:\n    set join message to \"&a+ &7%player% sunucuya katıldı!\"\non quit:\n    set quit message to \"&c- &7%player% sunucudan ayrıldı.\"" },
-            { name: "Sohbet Temizleme", code: "command /cc:\n    permission: chat.clear\n    trigger:\n        loop 100 times:\n            broadcast \"\"\n        broadcast \"&a[Sohbet yetkili tarafından temizlendi!]\"" },
-            { name: "Sohbet Kapat/Aç", code: "command /sohbet <text>:\n    permission: chat.toggle\n    trigger:\n        if arg-1 is \"kapat\":\n            set {chat.mute} to true\n            broadcast \"&cSohbet kapatıldı.\"\n        if arg-1 is \"ac\":\n            set {chat.mute} to false\n            broadcast \"&aSohbet açıldı.\"\non chat:\n    if {chat.mute} is true:\n        cancel event\n        send \"&cSohbet kapalıdır.\"" },
-            { name: "Beni Işınla (Random Teleport)", code: "command /rtp:\n    trigger:\n        set {_x} to random integer between -1000 and 1000\n        set {_z} to random integer between -1000 and 1000\n        execute console command \"tp %player% %{_x}% 100 %{_z}%\"\n        send \"&aRastgele bir konuma ışınlandınız!\"" },
-            { name: "İlk Giriş Ödülü", code: "on first join:\n    give 1 iron sword to player\n    give 64 cooked beef to player\n    broadcast \"&e%player% sunucumuza ilk defa katıldı! Hoşgeldin!\"" },
-            { name: "Gelişmiş VIP Çekiliş Sistemi", code: "command /cekilisyap:\n    permission: admin.cekilis\n    trigger:\n        broadcast \"&eÇekiliş 10 saniye içinde yapılıyor...\"\n        wait 10 seconds\n        set {_kazanan} to random player of all players\n        broadcast \"&aTebrikler! Çekilişi kazanan: &e%{_kazanan}%\"" },
-            { name: "Özel Koyu Gece Modu", code: "command /gece:\n    trigger:\n        execute console command \"time set night\"\n        send \"&9Gece vakti başlatıldı.\"" },
-            { name: "Kill Counter (Öldürme Sayacı)", code: "on death of player:\n    attacker is a player\n    add 1 to {kills::%attacker%}\n    send \"&aToplam Öldürmen: &e%{kills::%attacker%}%\" to attacker" },
-            { name: "Discord Webhook Sohbet Aktarıcı", code: "on chat:\n    send async post to \"WEBHOOK_URL_BURAYA\" with body \"content=%player%: %message%\"" },
-            { name: "Ototematik Satış (AutoSell)", code: "on pick up of cobblestone:\n    if player has 64 cobblestone:\n        remove 64 cobblestone from player's inventory\n        add 100 to player's balance\n        send \"&a64 Kırıktaş 100$ karşılığında otomatik satıldı.\"" },
-            { name: "Anti-Bot Koruması (Doğrulama)", code: "on join:\n    set {bot.%player%} to true\n    send \"&cLütfen 10 saniye içinde /dogrula yazın!\"\n    wait 10 seconds\n    if {bot.%player%} is true:\n        kick player due to \"&cDoğrulama yapılmadı.\"" },
-            { name: "Jackpot / Şans Oyunu", code: "command /jackpot yatir <number>:\n    trigger:\n        remove arg-1 from player's balance\n        add arg-1 to {jackpot.havuz}\n        broadcast \"&e%player%, jackpota %arg-1%$ yatırdı! Toplam Havuz: %{jackpot.havuz}%$\"" },
-            { name: "Gelişmiş Mute Sistemi", code: "command /sustur <player> <time>:\n    permission: mod.mute\n    trigger:\n        set {muted::%arg-1%} to true\n        broadcast \"&c%arg-1%, %arg-2% süre boyunca susturuldu.\"" },
-            { name: "Fly Komutu ve Süre Limiti", code: "command /fly:\n    trigger:\n        if player has permission \"vip.fly\":\n            set player's fly mode to true\n            send \"&aUçuş modu aktif!\"" },
-            { name: "Özel Silah Efekti", code: "on damage:\n    attacker is a player\n    attacker's tool is diamond sword named \"&cAteş Kılıcı\":\n        ignite victim for 5 seconds" },
-            { name: "Sponsor Mesaj Engelleyici", code: "on chat:\n    message contains \".com\" or \".net\" or \".org\":\n        cancel event\n        send \"&cSohbette reklam yapmak yasaktır!\"" },
-            { name: "Can Barı Göstergesi", code: "on damage of player:\n    wait 1 tick\n    set name of victim to \"%name of victim% &c[%health of victim% HP]\"" },
-            { name: "Oyuncu Takas Sistemi", code: "command /takas <player>:\n    trigger:\n        send \"&e%player% kişisine takas isteği gönderildi.\" to player\n        send \"&e%player% sizinle takas yapmak istiyor. /takas kabul\" to arg-1" }
-        ];
+                isThinking: false,
+                thinkingProgress: 0,
+                thinkingTimer: null,
 
-        // 25+ SUNUCU DATA
-        const serversData = [
-            { name: "Hypixel", ip: "mc.hypixel.net", mode: "Minigames / Skyblock", players: "100,000+", desc: "Dünyanın en büyük Minecraft sunucu ağı." },
-            { name: "2b2t", ip: "2b2t.org", mode: "Anarşi (No Rules)", players: "2,000+", desc: "Dünyanın en eski ve kuralsız anarşi sunucusu." },
-            { name: "Wynncraft", ip: "play.wynncraft.com", mode: "MMORPG", players: "3,000+", desc: "Tamamen modsuz, devasa görev haritalı MMORPG sunucusu." },
-            { name: "Cubecraft", ip: "play.cubecraft.net", mode: "Minigames", players: "10,000+", desc: "Bed Wars ve Sky Wars modlarında popüler global ağ." },
-            { name: "CraftRise", ip: "play.craftrise.tc", mode: "Minigames / TR", players: "15,000+", desc: "Türkiye'nin en çok oynanan özel istemcili minigames ağ." },
-            { name: "SonOyuncu", ip: "play.sonoyuncu.network", mode: "Minigames / TR", players: "12,000+", desc: "Yıllardır lider olan Türk minigames ve survival sunucusu." },
-            { name: "ManaCube", ip: "play.manacube.com", mode: "Parkour / Survival", players: "2,500+", desc: "Parkur ve Towny modlarında dünyanın en iyilerinden." },
-            { name: "JartexNetwork", ip: "play.jartexnetwork.com", mode: "Crack / Minigames", players: "5,000+", desc: "Ücretsiz oyuncular için dünyanın en büyük ağı." },
-            { name: "PikaNetwork", ip: "play.pikanetwork.net", mode: "Practice / Factions", players: "6,000+", desc: "Klan savaşları ve PvP için popüler küresel ağ." },
-            { name: "Complex Gaming", ip: "hub.mc-complex.com", mode: "Pixelmon / Skyblock", players: "4,000+", desc: "Pokemon konseptli Pixelmon modlarının lideri." },
-            { name: "DonutSMP", ip: "donutSMP.net", mode: "Hardcore SMP", players: "3,500+", desc: "Yayıncıların sıklıkla oynadığı devasa sert kalıcı SMP." },
-            { name: "PurpleOre", ip: "play.purpleore.com", mode: "Lifesteal SMP", players: "1,500+", desc: "Adam öldürdükçe can çaldığınız popüler Lifesteal sunucusu." },
-            { name: "InvadedLands", ip: "play.invadedlands.net", mode: "KitPVP / Skyblock", players: "1,000+", desc: "Savaş mekanikleri üzerine kurulu efsane sunucu." },
-            { name: "Herobrine.org", ip: "hub.herobrine.org", mode: "Survival / Skyblock", players: "3,000+", desc: "Avrupa merkezli ücretsiz (Non-Premium) dev ağ." },
-            { name: "OPBlocks", ip: "top.opblocks.com", mode: "OP Prison / Candy", players: "2,000+", desc: "Görsel olarak özelleştirilmiş özel Hapishane modu." },
-            { name: "Vortex Network", ip: "ms.vortexnetwork.net", mode: "Space / Prison", players: "1,800+", desc: "Uzay temalı özel Skyblock ve Prison deneyimi." },
-            { name: "CosmicPVPG", ip: "play.cosmicpvp.com", mode: "Factions", players: "1,000+", desc: "Özel Büyülerin (Custom Enchants) atası olan Factions." },
-            { name: "Minemen Club", ip: "na.minemen.club", mode: "PvP Practice", players: "2,500+", desc: "Sadece vuruş ve PvP yeteneklerini geliştirmek için antrenman." },
-            { name: "Lunar Network", ip: "lunar.gg", mode: "PvP Practice", players: "3,000+", desc: "Lunar Client yapımcılarının resmi rekabetçi PvP sunucusu." },
-            { name: "Gloybus MC", ip: "play.gloybus.com", mode: "Earth 1:1000", players: "800+", desc: "Gerçek Dünya haritasının Minecraft'a aktarılmış hali." },
-            { name: "EarthMC", ip: "play.earthmc.net", mode: "Towny / Earth", players: "1,200+", desc: "Dünya haritası üzerinde ülkeler kurup savaştığınız sunucu." },
-            { name: "Origin Realms", ip: "play.originrealms.com", mode: "Custom Survival", players: "1,500+", desc: "Minecraft 2.0 hissi veren özel dokulu muazzam survival." },
-            { name: "Skyblock Network", ip: "skyblock.net", mode: "Classic Skyblock", players: "900+", desc: "Tarihteki ilk Skyblock haritasının resmi sunucusu." },
-            { name: "BlocksMC", ip: "blocksmc.com", mode: "Minigames / Crack", players: "4,000+", desc: "Özellikle BedWars oyuncularının tercih ettiği crack ağ." },
-            { name: "AppleMC", ip: "play.applemc.fun", mode: "Lifesteal / SMP", players: "2,200+", desc: "Hızlı büyüyen Lifesteal ve zorlu SMP dünyası." }
-        ];
+                openModal() {
+                    this.isOpen = true;
+                    document.body.style.overflow = 'hidden';
+                    this.primeAudioOutput();
 
-        // 150+ COMMANDS DATA (Algoritma ile dinamik basılacak liste)
-        const categories = ["Admin & Yönetim", "Sistem & Debug", "Dünya & Harita", "Oyuncu & Ekonomi", "Performans & Lag"];
-        
-        const rawCommandsList = [
-            { c: "/paper reload", k: "Admin", d: "Paper.yml ayarlarını sunucuyu kapatmadan yeniler." },
-            { c: "/spark profiler start", k: "Performans", d: "Sunucudaki gecikmeleri (TPS) 3D olarak analiz etmeye başlar." },
-            { c: "/spark profiler stop", k: "Performans", d: "Performans analizini bitirip web raporu linki üretir." },
-            { c: "/timings paste", k: "Performans", d: "Eski sürümlerde lag raporu almak için link oluşturur." },
-            { c: "/lp user <nick> permission set <perm>", k: "Admin", d: "Bir oyuncuya doğrudan yetki tanımlar." },
-            { c: "/lp group <grup> permission set <perm>", k: "Admin", d: "Belirtilen gruba kalıcı yetki verir." },
-            { c: "/lp editor", k: "Admin", d: "Yetkileri web arayüzünde düzenlemek için link verir." },
-            { c: "/co rollback u:<oyuncu> t:<süre>", k: "Güvenlik", d: "Bir oyuncunun belirli sürede yaptığı her şeyi geri alır." },
-            { c: "/co inspect", k: "Güvenlik", d: "Bloklara tıklayarak kimin koyup kırdığını görme modunu açar." },
-            { c: "/rg define <isim>", k: "Harita", d: "Seçili alanı belirtilen isimle koruma altına alır (WG)." },
-            { c: "/rg flag <isim> pvp deny", k: "Harita", d: "Koruma alanında oyuncuların birbirine vurmasını engeller." },
-            { c: "/rg flag <isim> mob-spawning deny", k: "Harita", d: "Bölgede canavar doğmasını engeller." },
-            { c: "/rg flag <isim> entry deny", k: "Harita", d: "Yetkisiz oyuncuların bölgeye girmesini engeller." },
-            { c: "/chunky radius <blok>", k: "Performans", d: "Harita ön yükleme yarıçapını belirler." },
-            { c: "/chunky start", k: "Performans", d: "Haritayı önceden işlemeye başlar (Lagı engeller)." },
-            { c: "/worldedit //wand", k: "Harita", d: "Alan seçmek için tahta baltayı verir." },
-            { c: "/worldedit //set <blok>", k: "Harita", d: "Seçili alanı belirtilen blokla kaplar." },
-            { c: "/worldedit //replace <b1> <b2>", k: "Harita", d: "Bir bloğu başka bir bloğa dönüştürür." },
-            { c: "/worldedit //pos1 - //pos2", k: "Harita", d: "Durduğunuz konumu 1. veya 2. nokta olarak seçer." },
-            { c: "/worldedit //copy - //paste", k: "Harita", d: "Yapıları kopyalayıp başka bir yere yapıştırır." },
-            { c: "/worldedit //rotate <açı>", k: "Harita", d: "Kopyalanan yapıyı 90, 180, 270 derece döndürür." },
-            { c: "/worldedit //schem save <isim>", k: "Harita", d: "Seçili alanı dosya olarak (.schematic) kaydeder." },
-            { c: "/worldedit //undo", k: "Harita", d: "Yapılan son harita değişikliğini geri alır." },
-            { c: "/plugman reload <plugin>", k: "Admin", d: "Bir eklentiyi yeniden başlatır." },
-            { c: "/plugman load <plugin>", k: "Admin", d: "Yeni eklenen eklentiyi oyuna tanıtır." },
-            { c: "/plugman unload <plugin>", k: "Admin", d: "Çalışan bir eklentiyi tamamen devre dışı bırakır." },
-            { c: "/viaversion displayleaks", k: "Sistem", d: "Sürüm dönüştürücü bellek sızıntılarını kontrol eder." },
-            { c: "/citizens npc create <isim>", k: "NPC", d: "Bulunduğunuz yerde yeni bir NPC oluşturur." },
-            { c: "/citizens npc skin <nick>", k: "NPC", d: "NPC'ye belirtilen oyuncunun skinini giydirir." },
-            { c: "/citizens npc select", k: "NPC", d: "Baktığınız NPC'yi düzenlemek için seçer." },
-            { c: "/citizens npc remove", k: "NPC", d: "Seçili NPC'yi tamamen siler." },
-            { c: "/citizenscmd add <komut>", k: "NPC", d: "NPC'ye tıklandığında çalışacak komutu ekler." },
-            { c: "/hd create <isim> <metin>", k: "Arayüz", d: "Yeni bir havada duran hologram yazısı oluşturur." },
-            { c: "/hd addline <isim> <metin>", k: "Arayüz", d: "Var olan holograma alt satır ekler." },
-            { c: "/hd edit <isim>", k: "Arayüz", d: "Hologram satırlarını düzenleme menüsünü açar." },
-            { c: "/papi parse me %player_name%", k: "Sistem", d: "PlaceholderAPI değişkenlerini canlı test eder." },
-            { c: "/papi ecloud download <uzantı>", k: "Sistem", d: "PAPI için buluttan veri çekme eklentisi indirir." },
-            { c: "/papi reload", k: "Sistem", d: "Placeholder değişkenlerini yeniden yükler." },
-            { c: "/authme reload", k: "Güvenlik", d: "Giriş eklentisi yapılandırmasını yeniler." },
-            { c: "/authme unregister <nick>", k: "Güvenlik", d: "Bir oyuncunun şifre kaydını siler." },
-            { c: "/authme changepassword <nick> <yeni>", k: "Güvenlik", d: "Oyuncunun şifresini admin olarak değiştirir." },
-            { c: "/cmi vanish", k: "Admin", d: "Gelişmiş CMI gizlilik moduna geçer." },
-            { c: "/cmi heal <oyuncu>", k: "Admin", d: "Oyuncunun canını ve açlığını fully doldurur." },
-            { c: "/cmi fix all", k: "Admin", d: "Envanterdeki tüm kırık eşyaları tamir eder." },
-            { c: "/essentials reload", k: "Yönetim", d: "Essentials config dosyasını yeniler." },
-            { c: "/gc (veya /lag)", k: "Performans", d: "Sunucunun anlık TPS ve RAM kullanımını gösterir." },
-            { c: "/dump", k: "Sistem", d: "Sunucu çekirdek detaylarını rapora döker." },
-            { c: "/kill @e[type=item]", k: "Vanilla", d: "Yerdeki tüm gereksiz düşmüş eşyaları temizler." },
-            { c: "/kill @e[type=!player]", k: "Vanilla", d: "Oyuncular hariç dünyadaki tüm canlıları yok eder." },
-            { c: "/gamerule doFireTick false", k: "Vanilla", d: "Yangınların etrafa sıçramasını ve yayılmasını engeller." },
-            { c: "/gamerule mobGriefing false", k: "Vanilla", d: "Creeper ve Enderman'lerin blokları patlatmasını engeller." },
-            { c: "/gamerule keepInventory true", k: "Vanilla", d: "Ölünce eşyaların düşmesini engeller." },
-            { c: "/gamerule doDaylightCycle false", k: "Vanilla", d: "Zamanın akışını durdurur (Hep gündüz/gece kalır)." },
-            { c: "/gamerule doWeatherCycle false", k: "Vanilla", d: "Hava durumunun değişmesini engeller (Yağmuru kapatır)." },
-            { c: "/gamerule randomTickSpeed 0", k: "Vanilla", d: "Bitkilerin büyümesini ve yaprak dökülmesini durdurur." },
-            { c: "/minecraft:save-all", k: "Sistem", d: "Dünyayı anlık olarak diske kaydeder." },
-            { c: "/minecraft:save-off", k: "Sistem", d: "Otomatik dünya kaydetmeyi kapatır (Yüksek performans için)." },
-            { c: "/stop", k: "Sistem", d: "Sunucuyu güvenli şekilde verileri kaydederek kapatır." },
-            { c: "/restart", k: "Sistem", d: "Sunucu betiğini kullanarak otomatik yeniden başlatır." }
-        ];
+                },
 
-        // 150+ Komuta Tamamlamak İçin Otomatik Üretici Fonksiyon
-        function generate150Commands() {
-            let fullList = [...rawCommandsList];
-            let subCmds = ["reload", "debug", "info", "toggle", "clear", "reset", "set", "get", "help", "option"];
-            let pluginsList = ["Vault", "GSit", "WorldGuard", "CoreProtect", "LuckPerms", "SkinsRestorer", "CombatLogX", "Multiverse", "ShopGUI", "AuctionHouse"];
+                closeModal() {
+                    this.isOpen = false;
+                    document.body.style.overflow = 'auto';
+                    this.stopRecording();
+                    this.stopAllSounds();
+                    window.speechSynthesis.cancel();
+                },
 
-            let index = 1;
-            while(fullList.length < 155) {
-                let p = pluginsList[index % pluginsList.length];
-                let sub = subCmds[index % subCmds.length];
-                let cat = categories[index % categories.length];
-                fullList.push({
-                    c: `/${p.toLowerCase()} ${sub} [parametrer_${index}]`,
-                    k: cat,
-                    d: `${p} eklentisi için internal ${sub} işlevini çalıştırır ve ayarları günceller.`
-                });
-                index++;
-            }
-            return fullList;
-        }
+                stopAllSounds() {
+                    this.isThinking = false;
+                    this.thinkingProgress = 0;
+                    clearInterval(this.thinkingTimer);
+                    this.thinkingTimer = null;
 
-        // --- SAYFA YÜKLEME VE FİLTRELEME MANTIĞI ---
+                    if (this.currentAiAudio) {
+                        this.currentAiAudio.pause();
+                        this.currentAiAudio.currentTime = 0;
+                        try { this.currentAiAudio.srcObject = null; } catch (_) {}
+                        this.currentAiAudio = null;
+                    }
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+                    this.hataAudio.pause();
+                    this.hataAudio.currentTime = 0;
+                },
 
-            let titles = {
-                'plugins': 'Minecraft Eklenti Arşivi (100+)',
-                'skripts': 'Özel Kodlanmış Skript Kütüphanesi (20+)',
-                'servers': 'Önerilen Popüler Sunucular (25+)',
-                'commands': 'Gizli Ve Kullanışlı Admin Komutları (150+)',
-                'settings': 'Site Görünüm Ve Kişiselleştirme Ayarları'
-            };
-            document.getElementById('page-title').innerText = titles[tabId];
-        }
+                async toggleRecording() {
+                    this.primeAudioOutput();
+                    window.speechSynthesis.cancel();
+                    this.stopAllSounds();
+                    this.isRecording ? this.stopRecording() : await this.startRecording();
+                },
 
-        // Render Eklentiler
-        function renderPlugins() {
-            const container = document.getElementById('pluginGrid');
-            container.innerHTML = pluginsData.map(p => `
-                <div class="card">
-                    <h3>${p.name} <span class="tag">${p.tag}</span></h3>
-                    <p>${p.desc}</p>
-                </div>
-            `).join('');
-        }
+                async startRecording() {
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+                        this.isRecording = true;
+                        this.status = '🎙️ Dinliyorum...';
+                        this.badgeText = 'Dinliyor...';
+                        this.audioChunks = [];
+                        this.mediaRecorder = new MediaRecorder(stream);
 
-        // Render Skriptler
-        function renderSkripts() {
-            const container = document.getElementById('skriptList');
-            container.innerHTML = skriptsData.map(s => `
-                <div class="card" style="margin-bottom: 15px;">
-                    <h3><i class="fa-solid fa-code"></i> ${s.name}</h3>
-                    <pre><code>${escapeHtml(s.code)}</code></pre>
-                </div>
-            `).join('');
-        }
+                        this.mediaRecorder.ondataavailable = (e) => this.audioChunks.push(e.data);
 
-        // Render Sunucular
-        function renderServers() {
-            const container = document.getElementById('serverTableBody');
-            container.innerHTML = serversData.map(s => `
-                <tr>
-                    <td><strong>${s.name}</strong></td>
-                    <td><code>${s.ip}</code></td>
-                    <td><span class="tag">${s.mode}</span></td>
-                    <td>${s.players}</td>
-                    <td>${s.desc}</td>
-                </tr>
-            `).join('');
-        }
+                        this.mediaRecorder.onstop = () => {
+                            const audioBlob = new Blob(this.audioChunks, {type: 'audio/webm'});
+                            const reader = new FileReader();
+                            reader.readAsDataURL(audioBlob);
 
-        // Render Komutlar
-        function renderCommands() {
-            const container = document.getElementById('commandTableBody');
-            const cmds = generate150Commands();
-            container.innerHTML = cmds.map(c => `
-                <tr>
-                    <td><code>${c.c}</code></td>
-                    <td><span class="tag">${c.k}</span></td>
-                    <td>${c.d}</td>
-                </tr>
-            `).join('');
-        }
+                            reader.onloadend = () => {
+                                this.isThinking = true;
+                                this.startThinkingBar();
+                                window.Livewire.find('izVvb762RlKhch03wmR8').processVoice(reader.result);
+                                this.status = '🤖 Düşünüyorum...';
+                                this.badgeText = 'Analiz Ediliyor';
+                            };
+                            stream.getTracks().forEach(track => track.stop());
+                        };
 
-        // Arama/Filtreleme
-        function filterContent() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            
-            // Kartları filtrele
-            document.querySelectorAll('.card').forEach(card => {
-                let text = card.innerText.toLowerCase();
-                card.style.display = text.includes(input) ? '' : 'none';
-            });
+                        this.audioContext = new AudioContext();
+                        const source = this.audioContext.createMediaStreamSource(stream);
+                        this.analyser = this.audioContext.createAnalyser();
+                        source.connect(this.analyser);
+                        this.mediaRecorder.start();
+                        this.detectSilence();
+                        this.updateAudioLevel();
 
-            // Tablo satırlarını filtrele
-            document.querySelectorAll('tbody tr').forEach(row => {
-                let text = row.innerText.toLowerCase();
-                row.style.display = text.includes(input) ? '' : 'none';
-            });
-        }
+                    } catch (err) {
+                        this.playHataEffect();
+                        this.status = '❌ Mikrofon izni reddedildi.';
+                        this.badgeText = 'Hata';
+                    }
+                },
 
-        // --- GÖRÜNÜM KİŞİSELLEŞTİRME AYARLARI ---
-        function changeTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-        }
+                updateAudioLevel() {
+                    const data = new Uint8Array(this.analyser.frequencyBinCount);
+                    const update = () => {
+                        if (!this.isRecording) return;
+                        this.analyser.getByteFrequencyData(data);
+                        this.audioLevel = (data.reduce((a, b) => a + b) / data.length) * 2;
+                        requestAnimationFrame(update);
+                    };
+                    update();
+                },
 
-        function changeFontSize(size) {
-            document.documentElement.style.setProperty('--font-size', size);
-        }
+                detectSilence() {
+                    const data = new Uint8Array(this.analyser.frequencyBinCount);
+                    const check = () => {
+                        if (!this.isRecording) return;
+                        this.analyser.getByteFrequencyData(data);
+                        let avg = data.reduce((a, b) => a + b) / data.length;
+                        if (avg < 10) {
+                            if (!this.silenceTimer) {
+                                this.silenceTimer = setTimeout(() => this.stopRecording(), 2000);
+                            }
+                        } else {
+                            if (this.silenceTimer) {
+                                clearTimeout(this.silenceTimer);
+                                this.silenceTimer = null;
+                            }
+                        }
+                        requestAnimationFrame(check);
+                    };
+                    check();
+                },
 
-        function changeLayout(layout) {
-            const grid = document.getElementById('pluginGrid');
-            if (layout === 'list') {
-                grid.classList.add('list-view');
-            } else {
-                grid.classList.remove('list-view');
+                stopRecording() {
+                    if (this.mediaRecorder && this.isRecording) {
+                        this.isRecording = false;
+                        this.mediaRecorder.stop();
+                        if (this.audioContext) this.audioContext.close();
+                    }
+                },
+
+                playHataEffect() {
+                    this.stopAllSounds();
+                    this.hataAudio.play();
+                },
+
+                startThinkingBar() {
+                    this.thinkingProgress = 8;
+                    clearInterval(this.thinkingTimer);
+
+                    this.thinkingTimer = setInterval(() => {
+                        if (!this.isThinking) {
+                            clearInterval(this.thinkingTimer);
+                            this.thinkingTimer = null;
+                            return;
+                        }
+
+                        if (this.thinkingProgress < 92) {
+                            this.thinkingProgress += 2;
+                        }
+                    }, 120);
+                },
+
+                initSafeAudioChain() {
+                    if (this.outputAudioContext) return;
+
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (!AudioCtx) return;
+
+                    this.outputAudioContext = new AudioCtx();
+                    this.outputCompressor = this.outputAudioContext.createDynamicsCompressor();
+                    this.outputGainNode = this.outputAudioContext.createGain();
+
+                    this.outputCompressor.threshold.value = -20;
+                    this.outputCompressor.knee.value = 24;
+                    this.outputCompressor.ratio.value = 2.8;
+                    this.outputCompressor.attack.value = 0.005;
+                    this.outputCompressor.release.value = 0.18;
+
+                    this.outputGainNode.gain.value = this.safeGainTarget;
+
+                    this.outputCompressor.connect(this.outputGainNode);
+                    this.outputGainNode.connect(this.outputAudioContext.destination);
+                },
+
+                async primeAudioOutput() {
+                    try {
+                        this.initSafeAudioChain();
+                        if (!this.outputAudioContext) return;
+                        if (this.outputAudioContext.state === 'suspended') {
+                            await this.outputAudioContext.resume();
+                        }
+                        // Warm up destination to reduce first-play artifacts.
+                        const buffer = this.outputAudioContext.createBuffer(1, 1, this.outputAudioContext.sampleRate);
+                        const source = this.outputAudioContext.createBufferSource();
+                        source.buffer = buffer;
+                        source.connect(this.outputCompressor);
+                        source.start(0);
+                    } catch (_) {}
+                },
+
+                async playAiAudioSafely(base64Audio) {
+                    await this.primeAudioOutput();
+
+                    this.currentAiAudio = new Audio("data:audio/mpeg;base64," + base64Audio);
+                    this.currentAiAudio.volume = 0.65;
+
+                    if (this.outputAudioContext && this.outputCompressor) {
+                        this.currentSourceNode = this.outputAudioContext.createMediaElementSource(this.currentAiAudio);
+                        this.currentSourceNode.connect(this.outputCompressor);
+                        // Short fade-in for cleaner first syllable.
+                        const now = this.outputAudioContext.currentTime;
+                        this.outputGainNode.gain.cancelScheduledValues(now);
+                        this.outputGainNode.gain.setValueAtTime(0.01, now);
+                        this.outputGainNode.gain.linearRampToValueAtTime(this.safeGainTarget, now + 0.12);
+                    }
+
+                    if (this.outputAudioContext?.state === 'suspended') {
+                        await this.outputAudioContext.resume();
+                    }
+
+                    await this.currentAiAudio.play();
+                },
+
+                init() {
+                    this.$watch('isOpen', (value) => {
+                        if (!value) {
+                            this.stopRecording();
+                            this.stopAllSounds();
+                            window.speechSynthesis.cancel();
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+
+                    window.addEventListener('play-ai-audio', (e) => {
+                        this.stopAllSounds();
+                        this.thinkingProgress = 100;
+                        this.badgeText = 'Konuşuyor';
+                        this.status = e.detail.text ? `🔊 ${e.detail.text}` : '🔊 TeknoX konuşuyor...';
+                        this.playAiAudioSafely(e.detail.audio).catch(() => {
+                            this.status = '❌ Ses oynatma sırasında bir sorun oluştu.';
+                            this.badgeText = 'Hata';
+                        });
+                        this.currentAiAudio.onended = () => {
+                            if (this.currentSourceNode) {
+                                try { this.currentSourceNode.disconnect(); } catch (_) {}
+                                this.currentSourceNode = null;
+                            }
+                            this.currentAiAudio = null;
+                            this.badgeText = 'Dinleniyor';
+                            this.status = 'Seni dinliyorum... Nasıl yardımcı olabilirim?';
+                        };
+                    });
+
+                    window.addEventListener('speak-text', (e) => {
+                        this.stopAllSounds();
+                        this.badgeText = 'Konuşuyor';
+                        this.status = '🔊 TeknoX cevap veriyor...';
+                        const utterance = new SpeechSynthesisUtterance(e.detail.text);
+                        utterance.lang = 'tr-TR';
+                        utterance.onend = () => {
+                            this.badgeText = 'Dinleniyor';
+                            this.status = 'Seni dinliyorum... Nasıl yardımcı olabilirim?';
+                        };
+                        window.speechSynthesis.speak(utterance);
+                    });
+
+                    window.addEventListener('error-occurred', (e) => {
+                        this.playHataEffect();
+                        this.status = '❌ ' + e.detail.message;
+                        this.badgeText = 'Hata';
+                        setTimeout(() => {
+                            if (!this.isRecording) {
+                                this.badgeText = 'Dinleniyor';
+                                this.status = 'Seni dinliyorum... Nasıl yardımcı olabilirim?';
+                            }
+                        }, 3000);
+                    });
+                }
             }
         }
-
-        function escapeHtml(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // İlk Yükleme
-        window.onload = function() {
-            renderPlugins();
-            renderSkripts();
-            renderServers();
-            renderCommands();
-        };
     </script>
+</div>
+    <div x-show="!isSidebarCollapsed && isMobile" x-cloak @click="isSidebarCollapsed = true" x-transition.opacity class="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm lg:hidden"></div>
+    </div>
+</div>
+
+<script src="https://5bdigitalegitim.com/vendor/livewire/livewire.min.js?id=ab6b028c"   data-csrf="cUadzSujMXm64sqI7Hf54Mth5t3LiscyLdtTgQLJ" data-module-url="https://5bdigitalegitim.com/livewire-63ac189a" data-update-uri="https://5bdigitalegitim.com/livewire-63ac189a/update" data-navigate-once="true"></script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"189a60af5201480ab2f6dd087bdede13","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
